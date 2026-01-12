@@ -16,6 +16,29 @@ import { TransportNodesControl } from './controls/transport_nodes_control.js';
 import { WalkableTilesControl } from './controls/walkable_tiles_control.js';
 import { LayerPanelControl } from './controls/layer_panel_control.js';
 
+// Copy to clipboard utility
+async function copyToClipboard(text) {
+    try {
+        await navigator.clipboard.writeText(text);
+        return true;
+    } catch (err) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            return true;
+        } catch (e) {
+            document.body.removeChild(textarea);
+            return false;
+        }
+    }
+}
+
 // Toast notification system
 function showToast(message, type = 'success', duration = 2000) {
     // Remove existing toast
@@ -172,6 +195,16 @@ $(document).ready(function () {
             map.setPlane(plane);
             showToast(`Plane ${plane}`, 'success', 1000);
         }
+        // 'C' to copy coordinates at cursor
+        else if ((key === 'c' || key === 'C') && currentMousePos) {
+            e.preventDefault();
+            const coordText = `${currentMousePos.x}, ${currentMousePos.y}, ${currentMousePos.plane}`;
+            copyToClipboard(coordText).then(success => {
+                if (success) {
+                    showToast(`Copied: ${coordText}`, 'success');
+                }
+            });
+        }
         // 'G' to toggle grid
         else if (key === 'g' || key === 'G') {
             e.preventDefault();
@@ -207,6 +240,7 @@ $(document).ready(function () {
                             <div><kbd>Arrow Keys</kbd> or <kbd>WASD</kbd></div><div>Pan map</div>
                             <div><kbd>+</kbd> / <kbd>-</kbd></div><div>Zoom in/out</div>
                             <div><kbd>0</kbd> - <kbd>3</kbd></div><div>Switch plane</div>
+                            <div><kbd>C</kbd></div><div>Copy coordinates at cursor</div>
                             <div><kbd>G</kbd></div><div>Toggle grid</div>
                             <div><kbd>L</kbd></div><div>Toggle layer panel</div>
                             <div><kbd>?</kbd></div><div>Show this help</div>
