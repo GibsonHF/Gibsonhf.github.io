@@ -1,11 +1,13 @@
 'use strict';
 
-import {Position} from '../model/Position.js';
-import {CanvasLayer} from '../external/L.CanvasLayer.js';
-import {Region,
-        MIN_X, MAX_X,
-        MIN_Y, MAX_Y,
-        REGION_WIDTH, REGION_HEIGHT} from '../model/Region.js';
+import { Position } from '../model/Position.js';
+import { CanvasLayer } from '../external/L.CanvasLayer.js';
+import {
+    Region,
+    MIN_X, MAX_X,
+    MIN_Y, MAX_Y,
+    REGION_WIDTH, REGION_HEIGHT
+} from '../model/Region.js';
 
 const RegionLabelsCanvas = CanvasLayer.extend({
     setData: function (data) {
@@ -19,9 +21,10 @@ const RegionLabelsCanvas = CanvasLayer.extend({
         const ctx = info.canvas.getContext('2d');
         ctx.clearRect(0, 0, info.canvas.width, info.canvas.height);
 
-        ctx.font = fontSize + 'px Calibri';
-        ctx.fillStyle = 'white';
-        ctx.textAlign = "center";
+        ctx.font = `600 ${fontSize}px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`;
+        ctx.fillStyle = 'rgba(230, 237, 243, 0.7)';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
 
         for (let x = MIN_X; x < MAX_X; x += REGION_WIDTH) {
             for (let y = MIN_Y; y < MAX_Y; y += REGION_HEIGHT) {
@@ -42,31 +45,35 @@ export const RegionLabelsControl = L.Control.extend({
 
     onAdd: function (map) {
         map.createPane('region-labels');
+        map.getPane('region-labels').style.display = 'none';
 
-        const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control noselect');
-        container.style.background = 'none';
-        container.style.width = '130px';
-        container.style.height = 'auto';
+        this._container = L.DomUtil.create('div');
+        this._container.style.display = 'none';
 
-        const labelsButton = L.DomUtil.create('a', 'leaflet-bar leaflet-control leaflet-control-custom', container);
-        labelsButton.id = 'toggle-region-labels';
-        labelsButton.innerHTML = 'Toggle Region Labels';
+        this._canvas = new RegionLabelsCanvas({ pane: 'region-labels' });
+        map.addLayer(this._canvas);
 
-        const regionLabelsCanvas = new RegionLabelsCanvas({pane: "region-labels"});
-        map.getPane("region-labels").style.display = "none";
-        map.addLayer(regionLabelsCanvas);
+        this._enabled = false;
 
-        this.visible = false;
-        L.DomEvent.on(labelsButton, 'click', () => {
-            if (this.visible) {
-                map.getPane("region-labels").style.display = "none";
-            } else {
-                map.getPane("region-labels").style.display = "";
-            }
-            this.visible = !this.visible;
-        }, this);
+        return this._container;
+    },
 
-        L.DomEvent.disableClickPropagation(container);
-        return container;
+    isEnabled: function () {
+        return this._enabled;
+    },
+
+    setEnabled: function (enabled) {
+        if (this._enabled === enabled) return;
+
+        this._enabled = enabled;
+        this._map.getPane('region-labels').style.display = enabled ? '' : 'none';
+
+        if (enabled) {
+            this._canvas.needRedraw();
+        }
+    },
+
+    toggle: function () {
+        this.setEnabled(!this._enabled);
     },
 });
