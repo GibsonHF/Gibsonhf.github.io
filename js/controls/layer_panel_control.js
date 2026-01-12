@@ -20,6 +20,7 @@ export const LayerPanelControl = L.Control.extend({
         this._iconLayer = options.iconLayer || null;
         this._walkableControl = options.walkableControl || null;
         this._transportControl = options.transportControl || null;
+        this._rs3TransportControl = options.rs3TransportControl || null;
         this._gridControl = options.gridControl || null;
         this._regionLabelsControl = options.regionLabelsControl || null;
     },
@@ -112,6 +113,29 @@ export const LayerPanelControl = L.Control.extend({
         transportStatus.id = 'transport-status';
         this._transportStatusEl = transportStatus;
 
+        // RS3 Transport Data Section (from mejrs/data_rs3)
+        if (this._rs3TransportControl) {
+            const rs3Section = this._createSection(sections, 'RS3 Transport Data', []);
+            const rs3Items = L.DomUtil.create('div', 'layer-panel-transport-items', rs3Section);
+
+            const categories = this._rs3TransportControl.getCategories();
+            categories.forEach(category => {
+                const config = this._rs3TransportControl.getCategoryConfig(category);
+                this._createToggleItem(rs3Items, {
+                    id: `rs3-transport-${category}`,
+                    label: config.label,
+                    checked: false,
+                    color: config.color,
+                    onChange: (checked) => this._toggleRS3Category(category, checked),
+                });
+            });
+
+            // RS3 transport status
+            const rs3Status = L.DomUtil.create('div', 'layer-panel-status', rs3Section);
+            rs3Status.id = 'rs3-transport-status';
+            this._rs3TransportStatusEl = rs3Status;
+        }
+
         // Toggle panel visibility
         let panelVisible = false;
         L.DomEvent.on(toggleBtn, 'click', (e) => {
@@ -134,6 +158,12 @@ export const LayerPanelControl = L.Control.extend({
         if (this._transportControl) {
             this._transportControl.onStatusChange = (status) => {
                 this._updateStatusWithSpinner(this._transportStatusEl, status);
+            };
+        }
+
+        if (this._rs3TransportControl) {
+            this._rs3TransportControl.onStatusChange = (status) => {
+                this._updateStatusWithSpinner(this._rs3TransportStatusEl, status);
             };
         }
 
@@ -235,6 +265,12 @@ export const LayerPanelControl = L.Control.extend({
     _toggleTransportKind: function (kind, visible) {
         if (this._transportControl) {
             this._transportControl.setKindEnabled(kind, visible);
+        }
+    },
+
+    _toggleRS3Category: function (category, visible) {
+        if (this._rs3TransportControl) {
+            this._rs3TransportControl.setCategoryEnabled(category, visible);
         }
     },
 

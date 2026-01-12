@@ -13,6 +13,7 @@ import { RegionLabelsControl } from './controls/region_labels_control.js';
 import { RegionLookupControl } from './controls/region_lookup_control.js';
 import { TitleLabel } from './controls/title_label.js';
 import { TransportNodesControl } from './controls/transport_nodes_control.js';
+import { RS3TransportControl } from './controls/rs3_transport_control.js';
 import { WalkableTilesControl } from './controls/walkable_tiles_control.js';
 import { LayerPanelControl } from './controls/layer_panel_control.js';
 
@@ -120,12 +121,14 @@ $(document).ready(function () {
     const regionLabelsControl = new RegionLabelsControl();
     const walkableControl = new WalkableTilesControl();
     const transportControl = new TransportNodesControl();
+    const rs3TransportControl = new RS3TransportControl();
 
     // Add controls to map (they won't show their own UI)
     map.addControl(gridControl);
     map.addControl(regionLabelsControl);
     map.addControl(walkableControl);
     map.addControl(transportControl);
+    map.addControl(rs3TransportControl);
 
     // Add the unified layer panel control
     map.addControl(new LayerPanelControl({
@@ -134,6 +137,7 @@ $(document).ready(function () {
         iconLayer: iconLayer,
         walkableControl: walkableControl,
         transportControl: transportControl,
+        rs3TransportControl: rs3TransportControl,
         gridControl: gridControl,
         regionLabelsControl: regionLabelsControl,
     }));

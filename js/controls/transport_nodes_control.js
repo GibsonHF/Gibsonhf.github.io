@@ -11,7 +11,20 @@ const KIND_COLORS = {
     fairy_ring: '#ff6ad5',
 };
 
+const KIND_LABELS = {
+    door: 'Door',
+    item: 'Item',
+    lodestone: 'Lodestone',
+    npc: 'NPC',
+    object: 'Object',
+    fairy_ring: 'Fairy Ring',
+};
+
 const ARROW_ICON_SIZE = 12;
+
+function makeLocationKey(x, y) {
+    return `${Math.floor(x)},${Math.floor(y)}`;
+}
 
 export const TransportNodesControl = L.Control.extend({
     options: {
@@ -115,25 +128,60 @@ export const TransportNodesControl = L.Control.extend({
         this._ensureNodes()
             .then((nodesByPlane) => {
                 const nodes = nodesByPlane.get(plane) || [];
-                let visibleCount = 0;
                 this._layerGroup.clearLayers();
+
+                // Group nodes by source location
+                const sourceGroups = new Map();
+                // Group nodes by destination location (for shadows)
+                const destGroups = new Map();
 
                 for (let i = 0; i < nodes.length; i++) {
                     const node = nodes[i];
-                    try {
-                        if (!this._isNodeVisible(node, minX, maxX, minY, maxY)) {
-                            continue;
+                    if (!this._kindVisibility[node.kind]) {
+                        continue;
+                    }
+
+                    if (node.shadow) {
+                        // Shadow nodes show at destination
+                        const destPoint = this._getDestPoint(node);
+                        if (this._isValidPoint(destPoint) && destPoint.plane === node.plane) {
+                            if (this._pointInBounds(destPoint.x, destPoint.y, minX, maxX, minY, maxY)) {
+                                const key = makeLocationKey(destPoint.x, destPoint.y);
+                                if (!destGroups.has(key)) {
+                                    destGroups.set(key, { x: destPoint.x, y: destPoint.y, nodes: [] });
+                                }
+                                destGroups.get(key).nodes.push(node);
+                            }
                         }
-                        if (!this._kindVisibility[node.kind]) {
-                            continue;
+                    } else {
+                        // Regular nodes - group by source
+                        const srcPoint = this._makePoint(node.x, node.y, node.plane);
+                        if (this._isValidPoint(srcPoint) &&
+                            this._pointInBounds(srcPoint.x, srcPoint.y, minX, maxX, minY, maxY)) {
+                            const key = makeLocationKey(srcPoint.x, srcPoint.y);
+                            if (!sourceGroups.has(key)) {
+                                sourceGroups.set(key, { x: srcPoint.x, y: srcPoint.y, nodes: [] });
+                            }
+                            sourceGroups.get(key).nodes.push(node);
                         }
-                        this._addTransportArrow(node);
-                        visibleCount += 1;
-                    } catch (err) {
-                        console.warn('Skipping transport node due to error', node, err);
                     }
                 }
-                this._setStatus(`${visibleCount} visible`);
+
+                let visibleCount = 0;
+
+                // Render source groups
+                sourceGroups.forEach((group) => {
+                    this._addGroupedMarker(group, 'source');
+                    visibleCount += group.nodes.length;
+                });
+
+                // Render destination-only groups (shadows)
+                destGroups.forEach((group) => {
+                    this._addGroupedMarker(group, 'destination');
+                    visibleCount += group.nodes.length;
+                });
+
+                this._setStatus(`${visibleCount} nodes at ${sourceGroups.size + destGroups.size} locations`);
             })
             .catch((error) => {
                 console.error('Failed to load transport nodes', error);
@@ -158,44 +206,236 @@ export const TransportNodesControl = L.Control.extend({
         });
     },
 
-    _isNodeVisible: function (node, minX, maxX, minY, maxY) {
-        if (node.shadow) {
-            const destPoint = this._getDestPoint(node);
-            if (this._isValidPoint(destPoint) && destPoint.plane === node.plane) {
-                if (this._pointInBounds(destPoint.x, destPoint.y, minX, maxX, minY, maxY)) {
-                    return true;
-                }
-            }
-            const destRect = this._getDestRect(node);
-            if (destRect && destRect.dest_plane === node.plane) {
-                if (this._rectIntersectsBounds(destRect, minX, maxX, minY, maxY)) {
-                    return true;
-                }
-            }
-            return false;
+    _addGroupedMarker: function (group, type) {
+        const nodes = group.nodes;
+        const x = group.x;
+        const y = group.y;
+        const latLng = L.latLng(y, x);
+
+        const primaryColor = KIND_COLORS[nodes[0].kind] || '#ffffff';
+        const hasMultiple = nodes.length > 1;
+
+        // Create the marker
+        const marker = L.circleMarker(latLng, {
+            radius: hasMultiple ? 6 : 4,
+            color: hasMultiple ? '#ffffff' : primaryColor,
+            weight: hasMultiple ? 2 : 2,
+            fillColor: primaryColor,
+            fillOpacity: 0.9,
+            pane: 'transport-nodes',
+        });
+
+        // Add count badge for multiple nodes
+        if (hasMultiple) {
+            const badgeIcon = L.divIcon({
+                className: 'transport-badge',
+                html: `<span class="transport-badge-count">${nodes.length}</span>`,
+                iconSize: [16, 16],
+                iconAnchor: [-2, 18],
+            });
+            const badge = L.marker(latLng, {
+                icon: badgeIcon,
+                interactive: false,
+                pane: 'transport-nodes',
+            });
+            this._layerGroup.addLayer(badge);
         }
 
+        // Build hover tooltip
+        if (hasMultiple) {
+            const tooltipHtml = `
+<div class="transport-tooltip-body">
+  <div class="transport-tooltip-title">${nodes.length} transports at (${Math.floor(x)}, ${Math.floor(y)})</div>
+  <div class="transport-tooltip-line" style="color:#8b949e;">Click to see all options</div>
+</div>`;
+            marker.bindTooltip(tooltipHtml, {
+                sticky: false,
+                className: 'transport-tooltip',
+                interactive: false,
+                opacity: 0.95,
+                direction: 'top',
+                offset: [0, -6],
+            });
+        } else {
+            this._bindHoverTooltip(marker, this._buildTooltip(nodes[0]));
+        }
+
+        // Click handler - show popup with list
+        marker.on('click', (e) => {
+            L.DomEvent.stopPropagation(e);
+            this._showNodeListPopup(latLng, nodes, type);
+        });
+
+        this._layerGroup.addLayer(marker);
+
+        // Draw lines to destinations for source markers
+        if (type === 'source') {
+            nodes.forEach(node => {
+                this._addTransportLine(node);
+            });
+        }
+    },
+
+    _addTransportLine: function (node) {
+        const color = KIND_COLORS[node.kind] || '#ffffff';
         const srcPoint = this._makePoint(node.x, node.y, node.plane);
-        if (this._isValidPoint(srcPoint) && this._pointInBounds(srcPoint.x, srcPoint.y, minX, maxX, minY, maxY)) {
-            return true;
-        }
         const destPoint = this._getDestPoint(node);
-        if (this._isValidPoint(destPoint) && destPoint.plane === node.plane) {
-            if (this._pointInBounds(destPoint.x, destPoint.y, minX, maxX, minY, maxY)) {
-                return true;
-            }
-            if (this._isValidPoint(srcPoint) &&
-                this._segmentIntersectsBounds(srcPoint.x, srcPoint.y, destPoint.x, destPoint.y, minX, maxX, minY, maxY)) {
-                return true;
-            }
+
+        if (!this._isValidPoint(srcPoint) || !this._isValidPoint(destPoint)) {
+            return;
         }
+
+        const srcLatLng = L.latLng(srcPoint.y, srcPoint.x);
+        const dstLatLng = L.latLng(destPoint.y, destPoint.x);
+
+        // Draw line with lower opacity
+        const polyline = L.polyline([srcLatLng, dstLatLng], {
+            color: color,
+            weight: 1.5,
+            opacity: 0.5,
+            pane: 'transport-nodes',
+        });
+        this._layerGroup.addLayer(polyline);
+
+        // Arrow at destination
+        const angle = Math.atan2(destPoint.y - srcPoint.y, destPoint.x - srcPoint.x) * 180 / Math.PI;
+        const arrowIcon = L.divIcon({
+            className: 'transport-arrow-icon',
+            html: `<span class="transport-arrow" style="border-left-color:${color}; transform: rotate(${angle}deg); opacity: 0.7;"></span>`,
+            iconSize: [ARROW_ICON_SIZE, ARROW_ICON_SIZE],
+            iconAnchor: [ARROW_ICON_SIZE / 2, ARROW_ICON_SIZE / 2],
+        });
+
+        const arrowMarker = L.marker(dstLatLng, {
+            icon: arrowIcon,
+            interactive: false,
+            pane: 'transport-nodes',
+        });
+        this._layerGroup.addLayer(arrowMarker);
+
+        // Draw destination rectangle if applicable
         const destRect = this._getDestRect(node);
         if (destRect && destRect.dest_plane === node.plane) {
-            if (this._rectIntersectsBounds(destRect, minX, maxX, minY, maxY)) {
-                return true;
-            }
+            const destBounds = L.latLngBounds(
+                [destRect.dest_min_y, destRect.dest_min_x],
+                [destRect.dest_max_y, destRect.dest_max_x]
+            );
+            const rect = L.rectangle(destBounds, {
+                color: color,
+                weight: 1,
+                fillOpacity: 0.1,
+                pane: 'transport-nodes',
+            });
+            this._layerGroup.addLayer(rect);
         }
-        return false;
+    },
+
+    _showNodeListPopup: function (latLng, nodes, type) {
+        const listItems = nodes.map((node, index) => {
+            const destPoint = this._getDestPoint(node);
+            const dst = this._isValidPoint(destPoint)
+                ? `→ (${destPoint.x}, ${destPoint.y}, ${destPoint.plane})`
+                : '';
+            const colorDot = `<span class="rs3-color-dot" style="background-color:${KIND_COLORS[node.kind] || '#fff'};"></span>`;
+            const kindLabel = KIND_LABELS[node.kind] || node.kind;
+            const detailText = this._getDetailText(node);
+
+            return `
+<div class="rs3-popup-item" data-index="${index}">
+  ${colorDot}
+  <div class="rs3-popup-item-content">
+    <div class="rs3-popup-item-title">${kindLabel} #${node.id}</div>
+    ${detailText ? `<div class="rs3-popup-item-detail">${detailText}</div>` : ''}
+    <div class="rs3-popup-item-dest">${dst}</div>
+  </div>
+  <div class="rs3-popup-item-actions">
+    ${this._isValidPoint(destPoint) ? `<button class="rs3-goto-btn" data-action="goto-dst" title="Go to destination">→</button>` : ''}
+    <button class="rs3-goto-btn" data-action="goto-src" title="Go to source">◎</button>
+  </div>
+</div>`;
+        }).join('');
+
+        const popupContent = `
+<div class="rs3-transport-popup">
+  <div class="rs3-popup-header">
+    <span class="rs3-popup-title">${nodes.length} Transport${nodes.length > 1 ? 's' : ''}</span>
+    <span class="rs3-popup-coords">(${Math.floor(nodes[0].x)}, ${Math.floor(nodes[0].y)})</span>
+  </div>
+  <div class="rs3-popup-list">
+    ${listItems}
+  </div>
+</div>`;
+
+        const popup = L.popup({
+            className: 'rs3-transport-popup-container',
+            maxWidth: 350,
+            minWidth: 280,
+            autoPan: true,
+        })
+            .setLatLng(latLng)
+            .setContent(popupContent)
+            .openOn(this._map);
+
+        // Attach click handlers after popup opens
+        setTimeout(() => {
+            const container = popup.getElement();
+            if (!container) return;
+
+            container.querySelectorAll('.rs3-popup-item').forEach((item) => {
+                const index = parseInt(item.dataset.index);
+                const node = nodes[index];
+
+                // Click on item row to highlight
+                item.addEventListener('click', (e) => {
+                    if (e.target.closest('.rs3-goto-btn')) return;
+                    item.classList.toggle('selected');
+                });
+
+                // Go to destination button
+                const gotoDstBtn = item.querySelector('[data-action="goto-dst"]');
+                if (gotoDstBtn) {
+                    gotoDstBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this._map.closePopup();
+                        this._focusLocation(node, 'dst');
+                    });
+                }
+
+                // Go to source button
+                const gotoSrcBtn = item.querySelector('[data-action="goto-src"]');
+                if (gotoSrcBtn) {
+                    gotoSrcBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this._map.closePopup();
+                        this._focusLocation(node, 'src');
+                    });
+                }
+            });
+        }, 10);
+    },
+
+    _getDetailText: function (node) {
+        if (!node.detail) return '';
+
+        if (node.kind === 'npc') {
+            return `${node.detail.npc_name} - ${node.detail.action}`;
+        }
+        if (node.kind === 'object') {
+            return `${node.detail.object_name} - ${node.detail.action}`;
+        }
+        if (node.kind === 'item') {
+            return `${node.detail.name} - ${node.detail.action}`;
+        }
+        if (node.kind === 'door') {
+            return `${node.detail.open_action || 'Open'} (${node.detail.direction || ''})`;
+        }
+        if (node.kind === 'lodestone') {
+            return node.detail.lodestone;
+        }
+        if (node.kind === 'fairy_ring') {
+            return node.detail.code || '';
+        }
+        return '';
     },
 
     _pointInBounds: function (x, y, minX, maxX, minY, maxY) {
@@ -246,136 +486,6 @@ export const TransportNodesControl = L.Control.extend({
         return point !== null;
     },
 
-    _segmentIntersectsBounds: function (x1, y1, x2, y2, minX, maxX, minY, maxY) {
-        let t0 = 0;
-        let t1 = 1;
-        const dx = x2 - x1;
-        const dy = y2 - y1;
-        const checks = [
-            [-dx, x1 - minX],
-            [dx, maxX - x1],
-            [-dy, y1 - minY],
-            [dy, maxY - y1],
-        ];
-
-        for (let i = 0; i < checks.length; i++) {
-            const p = checks[i][0];
-            const q = checks[i][1];
-            if (p === 0 && q < 0) {
-                return false;
-            }
-            if (p !== 0) {
-                const r = q / p;
-                if (p < 0) {
-                    if (r > t1) {
-                        return false;
-                    }
-                    if (r > t0) {
-                        t0 = r;
-                    }
-                } else {
-                    if (r < t0) {
-                        return false;
-                    }
-                    if (r < t1) {
-                        t1 = r;
-                    }
-                }
-            }
-        }
-
-        return true;
-    },
-
-    _addTransportArrow: function (node) {
-        const color = KIND_COLORS[node.kind] || '#ffffff';
-        if (node.shadow) {
-            this._addDestinationOnly(node, color);
-            return;
-        }
-        const srcPoint = this._makePoint(node.x, node.y, node.plane);
-        if (!this._isValidPoint(srcPoint)) {
-            this._addDestinationOnly(node, color);
-            return;
-        }
-        const srcLatLng = L.latLng(srcPoint.y, srcPoint.x);
-        const destPoint = this._getDestPoint(node);
-        if (!this._isValidPoint(destPoint)) {
-            return;
-        }
-        const dstLatLng = L.latLng(destPoint.y, destPoint.x);
-        const polyline = L.polyline([srcLatLng, dstLatLng], {
-            color: color,
-            weight: 2,
-            opacity: 0.85,
-            pane: 'transport-nodes',
-        });
-
-        const tooltipText = this._buildTooltip(node);
-        this._bindHoverTooltip(polyline, tooltipText);
-        this._bindClickNavigate(polyline, node, 'dst');
-        this._layerGroup.addLayer(polyline);
-
-        const srcMarker = L.circleMarker(srcLatLng, {
-            radius: 4,
-            color: color,
-            weight: 2,
-            fillColor: color,
-            fillOpacity: 0.9,
-            pane: 'transport-nodes',
-        });
-        this._bindHoverTooltip(srcMarker, tooltipText);
-        this._bindClickNavigate(srcMarker, node, 'dst');
-        this._layerGroup.addLayer(srcMarker);
-
-        const angle = Math.atan2(destPoint.y - node.y, destPoint.x - node.x) * 180 / Math.PI;
-        const arrowIcon = L.divIcon({
-            className: 'transport-arrow-icon',
-            html: `<span class="transport-arrow" style="border-left-color:${color}; transform: rotate(${angle}deg);"></span>`,
-            iconSize: [ARROW_ICON_SIZE, ARROW_ICON_SIZE],
-            iconAnchor: [ARROW_ICON_SIZE / 2, ARROW_ICON_SIZE / 2],
-        });
-
-        const arrowMarker = L.marker(dstLatLng, {
-            icon: arrowIcon,
-            interactive: true,
-            pane: 'transport-nodes',
-        });
-        this._bindHoverTooltip(arrowMarker, tooltipText);
-        this._bindClickNavigate(arrowMarker, node, 'src');
-        this._layerGroup.addLayer(arrowMarker);
-
-        const destRect = this._getDestRect(node);
-        if (destRect && destRect.dest_plane === node.plane) {
-            const destBounds = L.latLngBounds(
-                [destRect.dest_min_y, destRect.dest_min_x],
-                [destRect.dest_max_y, destRect.dest_max_x]
-            );
-            const rect = L.rectangle(destBounds, {
-                color: color,
-                weight: 1,
-                fillOpacity: 0.15,
-                pane: 'transport-nodes',
-            });
-            this._bindHoverTooltip(rect, tooltipText);
-            this._bindClickNavigate(rect, node, 'src');
-            this._layerGroup.addLayer(rect);
-
-            const centerLatLng = destBounds.getCenter();
-            const destMarker = L.circleMarker(centerLatLng, {
-                radius: 4,
-                color: color,
-                weight: 2,
-                fillColor: color,
-                fillOpacity: 0.9,
-                pane: 'transport-nodes',
-            });
-            this._bindHoverTooltip(destMarker, tooltipText);
-            this._bindClickNavigate(destMarker, node, 'src');
-            this._layerGroup.addLayer(destMarker);
-        }
-    },
-
     _buildTooltip: function (node) {
         const src = `(${node.x}, ${node.y}, ${node.plane})`;
         const destPoint = this._getDestPoint(node);
@@ -384,56 +494,19 @@ export const TransportNodesControl = L.Control.extend({
             : '(unknown)';
         const destRect = this._getDestRect(node);
         const dstLabel = destRect
-            ? `[${destRect.dest_min_x},${destRect.dest_min_y}] -> [${destRect.dest_max_x},${destRect.dest_max_y}] (p${destRect.dest_plane})`
+            ? `[${destRect.dest_min_x},${destRect.dest_min_y}] → [${destRect.dest_max_x},${destRect.dest_max_y}]`
             : dst;
 
         const detailLine = this._detailLine(node);
         const detailHtml = detailLine ? `<div class="transport-tooltip-line">${detailLine}</div>` : '';
+        const kindLabel = KIND_LABELS[node.kind] || node.kind;
+
         return `
 <div class="transport-tooltip-body">
-  <div class="transport-tooltip-title">${node.kind} #${node.id}</div>
+  <div class="transport-tooltip-title">${kindLabel} #${node.id}</div>
   <div class="transport-tooltip-line">${src} <span class="transport-tooltip-arrow">→</span> ${dstLabel}</div>
   ${detailHtml}
 </div>`;
-    },
-
-    _addDestinationOnly: function (node, color) {
-        const tooltipText = this._buildTooltip(node);
-        const destPoint = this._getDestPoint(node);
-        if (!this._isValidPoint(destPoint)) {
-            return;
-        }
-
-        const destLatLng = L.latLng(destPoint.y, destPoint.x);
-        const destMarker = L.circleMarker(destLatLng, {
-            radius: 4,
-            color: color,
-            weight: 2,
-            fillColor: color,
-            fillOpacity: 0.9,
-            pane: 'transport-nodes',
-        });
-        this._bindHoverTooltip(destMarker, tooltipText);
-        const target = node.shadowFromZero ? 'dst' : 'src';
-        this._bindClickNavigate(destMarker, node, target);
-        this._layerGroup.addLayer(destMarker);
-
-        const destRect = this._getDestRect(node);
-        if (destRect && destRect.dest_plane === node.plane) {
-            const destBounds = L.latLngBounds(
-                [destRect.dest_min_y, destRect.dest_min_x],
-                [destRect.dest_max_y, destRect.dest_max_x]
-            );
-            const rect = L.rectangle(destBounds, {
-                color: color,
-                weight: 1,
-                fillOpacity: 0.15,
-                pane: 'transport-nodes',
-            });
-            this._bindHoverTooltip(rect, tooltipText);
-            this._bindClickNavigate(rect, node, target);
-            this._layerGroup.addLayer(rect);
-        }
     },
 
     _detailLine: function (node) {
@@ -441,23 +514,22 @@ export const TransportNodesControl = L.Control.extend({
             return '';
         }
         if (node.kind === 'npc') {
-            return `npc: ${node.detail.npc_name} (#${node.detail.npc_id}) action: ${node.detail.action}`;
+            return `${node.detail.npc_name} (#${node.detail.npc_id}) - ${node.detail.action}`;
         }
         if (node.kind === 'object') {
-            return `object: ${node.detail.object_name} (#${node.detail.object_id}) action: ${node.detail.action}`;
+            return `${node.detail.object_name} (#${node.detail.object_id}) - ${node.detail.action}`;
         }
         if (node.kind === 'item') {
-            return `item: ${node.detail.name} (#${node.detail.item_id}) action: ${node.detail.action}`;
+            return `${node.detail.name} (#${node.detail.item_id}) - ${node.detail.action}`;
         }
         if (node.kind === 'door') {
-            return `door: ${node.detail.open_action || ''} dir: ${node.detail.direction || ''}` +
-                ` ids: ${node.detail.real_id_open}/${node.detail.real_id_closed}`;
+            return `${node.detail.open_action || 'Open'} ${node.detail.direction || ''}`;
         }
         if (node.kind === 'lodestone') {
-            return `lodestone: ${node.detail.lodestone}`;
+            return node.detail.lodestone;
         }
         if (node.kind === 'fairy_ring') {
-            return `fairy ring: ${node.detail.code || ''} obj: ${node.detail.object_id || ''} action: ${node.detail.action || ''}`;
+            return `Code: ${node.detail.code || 'N/A'}`;
         }
         return '';
     },
@@ -470,12 +542,6 @@ export const TransportNodesControl = L.Control.extend({
             opacity: 0.95,
             direction: 'top',
             offset: [0, -6],
-        });
-    },
-
-    _bindClickNavigate: function (layer, node, target) {
-        layer.on('click', () => {
-            this._focusLocation(node, target);
         });
     },
 

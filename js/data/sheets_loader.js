@@ -363,3 +363,42 @@ export function clearTransportCache() {
     transportDataCache = null;
     transportDataPromise = null;
 }
+
+// RS3 Transport Data loading (from local JSON file)
+let rs3TransportCache = null;
+let rs3TransportPromise = null;
+
+export function loadRS3TransportData() {
+    if (rs3TransportCache) {
+        return Promise.resolve(rs3TransportCache);
+    }
+
+    if (rs3TransportPromise) {
+        return rs3TransportPromise;
+    }
+
+    rs3TransportPromise = fetch('resources/rs3_transport_data.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch RS3 transport data');
+            }
+            return response.json();
+        })
+        .then(data => {
+            rs3TransportCache = data;
+            console.log(`RS3 transport data loaded: ${data.length} entries`);
+            return data;
+        })
+        .catch(error => {
+            console.error('Failed to load RS3 transport data:', error);
+            rs3TransportPromise = null;
+            throw error;
+        });
+
+    return rs3TransportPromise;
+}
+
+export function clearRS3TransportCache() {
+    rs3TransportCache = null;
+    rs3TransportPromise = null;
+}
