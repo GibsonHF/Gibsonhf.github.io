@@ -611,10 +611,13 @@ input.leaflet-control-custom {
 }
 
 #settings-panel {
-    display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-primary);
+}
+
+#settings-panel.visible {
+    display: flex;
 }
 
 /* ==========================================================================
