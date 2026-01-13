@@ -11,7 +11,7 @@ const MAX_TILE_LIMIT = 500000;
 // Database loading - only loads if SQL.js is available
 let dbPromise = null;
 
-function loadReachableDb(dbPath, sqlJsBaseUrl) {
+export function loadReachableDb(dbPath, sqlJsBaseUrl) {
     if (dbPromise) {
         return dbPromise;
     }
@@ -175,6 +175,14 @@ export const WalkableTilesControl = L.Control.extend({
 
     getMaxTileLimit: function () {
         return MAX_TILE_LIMIT;
+    },
+
+    getDatabase: function () {
+        return loadReachableDb(this.options.dbPath, this.options.sqlJsBaseUrl);
+    },
+
+    getPlaneCache: function (plane) {
+        return this._ensurePlaneCache(plane);
     },
 
     getStatus: function () {

@@ -16,6 +16,8 @@ import { TransportNodesControl } from './controls/transport_nodes_control.js';
 import { RS3TransportControl } from './controls/rs3_transport_control.js';
 import { WalkableTilesControl } from './controls/walkable_tiles_control.js';
 import { LayerPanelControl } from './controls/layer_panel_control.js';
+import { ContextMenuControl } from './controls/context_menu_control.js';
+import { DistanceToolControl } from './controls/distance_tool_control.js';
 
 // Copy to clipboard utility
 async function copyToClipboard(text) {
@@ -130,6 +132,18 @@ $(document).ready(function () {
     map.addControl(transportControl);
     map.addControl(rs3TransportControl);
 
+    // Add context menu (right-click)
+    map.addControl(new ContextMenuControl({
+        rs3TransportControl: rs3TransportControl,
+        transportControl: transportControl,
+    }));
+
+    // Add distance measuring tool
+    const distanceToolControl = new DistanceToolControl({
+        walkableControl: walkableControl,
+    });
+    map.addControl(distanceToolControl);
+
     // Add the unified layer panel control
     map.addControl(new LayerPanelControl({
         position: 'topright',
@@ -225,6 +239,12 @@ $(document).ready(function () {
                 toggle.classList.toggle('active');
             }
         }
+        // 'M' to toggle distance measuring tool
+        else if (key === 'm' || key === 'M') {
+            e.preventDefault();
+            distanceToolControl.toggle();
+            showToast(distanceToolControl.isEnabled() ? 'Distance tool enabled' : 'Distance tool disabled', 'success', 1000);
+        }
         // '?' to show help and settings
         else if (key === '?') {
             e.preventDefault();
@@ -247,6 +267,8 @@ $(document).ready(function () {
                             <div><kbd>C</kbd></div><div>Copy coordinates at cursor</div>
                             <div><kbd>G</kbd></div><div>Toggle grid</div>
                             <div><kbd>L</kbd></div><div>Toggle layer panel</div>
+                            <div><kbd>M</kbd></div><div>Distance measuring tool</div>
+                            <div><kbd>Right-click</kbd></div><div>Context menu</div>
                             <div><kbd>?</kbd></div><div>Show this help</div>
                         </div>
                     </div>

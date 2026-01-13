@@ -100,10 +100,24 @@ export const CollectionControl = L.Control.extend({
         this._prevMousePos = undefined;
 
         this._firstSelectedAreaPosition = undefined;
-        this._drawnMouseArea = undefined;    
+        this._drawnMouseArea = undefined;
         this._editing = false;
 
-        const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control noselect');
+        // Create wrapper for mobile collapse
+        const wrapper = L.DomUtil.create('div', 'toolbar-wrapper');
+
+        // Hamburger toggle button (visible only on mobile)
+        const hamburger = L.DomUtil.create('button', 'toolbar-hamburger', wrapper);
+        hamburger.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>`;
+        hamburger.title = 'Toggle toolbar';
+        L.DomEvent.on(hamburger, 'click', (e) => {
+            L.DomEvent.stopPropagation(e);
+            wrapper.classList.toggle('expanded');
+        });
+
+        const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control noselect toolbar-container', wrapper);
         container.style.background = 'none';
         container.style.width = '70px';
         container.style.height = 'auto';
@@ -164,6 +178,7 @@ export const CollectionControl = L.Control.extend({
         });
 
         L.DomEvent.disableClickPropagation(container);
+        L.DomEvent.disableClickPropagation(wrapper);
 
         L.DomEvent.on(this._map, 'click', this._addPosition, this);
         L.DomEvent.on(this._map, 'mousemove', this._drawMouseArea, this);
@@ -173,7 +188,7 @@ export const CollectionControl = L.Control.extend({
         $("#code-output").on('input propertychange paste', () => context._loadFromText());
         $("#bot-api").on('change', () => context._outputCode());
 
-        return container;
+        return wrapper;
     },
     
     _createControl: function(html, container, onClick) {
