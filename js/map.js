@@ -18,6 +18,7 @@ import { WalkableTilesControl } from './controls/walkable_tiles_control.js';
 import { LayerPanelControl } from './controls/layer_panel_control.js';
 import { ContextMenuControl } from './controls/context_menu_control.js';
 import { DistanceToolControl } from './controls/distance_tool_control.js';
+import { PasteObjectsControl } from './controls/paste_objects_control.js';
 
 // Copy to clipboard utility
 async function copyToClipboard(text) {
@@ -156,6 +157,10 @@ $(document).ready(function () {
         regionLabelsControl: regionLabelsControl,
     }));
 
+    // Add paste objects control
+    const pasteObjectsControl = new PasteObjectsControl({ position: 'topright' });
+    map.addControl(pasteObjectsControl);
+
     // Mouse position indicator
     let prevMouseRect, prevMousePos;
     let currentMousePos = null;
@@ -245,6 +250,11 @@ $(document).ready(function () {
             distanceToolControl.toggle();
             showToast(distanceToolControl.isEnabled() ? 'Distance tool enabled' : 'Distance tool disabled', 'success', 1000);
         }
+        // 'P' to toggle paste objects panel
+        else if (key === 'p' || key === 'P') {
+            e.preventDefault();
+            pasteObjectsControl.toggle();
+        }
         // '?' to show help and settings
         else if (key === '?') {
             e.preventDefault();
@@ -268,6 +278,7 @@ $(document).ready(function () {
                             <div><kbd>G</kbd></div><div>Toggle grid</div>
                             <div><kbd>L</kbd></div><div>Toggle layer panel</div>
                             <div><kbd>M</kbd></div><div>Distance measuring tool</div>
+                            <div><kbd>P</kbd></div><div>Paste objects panel</div>
                             <div><kbd>Right-click</kbd></div><div>Context menu</div>
                             <div><kbd>?</kbd></div><div>Show this help</div>
                         </div>

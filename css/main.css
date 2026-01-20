@@ -1894,3 +1894,330 @@ kbd {
     letter-spacing: 0.5px;
     margin-top: 4px;
 }
+
+/* ==========================================================================
+   Paste Objects Panel
+   ========================================================================== */
+
+.paste-objects-panel {
+    position: relative;
+}
+
+.paste-objects-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-md);
+}
+
+.paste-objects-toggle:hover {
+    background: var(--bg-hover);
+    border-color: var(--accent-orange);
+    color: var(--accent-orange);
+}
+
+.paste-objects-toggle.active {
+    background: var(--accent-orange);
+    border-color: var(--accent-orange);
+    color: var(--bg-primary);
+}
+
+.paste-objects-toggle svg {
+    width: 20px;
+    height: 20px;
+}
+
+.paste-objects-content {
+    position: absolute;
+    top: 0;
+    right: 50px;
+    width: 360px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(10px);
+    transition: all var(--transition-normal);
+    overflow: hidden;
+}
+
+.paste-objects-content.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.paste-objects-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.paste-objects-title {
+    font-size: 11px;
+    font-weight: 600;
+    font-family: var(--font-display);
+    color: var(--accent-orange);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.paste-objects-body {
+    padding: 16px;
+}
+
+.paste-objects-textarea {
+    width: 100%;
+    height: 180px;
+    padding: 12px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.5;
+    resize: vertical;
+    transition: all var(--transition-fast);
+}
+
+.paste-objects-textarea:focus {
+    outline: none;
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.1);
+}
+
+.paste-objects-textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.paste-objects-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.paste-objects-btn {
+    flex: 1;
+    padding: 10px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.paste-objects-btn-primary {
+    background: var(--accent-orange);
+    border-color: var(--accent-orange);
+    color: var(--bg-primary);
+}
+
+.paste-objects-btn-primary:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
+}
+
+.paste-objects-btn-secondary {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.paste-objects-btn-secondary:hover {
+    background: var(--bg-hover);
+    border-color: var(--border-light);
+}
+
+.paste-objects-btn-import {
+    background: var(--accent-purple);
+    border-color: var(--accent-purple);
+    color: #fff;
+}
+
+.paste-objects-btn-import:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 12px rgba(167, 139, 250, 0.4);
+}
+
+.paste-objects-file-input {
+    display: none;
+}
+
+.paste-objects-status {
+    margin-top: 10px;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    min-height: 16px;
+}
+
+.paste-objects-status.status-success {
+    color: var(--accent-green);
+}
+
+.paste-objects-status.status-error {
+    color: var(--accent-red);
+}
+
+.paste-objects-status.status-info {
+    color: var(--accent-cyan);
+}
+
+.pasted-object-tooltip-container {
+    padding: 0;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    box-shadow: var(--shadow-lg);
+}
+
+.pasted-object-tooltip-container .leaflet-tooltip-content {
+    margin: 0;
+}
+
+.pasted-object-tooltip {
+    padding: 10px 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.pasted-object-name {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent-orange);
+    margin-bottom: 6px;
+}
+
+.pasted-object-id {
+    color: var(--text-secondary);
+}
+
+.pasted-object-actions {
+    color: var(--accent-cyan);
+    margin-top: 2px;
+}
+
+.pasted-object-coords {
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.paste-objects-filters {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+.paste-objects-filter-header {
+    font-size: 10px;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.paste-objects-filter-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.paste-objects-filter-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.paste-objects-filter-label {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+}
+
+.paste-objects-filter-input {
+    width: 100%;
+    padding: 8px 10px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    transition: all var(--transition-fast);
+}
+
+.paste-objects-filter-input:focus {
+    outline: none;
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 0 2px rgba(56, 211, 207, 0.1);
+}
+
+.paste-objects-filter-input::placeholder {
+    color: var(--text-muted);
+    font-size: 10px;
+}
+
+.paste-objects-filter-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.paste-objects-btn-filter {
+    background: var(--accent-cyan);
+    border-color: var(--accent-cyan);
+    color: var(--bg-primary);
+}
+
+.paste-objects-btn-filter:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 12px rgba(56, 211, 207, 0.4);
+}
+
+.paste-objects-btn-export {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
+    color: var(--bg-primary);
+}
+
+.paste-objects-btn-export:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 12px rgba(74, 222, 128, 0.4);
+}
+
+.paste-objects-filter-status {
+    margin-top: 8px;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--accent-cyan);
+    min-height: 16px;
+}
+
+@media (max-width: 768px) {
+    .paste-objects-content {
+        position: fixed;
+        top: auto;
+        bottom: 60px;
+        right: 10px;
+        left: 10px;
+        width: auto;
+    }
+}

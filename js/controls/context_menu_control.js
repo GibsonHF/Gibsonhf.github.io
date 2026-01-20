@@ -297,7 +297,7 @@ export const ContextMenuControl = L.Control.extend({
     _goToTransport: function (transport) {
         const x = transport.x || transport.origin?.x || 0;
         const y = transport.y || transport.origin?.y || 0;
-        this._map.panTo(L.latLng(y + 0.5, x + 0.5));
+        this._map.panTo(L.latLng(y - 0.5, x + 0.5));
     },
 
     _showTransportPreview: function (transport) {
@@ -311,8 +311,8 @@ export const ContextMenuControl = L.Control.extend({
 
         // Draw line from current position to transport
         const line = L.polyline([
-            L.latLng(fromY + 0.5, fromX + 0.5),
-            L.latLng(toY + 0.5, toX + 0.5)
+            L.latLng(fromY - 0.5, fromX + 0.5),
+            L.latLng(toY - 0.5, toX + 0.5)
         ], {
             color: color,
             weight: 2,
@@ -322,7 +322,7 @@ export const ContextMenuControl = L.Control.extend({
         this._previewLayer.addLayer(line);
 
         // Draw marker at transport location
-        const marker = L.circleMarker(L.latLng(toY + 0.5, toX + 0.5), {
+        const marker = L.circleMarker(L.latLng(toY - 0.5, toX + 0.5), {
             radius: 8,
             color: color,
             fillColor: color,
@@ -336,8 +336,8 @@ export const ContextMenuControl = L.Control.extend({
         const dstY = transport.dst_y || transport.destination?.y;
         if (dstX !== undefined && dstY !== undefined) {
             const dstLine = L.polyline([
-                L.latLng(toY + 0.5, toX + 0.5),
-                L.latLng(dstY + 0.5, dstX + 0.5)
+                L.latLng(toY - 0.5, toX + 0.5),
+                L.latLng(dstY - 0.5, dstX + 0.5)
             ], {
                 color: color,
                 weight: 2,
@@ -345,7 +345,7 @@ export const ContextMenuControl = L.Control.extend({
             });
             this._previewLayer.addLayer(dstLine);
 
-            const dstMarker = L.circleMarker(L.latLng(dstY + 0.5, dstX + 0.5), {
+            const dstMarker = L.circleMarker(L.latLng(dstY - 0.5, dstX + 0.5), {
                 radius: 6,
                 color: color,
                 fillColor: color,

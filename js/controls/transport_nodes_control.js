@@ -210,7 +210,7 @@ export const TransportNodesControl = L.Control.extend({
         const nodes = group.nodes;
         const x = group.x;
         const y = group.y;
-        const latLng = L.latLng(y, x);
+        const latLng = L.latLng(y - 1, x);
 
         const primaryColor = KIND_COLORS[nodes[0].kind] || '#ffffff';
         const hasMultiple = nodes.length > 1;
@@ -285,8 +285,8 @@ export const TransportNodesControl = L.Control.extend({
             return;
         }
 
-        const srcLatLng = L.latLng(srcPoint.y, srcPoint.x);
-        const dstLatLng = L.latLng(destPoint.y, destPoint.x);
+        const srcLatLng = L.latLng(srcPoint.y - 1, srcPoint.x);
+        const dstLatLng = L.latLng(destPoint.y - 1, destPoint.x);
 
         // Draw line with lower opacity
         const polyline = L.polyline([srcLatLng, dstLatLng], {

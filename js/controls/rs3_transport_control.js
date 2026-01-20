@@ -326,7 +326,7 @@ export const RS3TransportControl = L.Control.extend({
         const nodes = group.nodes;
         const x = group.x;
         const y = group.y;
-        const latLng = L.latLng(y, x);
+        const latLng = L.latLng(y - 1, x);
 
         // Determine marker color - use mixed color if multiple categories
         const categories = [...new Set(nodes.map(n => n.category))];
@@ -397,8 +397,8 @@ export const RS3TransportControl = L.Control.extend({
     },
 
     _addTransportLine: function (node) {
-        const srcLatLng = L.latLng(node.y, node.x);
-        const dstLatLng = L.latLng(node.dst_y, node.dst_x);
+        const srcLatLng = L.latLng(node.y - 1, node.x);
+        const dstLatLng = L.latLng(node.dst_y - 1, node.dst_x);
 
         // Draw line with lower opacity
         const polyline = L.polyline([srcLatLng, dstLatLng], {

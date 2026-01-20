@@ -95,7 +95,7 @@ const WalkableTilesCanvas = CanvasLayer.extend({
         for (let i = 0; i < count; i++) {
             const x = tiles[i * 2];
             const y = tiles[i * 2 + 1];
-            const topLeft = map.latLngToContainerPoint(L.latLng(y, x));
+            const topLeft = map.latLngToContainerPoint(L.latLng(y + 1, x));
             ctx.rect(topLeft.x, topLeft.y, tileWidth, tileHeight);
         }
 
