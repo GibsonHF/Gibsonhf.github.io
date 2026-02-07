@@ -153,31 +153,64 @@ export const LayerPanelControl = L.Control.extend({
             fileInput.multiple = true;
             fileInput.id = 'npc-file-input';
 
+            const folderInput = L.DomUtil.create('input', 'layer-panel-file-input', fileContainer);
+            folderInput.type = 'file';
+            folderInput.webkitdirectory = true;
+            folderInput.id = 'npc-folder-input';
+
             const fileButton = L.DomUtil.create('label', 'layer-panel-file-button', fileInputWrapper);
             fileButton.setAttribute('for', 'npc-file-input');
-            fileButton.textContent = 'Load';
+            fileButton.textContent = 'Files';
+
+            const folderButton = L.DomUtil.create('label', 'layer-panel-file-button', fileInputWrapper);
+            folderButton.setAttribute('for', 'npc-folder-input');
+            folderButton.textContent = 'Folder';
 
             const clearButton = L.DomUtil.create('button', 'layer-panel-clear-button', fileInputWrapper);
             clearButton.textContent = 'Clear';
             clearButton.title = 'Clear all loaded NPCs';
 
-            L.DomEvent.on(fileInput, 'change', async (e) => {
-                const files = e.target.files;
-                if (!files.length) return;
+            const loadFiles = async (files, inputEl) => {
+                const jsonFiles = files.filter(f => f.name.endsWith('.json'));
+                if (!jsonFiles.length) return;
 
+                const batchSize = 100;
                 let loadedCount = 0;
-                for (const file of files) {
-                    const success = await this._npcPositionsControl.loadNPCFile(file);
-                    if (success) loadedCount++;
+                let errorCount = 0;
+
+                this._npcPositionsControl._setStatus(`Loading 0/${jsonFiles.length}...`);
+
+                for (let i = 0; i < jsonFiles.length; i += batchSize) {
+                    const batch = jsonFiles.slice(i, i + batchSize);
+
+                    const results = await Promise.all(
+                        batch.map(file => this._npcPositionsControl.loadNPCFile(file).catch(() => false))
+                    );
+
+                    loadedCount += results.filter(Boolean).length;
+                    errorCount += results.filter(r => !r).length;
+
+                    this._npcPositionsControl._setStatus(`Loading ${Math.min(i + batchSize, jsonFiles.length)}/${jsonFiles.length}...`);
+
+                    await new Promise(r => setTimeout(r, 10));
                 }
+
+                this._npcPositionsControl.finishBulkLoad();
 
                 if (loadedCount > 0 && !this._npcPositionsControl.isEnabled()) {
                     document.getElementById('npc-positions').checked = true;
                     this._npcPositionsControl.setEnabled(true);
                 }
 
-                fileInput.value = '';
-            });
+                if (errorCount > 0) {
+                    console.warn(`Failed to load ${errorCount} files`);
+                }
+
+                inputEl.value = '';
+            };
+
+            L.DomEvent.on(fileInput, 'change', (e) => loadFiles(Array.from(e.target.files), fileInput));
+            L.DomEvent.on(folderInput, 'change', (e) => loadFiles(Array.from(e.target.files), folderInput));
 
             L.DomEvent.on(clearButton, 'click', () => {
                 this._npcPositionsControl.clearData();

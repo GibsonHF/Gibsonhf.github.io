@@ -68,11 +68,17 @@ export const NPCPositionsControl = L.Control.extend({
         try {
             const text = await file.text();
             const data = JSON.parse(text);
-            this._processNPCData(data);
+            this._processNPCData(data, true);
             return true;
         } catch (e) {
-            console.error('Failed to load NPC file:', e);
+            console.error('Failed to load NPC file:', file.name, e);
             return false;
+        }
+    },
+
+    finishBulkLoad: function () {
+        if (this._enabled) {
+            this._refreshMarkers();
         }
     },
 
@@ -103,7 +109,7 @@ export const NPCPositionsControl = L.Control.extend({
         }
     },
 
-    _processNPCData: function (data) {
+    _processNPCData: function (data, skipRefresh) {
         if (!data.locations || !Array.isArray(data.locations)) {
             return;
         }
@@ -125,7 +131,7 @@ export const NPCPositionsControl = L.Control.extend({
             }
         });
 
-        if (this._enabled) {
+        if (this._enabled && !skipRefresh) {
             this._refreshMarkers();
         }
     },
