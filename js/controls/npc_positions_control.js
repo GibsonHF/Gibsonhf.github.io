@@ -21,6 +21,7 @@ export const NPCPositionsControl = L.Control.extend({
         this._enabled = false;
         this._npcData = [];
         this._loadedFiles = new Set();
+        this._seenLocations = new Set();
 
         map.on('moveend planechange mapidchange zoomend', () => {
             if (this._enabled) {
@@ -118,6 +119,10 @@ export const NPCPositionsControl = L.Control.extend({
 
         data.locations.forEach(loc => {
             if (loc.x && loc.y && loc.npc_id) {
+                const key = `${loc.npc_id}:${loc.x}:${loc.y}:${loc.plane || 0}`;
+                if (this._seenLocations.has(key)) return;
+                this._seenLocations.add(key);
+
                 this._npcData.push({
                     npc_id: loc.npc_id,
                     npc_name: loc.npc_name || pageName,
@@ -139,6 +144,7 @@ export const NPCPositionsControl = L.Control.extend({
     clearData: function () {
         this._npcData = [];
         this._loadedFiles.clear();
+        this._seenLocations.clear();
         this._layerGroup.clearLayers();
         this._setStatus('');
     },
