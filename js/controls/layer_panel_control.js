@@ -23,6 +23,7 @@ export const LayerPanelControl = L.Control.extend({
         this._rs3TransportControl = options.rs3TransportControl || null;
         this._gridControl = options.gridControl || null;
         this._regionLabelsControl = options.regionLabelsControl || null;
+        this._npcPositionsControl = options.npcPositionsControl || null;
     },
 
     onAdd: function (map) {
@@ -136,6 +137,62 @@ export const LayerPanelControl = L.Control.extend({
             this._rs3TransportStatusEl = rs3Status;
         }
 
+        // NPC Positions Section
+        if (this._npcPositionsControl) {
+            const npcSection = this._createSection(sections, 'NPC Positions', [
+                { id: 'npc-positions', label: 'Show NPCs', checked: false, color: '#e74c3c', onChange: (checked) => this._toggleNPCPositions(checked) },
+            ]);
+
+            // File input for loading JSON files
+            const fileContainer = L.DomUtil.create('div', 'layer-panel-file-container', npcSection);
+
+            const fileLabel = L.DomUtil.create('label', 'layer-panel-file-label', fileContainer);
+            fileLabel.textContent = 'Load NPC JSON:';
+
+            const fileInputWrapper = L.DomUtil.create('div', 'layer-panel-file-wrapper', fileContainer);
+
+            const fileInput = L.DomUtil.create('input', 'layer-panel-file-input', fileInputWrapper);
+            fileInput.type = 'file';
+            fileInput.accept = '.json';
+            fileInput.multiple = true;
+            fileInput.id = 'npc-file-input';
+
+            const fileButton = L.DomUtil.create('label', 'layer-panel-file-button', fileInputWrapper);
+            fileButton.htmlFor = 'npc-file-input';
+            fileButton.textContent = 'Choose Files';
+
+            const clearButton = L.DomUtil.create('button', 'layer-panel-clear-button', fileInputWrapper);
+            clearButton.textContent = 'Clear';
+            clearButton.title = 'Clear all loaded NPCs';
+
+            L.DomEvent.on(fileInput, 'change', async (e) => {
+                const files = e.target.files;
+                if (!files.length) return;
+
+                let loadedCount = 0;
+                for (const file of files) {
+                    const success = await this._npcPositionsControl.loadNPCFile(file);
+                    if (success) loadedCount++;
+                }
+
+                if (loadedCount > 0 && !this._npcPositionsControl.isEnabled()) {
+                    document.getElementById('npc-positions').checked = true;
+                    this._npcPositionsControl.setEnabled(true);
+                }
+
+                fileInput.value = '';
+            });
+
+            L.DomEvent.on(clearButton, 'click', () => {
+                this._npcPositionsControl.clearData();
+            });
+
+            // NPC status
+            const npcStatus = L.DomUtil.create('div', 'layer-panel-status', npcSection);
+            npcStatus.id = 'npc-positions-status';
+            this._npcPositionsStatusEl = npcStatus;
+        }
+
         // Toggle panel visibility
         let panelVisible = false;
         L.DomEvent.on(toggleBtn, 'click', (e) => {
@@ -164,6 +221,12 @@ export const LayerPanelControl = L.Control.extend({
         if (this._rs3TransportControl) {
             this._rs3TransportControl.onStatusChange = (status) => {
                 this._updateStatusWithSpinner(this._rs3TransportStatusEl, status);
+            };
+        }
+
+        if (this._npcPositionsControl) {
+            this._npcPositionsControl.onStatusChange = (status) => {
+                this._updateStatusWithSpinner(this._npcPositionsStatusEl, status);
             };
         }
 
@@ -271,6 +334,12 @@ export const LayerPanelControl = L.Control.extend({
     _toggleRS3Category: function (category, visible) {
         if (this._rs3TransportControl) {
             this._rs3TransportControl.setCategoryEnabled(category, visible);
+        }
+    },
+
+    _toggleNPCPositions: function (visible) {
+        if (this._npcPositionsControl) {
+            this._npcPositionsControl.setEnabled(visible);
         }
     },
 

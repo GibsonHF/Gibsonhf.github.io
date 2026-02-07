@@ -1,0 +1,379 @@
+{
+  "page_name": "The Raptor",
+  "wiki_url": "https://runescape.wiki/w/The_Raptor",
+  "npc_versions": [
+    {
+      "npc_id": 13955,
+      "version": "Daemonheim",
+      "version_num": 1
+    },
+    {
+      "npc_id": 13957,
+      "version": "Legends' Guild",
+      "version_num": 2
+    },
+    {
+      "npc_id": 13958,
+      "version": "Raptor",
+      "version_num": 3
+    },
+    {
+      "npc_id": 13959,
+      "version": "Raptor",
+      "version_num": 3
+    },
+    {
+      "npc_id": 15474,
+      "version": "Song from the Depths",
+      "version_num": 4
+    },
+    {
+      "npc_id": 17804,
+      "version": "Battle of Lumbridge",
+      "version_num": 5
+    },
+    {
+      "npc_id": 17806,
+      "version": "Battle of Lumbridge (combat stance)",
+      "version_num": 6
+    },
+    {
+      "npc_id": 21993,
+      "version": "Raptor's Challenge",
+      "version_num": 7
+    },
+    {
+      "npc_id": 25859,
+      "version": "Player-owned farm",
+      "version_num": 8
+    },
+    {
+      "npc_id": 26622,
+      "version": "Burthorpe Troll Cave",
+      "version_num": 9
+    },
+    {
+      "npc_id": 28445,
+      "version": "Glacor Front",
+      "version_num": 10
+    },
+    {
+      "npc_id": 28610,
+      "version": "Once Upon a Time in Gielinor",
+      "version_num": 11
+    },
+    {
+      "npc_id": 28822,
+      "version": "Extinction",
+      "version_num": 12
+    },
+    {
+      "npc_id": 29795,
+      "version": "The Raptor's Rampage",
+      "version_num": 13
+    },
+    {
+      "npc_id": 30028,
+      "version": "Unwelcome Guests",
+      "version_num": 14
+    },
+    {
+      "npc_id": 30037,
+      "version": "Unwelcome Guests (combat stance)",
+      "version_num": 15
+    },
+    {
+      "npc_id": 30082,
+      "version": "Unwelcome Guests (combat stance)",
+      "version_num": 15
+    },
+    {
+      "npc_id": 30043,
+      "version": "Fort Forinthry",
+      "version_num": 16
+    },
+    {
+      "npc_id": 30081,
+      "version": "Dead and Buried (idle)",
+      "version_num": 17
+    },
+    {
+      "npc_id": 30083,
+      "version": "Dead and Buried (idle)",
+      "version_num": 17
+    },
+    {
+      "npc_id": 30086,
+      "version": "Dead and Buried (idle)",
+      "version_num": 17
+    },
+    {
+      "npc_id": 30090,
+      "version": "Dead and Buried (switchable)",
+      "version_num": 18
+    },
+    {
+      "npc_id": 30091,
+      "version": "Dead and Buried (without helmet, examinable)",
+      "version_num": 19
+    },
+    {
+      "npc_id": 30092,
+      "version": "Dead and Buried (without helmet)",
+      "version_num": 20
+    },
+    {
+      "npc_id": 30151,
+      "version": "Dead and Buried (mace on shoulder)",
+      "version_num": 21
+    },
+    {
+      "npc_id": 30544,
+      "version": "Ancient Awakening (combat)",
+      "version_num": 22
+    },
+    {
+      "npc_id": 30547,
+      "version": "Ancient Awakening (defeated)",
+      "version_num": 23
+    },
+    {
+      "npc_id": 30553,
+      "version": "Ancient Awakening (mace on shoulder)",
+      "version_num": 24
+    },
+    {
+      "npc_id": 30582,
+      "version": "Ancient Awakening (idle)",
+      "version_num": 25
+    },
+    {
+      "npc_id": 30593,
+      "version": "Ancient Awakening (idle)",
+      "version_num": 25
+    },
+    {
+      "npc_id": 30674,
+      "version": "Zemouregal & Vorkath",
+      "version_num": 26
+    },
+    {
+      "npc_id": 30694,
+      "version": "Battle of Forinthry",
+      "version_num": 27
+    }
+  ],
+  "locations": [
+    {
+      "npc_name": "The Raptor",
+      "npc_id": 13955,
+      "map_id": 28,
+      "plane": 0,
+      "x": 3472,
+      "y": 3697,
+      "group": "Daemonheim",
+      "section": "Daemonheim"
+    },
+    {
+      "npc_name": "The Raptor",
+      "npc_id": 13957,
+      "map_id": 28,
+      "plane": 1,
+      "x": 2729,
+      "y": 3375,
+      "group": "legend",
+      "section": "legend"
+    },
+    {
+      "npc_name": "The Raptor",
+      "npc_id": 15474,
+      "map_id": 28,
+      "plane": 0,
+      "x": 2995,
+      "y": 3231,
+      "group": "qbd",
+      "section": "qbd"
+    },
+    {
+      "npc_name": "The Raptor",
+      "npc_id": 15474,
+      "map_id": 68,
+      "plane": 0,
+      "x": 1065,
+      "y": 6176,
+      "group": "qbd",
+      "section": "qbd"
+    },
+    {
+      "npc_name": "Raptor (dragon expert)",
+      "npc_id": 25859,
+      "map_id": 28,
+      "plane": 0,
+      "x": 2643,
+      "y": 3352,
+      "group": "pof",
+      "section": "pof"
+    },
+    {
+      "npc_name": "The Raptor",
+      "npc_id": 26622,
+      "map_id": -1,
+      "plane": 0,
+      "x": 2211,
+      "y": 4392,
+      "group": "trolls",
+      "section": "trolls"
+    },
+    {
+      "npc_name": "The Raptor",
+      "npc_id": 28445,
+      "map_id": 735,
+      "plane": 0,
+      "x": 1754,
+      "y": 1161,
+      "group": "Glacor",
+      "section": "Glacor"
+    },
+    {
+      "npc_name": "The Raptor",
+      "npc_id": 29795,
+      "map_id": 10003,
+      "x": 3296,
+      "y": 10144,
+      "pin_type": "pins",
+      "group": "Rampage",
+      "section": "Rampage"
+    },
+    {
+      "npc_name": "The Raptor",
+      "npc_id": 30043,
+      "map_id": 28,
+      "x": 3290,
+      "y": 3540,
+      "pin_type": "pin",
+      "section": "The Raptor"
+    }
+  ],
+  "unmapped_versions": [
+    {
+      "npc_id": 13958,
+      "version": "Raptor",
+      "version_num": 3
+    },
+    {
+      "npc_id": 13959,
+      "version": "Raptor",
+      "version_num": 3
+    },
+    {
+      "npc_id": 17804,
+      "version": "Battle of Lumbridge",
+      "version_num": 5
+    },
+    {
+      "npc_id": 17806,
+      "version": "Battle of Lumbridge (combat stance)",
+      "version_num": 6
+    },
+    {
+      "npc_id": 21993,
+      "version": "Raptor's Challenge",
+      "version_num": 7
+    },
+    {
+      "npc_id": 28610,
+      "version": "Once Upon a Time in Gielinor",
+      "version_num": 11
+    },
+    {
+      "npc_id": 28822,
+      "version": "Extinction",
+      "version_num": 12
+    },
+    {
+      "npc_id": 30028,
+      "version": "Unwelcome Guests",
+      "version_num": 14
+    },
+    {
+      "npc_id": 30037,
+      "version": "Unwelcome Guests (combat stance)",
+      "version_num": 15
+    },
+    {
+      "npc_id": 30082,
+      "version": "Unwelcome Guests (combat stance)",
+      "version_num": 15
+    },
+    {
+      "npc_id": 30081,
+      "version": "Dead and Buried (idle)",
+      "version_num": 17
+    },
+    {
+      "npc_id": 30083,
+      "version": "Dead and Buried (idle)",
+      "version_num": 17
+    },
+    {
+      "npc_id": 30086,
+      "version": "Dead and Buried (idle)",
+      "version_num": 17
+    },
+    {
+      "npc_id": 30090,
+      "version": "Dead and Buried (switchable)",
+      "version_num": 18
+    },
+    {
+      "npc_id": 30091,
+      "version": "Dead and Buried (without helmet, examinable)",
+      "version_num": 19
+    },
+    {
+      "npc_id": 30092,
+      "version": "Dead and Buried (without helmet)",
+      "version_num": 20
+    },
+    {
+      "npc_id": 30151,
+      "version": "Dead and Buried (mace on shoulder)",
+      "version_num": 21
+    },
+    {
+      "npc_id": 30544,
+      "version": "Ancient Awakening (combat)",
+      "version_num": 22
+    },
+    {
+      "npc_id": 30547,
+      "version": "Ancient Awakening (defeated)",
+      "version_num": 23
+    },
+    {
+      "npc_id": 30553,
+      "version": "Ancient Awakening (mace on shoulder)",
+      "version_num": 24
+    },
+    {
+      "npc_id": 30582,
+      "version": "Ancient Awakening (idle)",
+      "version_num": 25
+    },
+    {
+      "npc_id": 30593,
+      "version": "Ancient Awakening (idle)",
+      "version_num": 25
+    },
+    {
+      "npc_id": 30674,
+      "version": "Zemouregal & Vorkath",
+      "version_num": 26
+    },
+    {
+      "npc_id": 30694,
+      "version": "Battle of Forinthry",
+      "version_num": 27
+    }
+  ]
+}

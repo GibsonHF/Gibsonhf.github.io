@@ -15,6 +15,7 @@ import { TitleLabel } from './controls/title_label.js';
 import { TransportNodesControl } from './controls/transport_nodes_control.js';
 import { RS3TransportControl } from './controls/rs3_transport_control.js';
 import { WalkableTilesControl } from './controls/walkable_tiles_control.js';
+import { NPCPositionsControl } from './controls/npc_positions_control.js';
 import { LayerPanelControl } from './controls/layer_panel_control.js';
 import { ContextMenuControl } from './controls/context_menu_control.js';
 import { DistanceToolControl } from './controls/distance_tool_control.js';
@@ -125,6 +126,7 @@ $(document).ready(function () {
     const walkableControl = new WalkableTilesControl();
     const transportControl = new TransportNodesControl();
     const rs3TransportControl = new RS3TransportControl();
+    const npcPositionsControl = new NPCPositionsControl();
 
     // Add controls to map (they won't show their own UI)
     map.addControl(gridControl);
@@ -132,6 +134,7 @@ $(document).ready(function () {
     map.addControl(walkableControl);
     map.addControl(transportControl);
     map.addControl(rs3TransportControl);
+    map.addControl(npcPositionsControl);
 
     // Add context menu (right-click)
     map.addControl(new ContextMenuControl({
@@ -155,6 +158,7 @@ $(document).ready(function () {
         rs3TransportControl: rs3TransportControl,
         gridControl: gridControl,
         regionLabelsControl: regionLabelsControl,
+        npcPositionsControl: npcPositionsControl,
     }));
 
     // Add paste objects control
