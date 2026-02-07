@@ -145,21 +145,17 @@ export const LayerPanelControl = L.Control.extend({
 
             // File input for loading JSON files
             const fileContainer = L.DomUtil.create('div', 'layer-panel-file-container', npcSection);
-
-            const fileLabel = L.DomUtil.create('label', 'layer-panel-file-label', fileContainer);
-            fileLabel.textContent = 'Load NPC JSON:';
-
             const fileInputWrapper = L.DomUtil.create('div', 'layer-panel-file-wrapper', fileContainer);
 
-            const fileInput = L.DomUtil.create('input', 'layer-panel-file-input', fileInputWrapper);
+            const fileInput = L.DomUtil.create('input', 'layer-panel-file-input', fileContainer);
             fileInput.type = 'file';
             fileInput.accept = '.json';
             fileInput.multiple = true;
             fileInput.id = 'npc-file-input';
 
             const fileButton = L.DomUtil.create('label', 'layer-panel-file-button', fileInputWrapper);
-            fileButton.htmlFor = 'npc-file-input';
-            fileButton.textContent = 'Choose Files';
+            fileButton.setAttribute('for', 'npc-file-input');
+            fileButton.textContent = 'Load';
 
             const clearButton = L.DomUtil.create('button', 'layer-panel-clear-button', fileInputWrapper);
             clearButton.textContent = 'Clear';

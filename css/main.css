@@ -2388,7 +2388,7 @@ kbd {
 
 /* File input styling for NPC loader */
 .layer-panel-file-container {
-    padding: 10px 0;
+    padding: 8px 0 0 0;
 }
 
 .layer-panel-file-label {
@@ -2399,29 +2399,33 @@ kbd {
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .layer-panel-file-wrapper {
     display: flex;
-    gap: 8px;
-    align-items: center;
+    gap: 6px;
 }
 
 .layer-panel-file-input {
-    display: none;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
 }
 
 .layer-panel-file-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6px 12px;
+    padding: 5px 10px;
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
     color: var(--text-secondary);
-    font-size: 11px;
+    font-size: 10px;
     font-family: var(--font-mono);
     cursor: pointer;
     transition: all var(--transition-fast);
@@ -2434,15 +2438,12 @@ kbd {
 }
 
 .layer-panel-clear-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6px 12px;
+    padding: 5px 10px;
     background: transparent;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
     color: var(--text-muted);
-    font-size: 11px;
+    font-size: 10px;
     font-family: var(--font-mono);
     cursor: pointer;
     transition: all var(--transition-fast);
