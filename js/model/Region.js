@@ -17,8 +17,9 @@ export class Region {
 	}
 	
     static fromCoordinates(x, y) {
-		const regionID = (x >> 6) * 128 + (y >> 6);
-	    return new Region(regionID);
+		const regionX = x >> 6;
+		const regionY = y >> 6;
+		return new Region(regionX | (regionY << 8));
 	}
 	
     toCentrePosition() {
@@ -29,8 +30,8 @@ export class Region {
     }
     
 	toPosition() {
-		const x = (this.id >> 7) << 6;
-		const y = (this.id & 0xFF) << 6;
+		const x = (this.id & 0xFF) << 6;
+		const y = (this.id >> 8) << 6;
 		return new Position(x, y, 0);
 	}
 }
