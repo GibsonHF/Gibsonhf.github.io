@@ -11,6 +11,7 @@ export const ContextMenuControl = L.Control.extend({
         L.setOptions(this, options);
         this._rs3TransportControl = options.rs3TransportControl;
         this._transportControl = options.transportControl;
+        this._pinDropControl = options.pinDropControl;
         this._menu = null;
         this._currentPosition = null;
         this._previewLayer = null;
@@ -65,7 +66,13 @@ export const ContextMenuControl = L.Control.extend({
         L.DomEvent.on(copyItem, 'click', this._copyCoordinates, this);
         menu.appendChild(copyItem);
 
-        // Separator
+        const dropPinItem = this._createMenuItem(
+            '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>',
+            'Drop Pin'
+        );
+        L.DomEvent.on(dropPinItem, 'click', this._dropPin, this);
+        menu.appendChild(dropPinItem);
+
         menu.appendChild(this._createSeparator());
 
         // Nearby Transports item
@@ -132,6 +139,13 @@ export const ContextMenuControl = L.Control.extend({
         navigator.clipboard.writeText(coordText).then(() => {
             this._showToast(`Copied: ${coordText}`);
         });
+        this._closeMenu();
+    },
+
+    _dropPin: function () {
+        if (this._pinDropControl && this._currentPosition) {
+            this._pinDropControl.addPin(this._currentPosition);
+        }
         this._closeMenu();
     },
 

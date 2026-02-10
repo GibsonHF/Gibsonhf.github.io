@@ -20,6 +20,7 @@ import { LayerPanelControl } from './controls/layer_panel_control.js';
 import { ContextMenuControl } from './controls/context_menu_control.js';
 import { DistanceToolControl } from './controls/distance_tool_control.js';
 import { PasteObjectsControl } from './controls/paste_objects_control.js';
+import { PinDropControl } from './controls/pin_drop_control.js';
 
 // Copy to clipboard utility
 async function copyToClipboard(text) {
@@ -136,10 +137,13 @@ $(document).ready(function () {
     map.addControl(rs3TransportControl);
     map.addControl(npcPositionsControl);
 
-    // Add context menu (right-click)
+    const pinDropControl = new PinDropControl({ position: 'topright' });
+    map.addControl(pinDropControl);
+
     map.addControl(new ContextMenuControl({
         rs3TransportControl: rs3TransportControl,
         transportControl: transportControl,
+        pinDropControl: pinDropControl,
     }));
 
     // Add distance measuring tool
