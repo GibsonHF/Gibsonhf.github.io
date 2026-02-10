@@ -8,7 +8,7 @@ export const TitleLabel = L.Control.extend({
     onAdd: function (map) {
         const container = L.DomUtil.create('div');
         container.id = 'titleLabel';
-        container.innerHTML = "<a href='https://github.com/explv/'><span id='explv'>Explv</span>'s</a> + <a href='https://github.com/mejrs/'>Mej's</a> Map";
+        container.innerHTML = "RS3 Map";
 
         L.DomEvent.disableClickPropagation(container);
         return container;

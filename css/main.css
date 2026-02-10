@@ -150,9 +150,6 @@ body::after {
     color: var(--accent-cyan) !important;
 }
 
-#explv {
-    color: var(--accent-magenta);
-}
 
 /* ==========================================================================
    Map Labels
