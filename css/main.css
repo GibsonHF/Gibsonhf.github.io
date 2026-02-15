@@ -257,6 +257,97 @@ input.leaflet-control-custom {
 }
 
 /* ==========================================================================
+   Controls - Map ID Selector
+   ========================================================================== */
+
+.map-id-selector {
+    width: 200px;
+    overflow: hidden;
+    font-family: var(--font-mono);
+    padding: 0;
+}
+
+.map-id-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.map-id-label {
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 8px rgba(56, 211, 207, 0.4);
+    white-space: nowrap;
+}
+
+.map-id-input {
+    flex: 1;
+    width: 70px;
+    padding: 3px 6px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: var(--bg-primary);
+    color: var(--accent-magenta);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    outline: none;
+    transition: all var(--transition-fast);
+    -moz-appearance: textfield;
+}
+
+.map-id-input::-webkit-outer-spin-button,
+.map-id-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.map-id-input:focus {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 6px rgba(56, 211, 207, 0.3);
+}
+
+.map-id-coords {
+    padding: 4px 0;
+}
+
+.map-id-coord-row {
+    display: flex;
+    align-items: center;
+    padding: 3px 10px;
+    gap: 8px;
+}
+
+.map-id-coord-label {
+    font-family: var(--font-display);
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    min-width: 48px;
+}
+
+.map-id-coord-value {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.map-id-coord-value.local {
+    color: var(--accent-orange);
+}
+
+.map-id-coord-value.global {
+    color: var(--accent-cyan);
+}
+
+/* ==========================================================================
    Layer Panel - Neon HUD UI
    ========================================================================== */
 

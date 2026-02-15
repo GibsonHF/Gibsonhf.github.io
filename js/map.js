@@ -11,6 +11,7 @@ import { GridControl } from './controls/grid_control.js';
 import { PlaneControl } from './controls/plane_control.js';
 import { RegionLabelsControl } from './controls/region_labels_control.js';
 import { RegionLookupControl } from './controls/region_lookup_control.js';
+import { MapIdSelectorControl } from './controls/map_id_selector_control.js';
 import { TitleLabel } from './controls/title_label.js';
 import { TransportNodesControl } from './controls/transport_nodes_control.js';
 import { RS3TransportControl } from './controls/rs3_transport_control.js';
@@ -120,6 +121,7 @@ $(document).ready(function () {
     map.addControl(new PlaneControl());
     map.addControl(new CollectionControl({ position: 'topright' }));
     map.addControl(new RegionLookupControl());
+    map.addControl(new MapIdSelectorControl());
 
     // Create controls that will be managed by the layer panel
     const gridControl = new GridControl();
@@ -263,6 +265,15 @@ $(document).ready(function () {
             e.preventDefault();
             pasteObjectsControl.toggle();
         }
+        // 'I' to focus map ID input
+        else if (key === 'i' || key === 'I') {
+            e.preventDefault();
+            const mapIdInput = document.querySelector('.map-id-input');
+            if (mapIdInput) {
+                mapIdInput.focus();
+                mapIdInput.select();
+            }
+        }
         // '?' to show help and settings
         else if (key === '?') {
             e.preventDefault();
@@ -287,6 +298,7 @@ $(document).ready(function () {
                             <div><kbd>L</kbd></div><div>Toggle layer panel</div>
                             <div><kbd>M</kbd></div><div>Distance measuring tool</div>
                             <div><kbd>P</kbd></div><div>Paste objects panel</div>
+                            <div><kbd>I</kbd></div><div>Focus map ID input</div>
                             <div><kbd>Right-click</kbd></div><div>Context menu</div>
                             <div><kbd>?</kbd></div><div>Show this help</div>
                         </div>
