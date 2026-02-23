@@ -75,7 +75,7 @@ export const PinDropControl = L.Control.extend({
             regionId: region.id,
         };
 
-        const marker = L.marker(L.latLng(position.y - 0.5, position.x + 0.5), {
+        const marker = L.marker(L.latLng(position.y + 0.5, position.x + 0.5), {
             icon: L.divIcon({
                 className: 'pin-marker-icon',
                 html: `<svg viewBox="0 0 24 24" width="28" height="28"><path fill="var(--accent-magenta)" stroke="var(--bg-primary)" stroke-width="1.5" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>`,
@@ -173,7 +173,7 @@ export const PinDropControl = L.Control.extend({
 
             L.DomEvent.on(goToBtn, 'click', (e) => {
                 L.DomEvent.stopPropagation(e);
-                this._map.panTo(L.latLng(pin.y - 0.5, pin.x + 0.5));
+                this._map.panTo(L.latLng(pin.y + 0.5, pin.x + 0.5));
                 this._map.setPlane(pin.plane);
             });
 
@@ -184,7 +184,7 @@ export const PinDropControl = L.Control.extend({
 
             L.DomEvent.on(item, 'click', (e) => {
                 L.DomEvent.stopPropagation(e);
-                this._map.panTo(L.latLng(pin.y - 0.5, pin.x + 0.5));
+                this._map.panTo(L.latLng(pin.y + 0.5, pin.x + 0.5));
                 this._map.setPlane(pin.plane);
             });
         });

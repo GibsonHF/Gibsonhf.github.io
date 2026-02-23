@@ -188,7 +188,7 @@ export const NPCPositionsControl = L.Control.extend({
 
         locationGroups.forEach((npcs, key) => {
             const [x, y] = key.split(',').map(Number);
-            const latLng = L.latLng(y - 1, x);
+            const latLng = L.latLng(y, x);
 
             const hasMultiple = npcs.length > 1;
             const marker = L.circleMarker(latLng, {
@@ -227,6 +227,15 @@ export const NPCPositionsControl = L.Control.extend({
 
             marker.on('click', () => {
                 this._showNPCPopup(latLng, npcs);
+                if (this._wikiPanel && npcs.length === 1) {
+                    this._wikiPanel.show({
+                        name: npcs[0].npc_name,
+                        type: 'NPC',
+                        id: npcs[0].npc_id,
+                        actions: [],
+                        coords: { x: npcs[0].x, y: npcs[0].y, plane: npcs[0].plane },
+                    });
+                }
             });
 
             this._layerGroup.addLayer(marker);

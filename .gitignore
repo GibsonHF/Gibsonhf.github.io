@@ -1,1 +1,6 @@
 update_and_push.sh
+node_modules/
+resources/
+tools/
+package.json
+package-lock.json

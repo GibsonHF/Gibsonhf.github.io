@@ -326,7 +326,7 @@ export const RS3TransportControl = L.Control.extend({
         const nodes = group.nodes;
         const x = group.x;
         const y = group.y;
-        const latLng = L.latLng(y - 1, x);
+        const latLng = L.latLng(y, x);
 
         // Determine marker color - use mixed color if multiple categories
         const categories = [...new Set(nodes.map(n => n.category))];
@@ -378,10 +378,18 @@ export const RS3TransportControl = L.Control.extend({
             this._bindHoverTooltip(marker, this._buildTooltip(nodes[0]));
         }
 
-        // Click handler - show popup with list
         marker.on('click', (e) => {
             L.DomEvent.stopPropagation(e);
             this._showNodeListPopup(latLng, nodes, type);
+            if (this._wikiPanel && nodes.length === 1) {
+                this._wikiPanel.show({
+                    name: nodes[0].groupName,
+                    type: 'Transport',
+                    id: nodes[0].id,
+                    actions: [],
+                    coords: { x: nodes[0].x, y: nodes[0].y, plane: nodes[0].plane },
+                });
+            }
         });
 
         this._layerGroup.addLayer(marker);
@@ -397,8 +405,8 @@ export const RS3TransportControl = L.Control.extend({
     },
 
     _addTransportLine: function (node) {
-        const srcLatLng = L.latLng(node.y - 1, node.x);
-        const dstLatLng = L.latLng(node.dst_y - 1, node.dst_x);
+        const srcLatLng = L.latLng(node.y, node.x);
+        const dstLatLng = L.latLng(node.dst_y, node.dst_x);
 
         // Draw line with lower opacity
         const polyline = L.polyline([srcLatLng, dstLatLng], {

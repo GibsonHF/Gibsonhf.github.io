@@ -95,7 +95,7 @@ export const LocationTrackerControl = L.Control.extend({
     },
 
     _updatePosition: function (data) {
-        const latLng = L.latLng(data.y - 0.5, data.x + 0.5);
+        const latLng = L.latLng(data.y + 0.5, data.x + 0.5);
         const region = Region.fromCoordinates(data.x, data.y);
         const name = data.name || 'Player';
 

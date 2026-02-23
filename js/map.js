@@ -22,6 +22,8 @@ import { ContextMenuControl } from './controls/context_menu_control.js';
 import { DistanceToolControl } from './controls/distance_tool_control.js';
 import { PasteObjectsControl } from './controls/paste_objects_control.js';
 import { PinDropControl } from './controls/pin_drop_control.js';
+import { WikiPanelControl } from './controls/wiki_panel_control.js';
+import { ObjectExplorerControl } from './controls/object_explorer_control.js';
 
 // Copy to clipboard utility
 async function copyToClipboard(text) {
@@ -130,6 +132,7 @@ $(document).ready(function () {
     const transportControl = new TransportNodesControl();
     const rs3TransportControl = new RS3TransportControl();
     const npcPositionsControl = new NPCPositionsControl();
+    const objectExplorerControl = new ObjectExplorerControl();
 
     // Add controls to map (they won't show their own UI)
     map.addControl(gridControl);
@@ -138,6 +141,7 @@ $(document).ready(function () {
     map.addControl(transportControl);
     map.addControl(rs3TransportControl);
     map.addControl(npcPositionsControl);
+    map.addControl(objectExplorerControl);
 
     const pinDropControl = new PinDropControl({ position: 'topright' });
     map.addControl(pinDropControl);
@@ -165,11 +169,30 @@ $(document).ready(function () {
         gridControl: gridControl,
         regionLabelsControl: regionLabelsControl,
         npcPositionsControl: npcPositionsControl,
+        objectExplorerControl: objectExplorerControl,
     }));
 
     // Add paste objects control
     const pasteObjectsControl = new PasteObjectsControl({ position: 'topright' });
     map.addControl(pasteObjectsControl);
+
+    const wikiPanel = new WikiPanelControl();
+    map.addControl(wikiPanel);
+
+    objectExplorerControl._onObjectClick = function (obj) {
+        wikiPanel.show({
+            name: obj.name,
+            type: 'Object',
+            id: obj.id,
+            actions: obj.actions ? obj.actions.split(',').map(a => a.trim()).filter(Boolean) : [],
+            coords: { x: obj.x, y: obj.y, plane: obj.plane },
+        });
+    };
+
+    pasteObjectsControl._wikiPanel = wikiPanel;
+    transportControl._wikiPanel = wikiPanel;
+    rs3TransportControl._wikiPanel = wikiPanel;
+    npcPositionsControl._wikiPanel = wikiPanel;
 
     // Mouse position indicator
     let prevMouseRect, prevMousePos;
@@ -274,6 +297,9 @@ $(document).ready(function () {
                 mapIdInput.select();
             }
         }
+        else if (key === 'Escape') {
+            wikiPanel.hide();
+        }
         // '?' to show help and settings
         else if (key === '?') {
             e.preventDefault();
@@ -299,6 +325,7 @@ $(document).ready(function () {
                             <div><kbd>M</kbd></div><div>Distance measuring tool</div>
                             <div><kbd>P</kbd></div><div>Paste objects panel</div>
                             <div><kbd>I</kbd></div><div>Focus map ID input</div>
+                            <div><kbd>Escape</kbd></div><div>Close wiki panel</div>
                             <div><kbd>Right-click</kbd></div><div>Context menu</div>
                             <div><kbd>?</kbd></div><div>Show this help</div>
                         </div>

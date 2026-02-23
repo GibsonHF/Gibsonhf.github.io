@@ -24,6 +24,7 @@ export const LayerPanelControl = L.Control.extend({
         this._gridControl = options.gridControl || null;
         this._regionLabelsControl = options.regionLabelsControl || null;
         this._npcPositionsControl = options.npcPositionsControl || null;
+        this._objectExplorerControl = options.objectExplorerControl || null;
     },
 
     onAdd: function (map) {
@@ -222,6 +223,16 @@ export const LayerPanelControl = L.Control.extend({
             this._npcPositionsStatusEl = npcStatus;
         }
 
+        if (this._objectExplorerControl) {
+            const objectExplorerSection = this._createSection(sections, 'Object Explorer', [
+                { id: 'object-explorer', label: 'Show Objects', checked: false, color: '#38d3cf', onChange: (checked) => this._toggleObjectExplorer(checked) },
+            ]);
+
+            const objectExplorerStatus = L.DomUtil.create('div', 'layer-panel-status', objectExplorerSection);
+            objectExplorerStatus.id = 'object-explorer-status';
+            this._objectExplorerStatusEl = objectExplorerStatus;
+        }
+
         // Toggle panel visibility
         let panelVisible = false;
         L.DomEvent.on(toggleBtn, 'click', (e) => {
@@ -256,6 +267,12 @@ export const LayerPanelControl = L.Control.extend({
         if (this._npcPositionsControl) {
             this._npcPositionsControl.onStatusChange = (status) => {
                 this._updateStatusWithSpinner(this._npcPositionsStatusEl, status);
+            };
+        }
+
+        if (this._objectExplorerControl) {
+            this._objectExplorerControl.onStatusChange = (status) => {
+                this._updateStatusWithSpinner(this._objectExplorerStatusEl, status);
             };
         }
 
@@ -369,6 +386,12 @@ export const LayerPanelControl = L.Control.extend({
     _toggleNPCPositions: function (visible) {
         if (this._npcPositionsControl) {
             this._npcPositionsControl.setEnabled(visible);
+        }
+    },
+
+    _toggleObjectExplorer: function (visible) {
+        if (this._objectExplorerControl) {
+            this._objectExplorerControl.setEnabled(visible);
         }
     },
 

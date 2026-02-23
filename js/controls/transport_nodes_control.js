@@ -210,7 +210,7 @@ export const TransportNodesControl = L.Control.extend({
         const nodes = group.nodes;
         const x = group.x;
         const y = group.y;
-        const latLng = L.latLng(y - 1, x);
+        const latLng = L.latLng(y, x);
 
         const primaryColor = KIND_COLORS[nodes[0].kind] || '#ffffff';
         const hasMultiple = nodes.length > 1;
@@ -260,10 +260,22 @@ export const TransportNodesControl = L.Control.extend({
             this._bindHoverTooltip(marker, this._buildTooltip(nodes[0]));
         }
 
-        // Click handler - show popup with list
         marker.on('click', (e) => {
             L.DomEvent.stopPropagation(e);
             this._showNodeListPopup(latLng, nodes, type);
+            if (this._wikiPanel && nodes.length === 1) {
+                const node = nodes[0];
+                const name = this._getNodeName(node);
+                if (name) {
+                    this._wikiPanel.show({
+                        name: name,
+                        type: node.kind.charAt(0).toUpperCase() + node.kind.slice(1),
+                        id: node.id,
+                        actions: [],
+                        coords: { x: node.x, y: node.y, plane: node.plane },
+                    });
+                }
+            }
         });
 
         this._layerGroup.addLayer(marker);
@@ -285,8 +297,8 @@ export const TransportNodesControl = L.Control.extend({
             return;
         }
 
-        const srcLatLng = L.latLng(srcPoint.y - 1, srcPoint.x);
-        const dstLatLng = L.latLng(destPoint.y - 1, destPoint.x);
+        const srcLatLng = L.latLng(srcPoint.y, srcPoint.x);
+        const dstLatLng = L.latLng(destPoint.y, destPoint.x);
 
         // Draw line with lower opacity
         const polyline = L.polyline([srcLatLng, dstLatLng], {
@@ -543,6 +555,17 @@ export const TransportNodesControl = L.Control.extend({
             direction: 'top',
             offset: [0, -6],
         });
+    },
+
+    _getNodeName: function (node) {
+        if (!node.detail) return null;
+        if (node.kind === 'npc') return node.detail.npc_name;
+        if (node.kind === 'object') return node.detail.object_name;
+        if (node.kind === 'item') return node.detail.name;
+        if (node.kind === 'lodestone') return node.detail.lodestone;
+        if (node.kind === 'fairy_ring') return 'Fairy ring';
+        if (node.kind === 'door') return 'Door';
+        return null;
     },
 
     _focusLocation: function (node, target) {

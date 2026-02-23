@@ -257,7 +257,7 @@ export const PasteObjectsControl = L.Control.extend({
         const currentPlane = this._map.getPlane();
 
         for (const obj of this._objects) {
-            const marker = L.circleMarker([obj.y - 0.5, obj.x + 0.5], {
+            const marker = L.circleMarker([obj.y + 0.5, obj.x + 0.5], {
                 radius: 6,
                 color: '#ff6b35',
                 fillColor: '#ff6b35',
@@ -280,6 +280,18 @@ export const PasteObjectsControl = L.Control.extend({
                 direction: 'top',
                 className: 'pasted-object-tooltip-container',
                 offset: [0, -8],
+            });
+
+            marker.on('click', () => {
+                if (this._wikiPanel) {
+                    this._wikiPanel.show({
+                        name: obj.name,
+                        type: 'Object',
+                        id: obj.id,
+                        actions: obj.actions,
+                        coords: { x: obj.x, y: obj.y, plane: obj.plane },
+                    });
+                }
             });
 
             marker._objectData = obj;

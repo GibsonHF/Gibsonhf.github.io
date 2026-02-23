@@ -268,8 +268,8 @@ export const DistanceToolControl = L.Control.extend({
 
     _drawStraightLineFromPoints: function (startPoint, endPoint) {
         const latLngs = [
-            L.latLng(startPoint.y - 0.5, startPoint.x + 0.5),
-            L.latLng(endPoint.y - 0.5, endPoint.x + 0.5),
+            L.latLng(startPoint.y + 0.5, startPoint.x + 0.5),
+            L.latLng(endPoint.y + 0.5, endPoint.x + 0.5),
         ];
         const polyline = L.polyline(latLngs, {
             color: '#e74c3c',
@@ -288,7 +288,7 @@ export const DistanceToolControl = L.Control.extend({
     },
 
     _drawPath: function (path) {
-        const latLngs = path.map(p => L.latLng(p.y - 0.5, p.x + 0.5));
+        const latLngs = path.map(p => L.latLng(p.y + 0.5, p.x + 0.5));
 
         const polyline = L.polyline(latLngs, {
             color: '#39c5cf',
@@ -310,7 +310,7 @@ export const DistanceToolControl = L.Control.extend({
             closeOnEscapeKey: true,
             className: 'distance-popup-container',
         })
-            .setLatLng(L.latLng(midPoint.y - 0.5, midPoint.x + 0.5))
+            .setLatLng(L.latLng(midPoint.y + 0.5, midPoint.x + 0.5))
             .setContent(`
                 <div class="distance-popup">
                     <div class="distance-popup-value">${distance}</div>
@@ -325,7 +325,7 @@ export const DistanceToolControl = L.Control.extend({
 
     _addMarker: function (pos, type) {
         const color = type === 'start' ? '#2ecc71' : '#e74c3c';
-        const marker = L.circleMarker(L.latLng(pos.y - 0.5, pos.x + 0.5), {
+        const marker = L.circleMarker(L.latLng(pos.y + 0.5, pos.x + 0.5), {
             radius: 8,
             color: color,
             fillColor: color,

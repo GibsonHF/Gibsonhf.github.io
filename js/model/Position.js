@@ -8,7 +8,7 @@ export class Position {
     }
 
     static fromLatLng(latLng, plane) {
-        return new Position(latLng.lng, latLng.lat + 1, plane);
+        return new Position(latLng.lng, latLng.lat, plane);
     }
 
     toLatLng() {
@@ -20,7 +20,7 @@ export class Position {
     }
 
     static toLatLng(x, y) {
-        return L.latLng(y - 1, x);
+        return L.latLng(y, x);
     }
 
     getDistance(position) {

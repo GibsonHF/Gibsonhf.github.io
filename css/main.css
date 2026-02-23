@@ -1140,6 +1140,9 @@ input[type="number"] {
 .layer-panel-content.visible .layer-panel-section:nth-child(2) { animation-delay: 0.1s; }
 .layer-panel-content.visible .layer-panel-section:nth-child(3) { animation-delay: 0.15s; }
 .layer-panel-content.visible .layer-panel-section:nth-child(4) { animation-delay: 0.2s; }
+.layer-panel-content.visible .layer-panel-section:nth-child(5) { animation-delay: 0.25s; }
+.layer-panel-content.visible .layer-panel-section:nth-child(6) { animation-delay: 0.3s; }
+.layer-panel-content.visible .layer-panel-section:nth-child(7) { animation-delay: 0.35s; }
 
 @keyframes fadeSlideIn {
     from {
@@ -2804,5 +2807,185 @@ kbd {
         right: 10px;
         left: 10px;
         width: auto;
+    }
+}
+
+/* ==========================================================================
+   Wiki Panel
+   ========================================================================== */
+
+.wiki-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 340px;
+    background: var(--bg-secondary);
+    border-left: 1px solid var(--border-color);
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.4);
+    z-index: 2000;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-mono);
+}
+
+.wiki-panel.visible {
+    transform: translateX(0);
+}
+
+.wiki-panel-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+    z-index: 1;
+}
+
+.wiki-panel-close:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+    border-color: var(--border-light);
+}
+
+.wiki-panel-header {
+    padding: 16px 20px;
+    padding-right: 48px;
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.wiki-panel-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    font-family: var(--font-mono);
+    word-break: break-word;
+}
+
+.wiki-panel-subtitle {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+}
+
+.wiki-panel-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 20px;
+}
+
+.wiki-panel-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.wiki-panel-body::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+.wiki-panel-body::-webkit-scrollbar-thumb {
+    background: var(--accent-cyan);
+}
+
+.wiki-panel-section {
+    margin-bottom: 16px;
+}
+
+.wiki-panel-section-title {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.wiki-panel-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 6px 0;
+    gap: 12px;
+}
+
+.wiki-panel-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    min-width: 70px;
+}
+
+.wiki-panel-value {
+    font-size: 11px;
+    color: var(--text-primary);
+    text-align: right;
+    word-break: break-word;
+    flex: 1;
+}
+
+.wiki-panel-value.members-yes {
+    color: var(--accent-green);
+}
+
+.wiki-panel-value.members-no {
+    color: var(--accent-red);
+}
+
+.wiki-panel-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+    gap: 12px;
+}
+
+.wiki-panel-loading-text {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.wiki-panel-error {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.wiki-panel-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-end;
+}
+
+.wiki-panel-action-tag {
+    padding: 3px 8px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 10px;
+    color: var(--accent-cyan);
+}
+
+@media (max-width: 768px) {
+    .wiki-panel {
+        width: 100%;
     }
 }
