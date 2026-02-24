@@ -1,4 +1,5 @@
 update_and_push.sh
+build_objects.sh
 node_modules/
 resources/
 tools/
