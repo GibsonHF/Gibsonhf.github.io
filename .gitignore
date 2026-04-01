@@ -2,6 +2,7 @@ update_and_push.sh
 build_objects.sh
 node_modules/
 resources/
+!resources/rs3_locations.json
 tools/
 package.json
 package-lock.json
