@@ -487,6 +487,15 @@
       "size": "default"
     },
     {
+      "name": "Asgarnia Ice Cave",
+      "coords": [
+        3007,
+        9567,
+        0
+      ],
+      "size": "default"
+    },
+    {
       "name": "Asgarnian Ice Dungeon",
       "coords": [
         2989,
@@ -865,6 +874,15 @@
       "size": "default"
     },
     {
+      "name": "Black Arm Gang hideout",
+      "coords": [
+        3243,
+        9771,
+        0
+      ],
+      "size": "default"
+    },
+    {
       "name": "Black demons",
       "coords": [
         2707,
@@ -982,6 +1000,15 @@
       "size": "default"
     },
     {
+      "name": "Blast furnace",
+      "coords": [
+        1951,
+        4959,
+        0
+      ],
+      "size": "default"
+    },
+    {
       "name": "Blighted Cave",
       "coords": [
         3424,
@@ -1031,6 +1058,15 @@
       "coords": [
         1605,
         5281,
+        0
+      ],
+      "size": "default"
+    },
+    {
+      "name": "Blue Moon Inn cellar",
+      "coords": [
+        3235,
+        9799,
         0
       ],
       "size": "default"
@@ -1454,6 +1490,15 @@
       "coords": [
         1888,
         5128,
+        0
+      ],
+      "size": "default"
+    },
+    {
+      "name": "Champions' Arena",
+      "coords": [
+        3167,
+        9759,
         0
       ],
       "size": "default"
@@ -2647,6 +2692,15 @@
       "size": "default"
     },
     {
+      "name": "Dreamer's Cave",
+      "coords": [
+        1439,
+        6495,
+        0
+      ],
+      "size": "default"
+    },
+    {
       "name": "Duel Arena",
       "coords": [
         3232,
@@ -3457,6 +3511,15 @@
       "size": "medium"
     },
     {
+      "name": "Fort Forinthry",
+      "coords": [
+        3290,
+        3520,
+        0
+      ],
+      "size": "medium"
+    },
+    {
       "name": "Fort Forinthry Grove Cave",
       "coords": [
         3840,
@@ -3725,6 +3788,15 @@
         0
       ],
       "size": "large"
+    },
+    {
+      "name": "Goblin Mines",
+      "coords": [
+        3263,
+        9631,
+        0
+      ],
+      "size": "default"
     },
     {
       "name": "Goblin temple",
@@ -4055,6 +4127,15 @@
       "coords": [
         2559,
         5759,
+        0
+      ],
+      "size": "default"
+    },
+    {
+      "name": "H.A.M. cave",
+      "coords": [
+        3167,
+        9631,
         0
       ],
       "size": "default"
@@ -4433,6 +4514,15 @@
       "coords": [
         3424,
         5664,
+        0
+      ],
+      "size": "default"
+    },
+    {
+      "name": "Ice Cave",
+      "coords": [
+        3423,
+        4383,
         0
       ],
       "size": "default"
@@ -4915,10 +5005,28 @@
       "size": "default"
     },
     {
+      "name": "Keldagrim entrance tunnel",
+      "coords": [
+        2783,
+        10143,
+        0
+      ],
+      "size": "default"
+    },
+    {
       "name": "Keldagrim records chamber",
       "coords": [
         1952,
         5856,
+        0
+      ],
+      "size": "default"
+    },
+    {
+      "name": "Keldagrim Records Chamber",
+      "coords": [
+        1823,
+        5855,
         0
       ],
       "size": "default"
@@ -5018,6 +5126,15 @@
       "coords": [
         2271,
         4697,
+        0
+      ],
+      "size": "default"
+    },
+    {
+      "name": "King Black Dragon's Lair",
+      "coords": [
+        2271,
+        4703,
         0
       ],
       "size": "default"
@@ -5212,10 +5329,28 @@
       "size": "default"
     },
     {
+      "name": "Lava flow mine",
+      "coords": [
+        2207,
+        5663,
+        0
+      ],
+      "size": "default"
+    },
+    {
       "name": "Lava Maze",
       "coords": [
         3079,
         3848,
+        0
+      ],
+      "size": "default"
+    },
+    {
+      "name": "Lava Maze Dungeon",
+      "coords": [
+        3039,
+        10271,
         0
       ],
       "size": "default"
@@ -5356,6 +5491,15 @@
       "size": "default"
     },
     {
+      "name": "Living Rock Caverns",
+      "coords": [
+        3647,
+        5119,
+        0
+      ],
+      "size": "default"
+    },
+    {
       "name": "Lizards",
       "coords": [
         3423,
@@ -5419,6 +5563,15 @@
       "size": "default"
     },
     {
+      "name": "Lumbridge cellar",
+      "coords": [
+        3295,
+        4959,
+        0
+      ],
+      "size": "default"
+    },
+    {
       "name": "Lumbridge Mine",
       "coords": [
         3104,
@@ -5432,6 +5585,15 @@
       "coords": [
         3189,
         3162,
+        0
+      ],
+      "size": "default"
+    },
+    {
+      "name": "Lumbridge Swamp caves",
+      "coords": [
+        3199,
+        9567,
         0
       ],
       "size": "default"
@@ -5453,6 +5615,15 @@
         0
       ],
       "size": "large"
+    },
+    {
+      "name": "Lunar Isle Mine",
+      "coords": [
+        2335,
+        10335,
+        2
+      ],
+      "size": "default"
     },
     {
       "name": "Mage Arena",
@@ -5635,10 +5806,28 @@
       "size": "default"
     },
     {
+      "name": "Meiyerditch Mine",
+      "coords": [
+        2387,
+        4627,
+        2
+      ],
+      "size": "default"
+    },
+    {
       "name": "Meiyerditch Myreque base",
       "coords": [
         3616,
         9632,
+        0
+      ],
+      "size": "default"
+    },
+    {
+      "name": "Meiyerditch Tunnels",
+      "coords": [
+        3615,
+        9695,
         0
       ],
       "size": "default"
@@ -5759,6 +5948,15 @@
         0
       ],
       "size": "large"
+    },
+    {
+      "name": "Miscellania cave",
+      "coords": [
+        2559,
+        10271,
+        0
+      ],
+      "size": "default"
     },
     {
       "name": "Miscellania Expansion",
@@ -6589,10 +6787,28 @@
       "size": "default"
     },
     {
+      "name": "Party room",
+      "coords": [
+        2083,
+        4459,
+        0
+      ],
+      "size": "default"
+    },
+    {
       "name": "Paterdomus",
       "coords": [
         3424,
         9888,
+        0
+      ],
+      "size": "default"
+    },
+    {
+      "name": "Penguin outpost",
+      "coords": [
+        2655,
+        10399,
         0
       ],
       "size": "default"
@@ -6796,6 +7012,15 @@
       "size": "default"
     },
     {
+      "name": "Pollninveach Dungeon",
+      "coords": [
+        3359,
+        9407,
+        0
+      ],
+      "size": "default"
+    },
+    {
       "name": "Pollnivneach",
       "coords": [
         3356,
@@ -6857,6 +7082,15 @@
         0
       ],
       "size": "medium"
+    },
+    {
+      "name": "Port Phasmatys Distillery",
+      "coords": [
+        3679,
+        9959,
+        0
+      ],
+      "size": "default"
     },
     {
       "name": "Port Sarim",
@@ -7079,6 +7313,15 @@
       "coords": [
         2912,
         5088,
+        0
+      ],
+      "size": "default"
+    },
+    {
+      "name": "Rat pit",
+      "coords": [
+        1951,
+        4703,
         0
       ],
       "size": "default"
@@ -7718,6 +7961,15 @@
       "coords": [
         2016,
         4223,
+        0
+      ],
+      "size": "default"
+    },
+    {
+      "name": "Shade Catacombs",
+      "coords": [
+        3487,
+        9695,
         0
       ],
       "size": "default"
@@ -8515,6 +8767,15 @@
       "size": "default"
     },
     {
+      "name": "Tears Of Guthix cavern",
+      "coords": [
+        3231,
+        9503,
+        2
+      ],
+      "size": "default"
+    },
+    {
       "name": "Tegdak",
       "coords": [
         2746,
@@ -8564,6 +8825,15 @@
       "coords": [
         2656,
         9824,
+        0
+      ],
+      "size": "default"
+    },
+    {
+      "name": "Temple Of Ikov",
+      "coords": [
+        2647,
+        9763,
         0
       ],
       "size": "default"
@@ -9775,6 +10045,15 @@
       "size": "medium"
     },
     {
+      "name": "Werewolf Agility Course",
+      "coords": [
+        3551,
+        9887,
+        0
+      ],
+      "size": "default"
+    },
+    {
       "name": "West Ardougne",
       "coords": [
         2524,
@@ -10211,6 +10490,15 @@
       "coords": [
         3131,
         6909,
+        0
+      ],
+      "size": "default"
+    },
+    {
+      "name": "ZMI Altar",
+      "coords": [
+        3295,
+        4831,
         0
       ],
       "size": "default"
