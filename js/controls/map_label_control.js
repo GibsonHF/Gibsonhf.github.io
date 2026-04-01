@@ -10,75 +10,93 @@ var MapLabelsCanvas = CanvasLayer.extend({
     },
 
     onDrawLayer: function (info) {
-        var zoom = this._map.getZoom();
-
+        var zoom = info.layer._map.getZoom();
         var ctx = info.canvas.getContext('2d');
         ctx.clearRect(0, 0, info.canvas.width, info.canvas.height);
-
         ctx.textAlign = "center";
-        var self = this;
+
+        const sizePriority = { large: 0, medium: 1, default: 2 };
+        const sizeProps = {
+            large:   { baseSize: 11, fontColour: '#ffaa00', minZoom: -4 },
+            medium:  { baseSize: 7,  fontColour: 'white',   minZoom: -1 },
+            default: { baseSize: 5,  fontColour: 'white',   minZoom: 1  },
+        };
+        const PAD = 4;
+
         Locations.getLocations(function (locations) {
-            for (var i in locations) {
-                if (locations[i].position.z !== info.layer._map.plane) {
-                    continue;
-                }
+            const plane = info.layer._map.getPlane();
 
-                let fontSize;
-                let fontColour;
+            // Filter to visible, then sort large→medium→default
+            const visible = locations.filter(loc => loc.position.plane === plane);
+            visible.sort((a, b) => (sizePriority[a.size] ?? 2) - (sizePriority[b.size] ?? 2));
 
-                // Scale the font, and change colour based on location size
-                switch (locations[i].size) {
-                    case 'default':
-                        fontSize = 0.08
-                        fontColour = 'white';
-                        break;
-                    case 'medium':
-                        fontSize = 0.10
-                        fontColour = 'white';
-                        break;
-                    case 'large':
-                        fontSize = 0.18
-                        fontColour = '#ffaa00';
-                }
+            const drawn = []; // bounding boxes of already-drawn labels
 
-                // Scale font size to match zoom
-                const fontSizeScaled = fontSize * Math.pow(2, zoom);
+            for (var i = 0; i < visible.length; i++) {
+                const loc = visible[i];
+                const props = sizeProps[loc.size] || sizeProps.default;
 
-                ctx.font = `bold ${fontSizeScaled}px Verdana`
-                ctx.fillStyle = fontColour
+                if (zoom < props.minZoom) continue;
 
-                var position = locations[i].position;
-                var latLng = position.toCentreLatLng(self._map);
-                var canvasPoint = info.layer._map.latLngToContainerPoint(latLng);
+                const fontSizeScaled = props.baseSize * Math.pow(2, zoom);
+                if (fontSizeScaled < 6) continue;
 
-                const name = locations[i].name
+                ctx.font = `bold ${fontSizeScaled}px Verdana`;
 
-                const words = name.split(' ')
+                const latLng = loc.position.toCentreLatLng();
+                const pt = info.layer._map.latLngToContainerPoint(latLng);
 
-                const lines = []
-
-                let line = "";
+                // Word-wrap
+                const words = loc.name.split(' ');
+                const lines = [];
+                let line = '';
                 words.forEach(word => {
-                    if ((line + word).length < 10) {
-                        if (line !== "") {
-                            line += " "
-                        }
-                        line += word
+                    if (line === '') {
+                        line = word;
+                    } else if ((line + ' ' + word).length <= 12) {
+                        line += ' ' + word;
                     } else {
                         lines.push(line);
                         line = word;
                     }
-                })
-                if (line !== "") {
-                    lines.push(line);
-                }
+                });
+                if (line !== '') lines.push(line);
 
-                let y = canvasPoint.y;
-                lines.forEach(line => {
-                    ctx.strokeText(line, canvasPoint.x, y);
-                    ctx.fillText(line, canvasPoint.x, y);
-                    y += (fontSize + 0.02) * Math.pow(2, zoom);
-                })
+                const lineHeight = fontSizeScaled * 1.2;
+                const maxW = Math.max(...lines.map(l => ctx.measureText(l).width));
+                const totalH = lines.length * lineHeight;
+                const top    = pt.y - (lines.length - 1) * lineHeight / 2 - fontSizeScaled * 0.8;
+                const box = {
+                    x: pt.x - maxW / 2 - PAD,
+                    y: top - PAD,
+                    w: maxW + PAD * 2,
+                    h: totalH + PAD * 2
+                };
+
+                // Collision check
+                let collides = false;
+                for (var j = 0; j < drawn.length; j++) {
+                    const b = drawn[j];
+                    if (box.x < b.x + b.w && box.x + box.w > b.x &&
+                        box.y < b.y + b.h && box.y + box.h > b.y) {
+                        collides = true;
+                        break;
+                    }
+                }
+                if (collides) continue;
+                drawn.push(box);
+
+                ctx.fillStyle = props.fontColour;
+                ctx.strokeStyle = 'rgba(0,0,0,0.85)';
+                ctx.lineWidth = fontSizeScaled * 0.18;
+                ctx.lineJoin = 'round';
+
+                let y = pt.y - (lines.length - 1) * lineHeight / 2;
+                lines.forEach(l => {
+                    ctx.strokeText(l, pt.x, y);
+                    ctx.fillText(l, pt.x, y);
+                    y += lineHeight;
+                });
             }
         });
     }
@@ -93,38 +111,40 @@ export var MapLabelControl = L.Control.extend({
     onAdd: function (map) {
         map.createPane("map-labels");
 
-        var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control noselect');
-        container.style.background = 'none';
-        container.style.width = '100px';
-        container.style.height = 'auto';
+        this._enabled = false;
+        this._map.getPane("map-labels").style.display = "none";
 
-        var labelsButton = L.DomUtil.create('a', 'leaflet-bar leaflet-control leaflet-control-custom', container);
-        labelsButton.id = 'toggle-map-labels';
-        labelsButton.innerHTML = 'Toggle Labels';
-
-        L.DomEvent.on(labelsButton, 'click', this._toggleMapLabels, this);
-
-        this._enabled = true;
-
-        L.DomEvent.disableClickPropagation(container);
+        var container = L.DomUtil.create('div');
+        container.style.display = 'none';
 
         this._mapLabelsCanvas = new MapLabelsCanvas({ pane: "map-labels" });
         this._map.addLayer(this._mapLabelsCanvas);
 
         map.on('planeChanged', function () {
-            this._mapLabelsCanvas.drawLayer();
+            this._mapLabelsCanvas.needRedraw();
         }, this);
 
         return container;
     },
 
-    _toggleMapLabels: function () {
-        if (this._enabled) {
-            this._map.getPane("map-labels").style.display = "none";
-            this._enabled = false;
-        } else {
-            this._map.getPane("map-labels").style.display = "";
-            this._enabled = true;
+    isEnabled: function () {
+        return this._enabled;
+    },
+
+    setEnabled: function (enabled) {
+        this._enabled = enabled;
+        if (this._map) {
+            const pane = this._map.getPane("map-labels");
+            if (pane) {
+                pane.style.display = enabled ? "" : "none";
+            }
+            if (enabled) {
+                this._mapLabelsCanvas.needRedraw();
+            }
         }
-    }
+    },
+
+    toggle: function () {
+        this.setEnabled(!this._enabled);
+    },
 });

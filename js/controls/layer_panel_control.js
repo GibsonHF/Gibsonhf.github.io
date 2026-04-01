@@ -25,6 +25,7 @@ export const LayerPanelControl = L.Control.extend({
         this._regionLabelsControl = options.regionLabelsControl || null;
         this._npcPositionsControl = options.npcPositionsControl || null;
         this._objectExplorerControl = options.objectExplorerControl || null;
+        this._mapLabelControl = options.mapLabelControl || null;
     },
 
     onAdd: function (map) {
@@ -57,6 +58,7 @@ export const LayerPanelControl = L.Control.extend({
         this._createSection(sections, 'Overlays', [
             { id: 'grid', label: 'Grid Lines', checked: false, color: '#58a6ff', onChange: (checked) => this._toggleGrid(checked) },
             { id: 'region-labels', label: 'Region Labels', checked: false, onChange: (checked) => this._toggleRegionLabels(checked) },
+            { id: 'map-labels', label: 'Map Labels', checked: false, color: '#ffaa00', onChange: (checked) => this._toggleMapLabels(checked) },
         ]);
 
         // Walkable Tiles Section
@@ -362,6 +364,12 @@ export const LayerPanelControl = L.Control.extend({
     _toggleRegionLabels: function (visible) {
         if (this._regionLabelsControl) {
             this._regionLabelsControl.setEnabled(visible);
+        }
+    },
+
+    _toggleMapLabels: function (visible) {
+        if (this._mapLabelControl) {
+            this._mapLabelControl.setEnabled(visible);
         }
     },
 

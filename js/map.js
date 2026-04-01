@@ -24,6 +24,8 @@ import { PasteObjectsControl } from './controls/paste_objects_control.js';
 import { PinDropControl } from './controls/pin_drop_control.js';
 import { WikiPanelControl } from './controls/wiki_panel_control.js';
 import { ObjectExplorerControl } from './controls/object_explorer_control.js';
+import { MapLabelControl } from './controls/map_label_control.js';
+import { LocationSearchControl } from './controls/location_search_control.js';
 
 // Copy to clipboard utility
 async function copyToClipboard(text) {
@@ -99,6 +101,8 @@ $(document).ready(function () {
     });
 
     // Map squares layer
+    // SELF-HOSTED: swap to this after rsmv dump + push_tiles.sh
+    // const mapLayer = L.tileLayer.main('https://raw.githubusercontent.com/GibsonHF/rs3-map-tiles/main/map_squares/{mapId}/{zoom}/{plane}_{x}_{y}.png', {
     const mapLayer = L.tileLayer.main('https://raw.githubusercontent.com/mejrs/layers_rs3/master/map_squares/{mapId}/{zoom}/{plane}_{x}_{y}.png', {
         minZoom: -4,
         maxNativeZoom: 3,
@@ -106,6 +110,7 @@ $(document).ready(function () {
     }).addTo(map);
 
     // Icons layer (pre-rendered, all icons)
+    // SELF-HOSTED: const iconLayer = L.tileLayer.main('https://raw.githubusercontent.com/GibsonHF/rs3-map-tiles/main/icon_squares/{mapId}/{zoom}/{plane}_{x}_{y}.png', {
     const iconLayer = L.tileLayer.main('https://raw.githubusercontent.com/mejrs/layers_rs3/master/icon_squares/{mapId}/{zoom}/{plane}_{x}_{y}.png', {
         minZoom: -4,
         maxNativeZoom: 3,
@@ -133,6 +138,7 @@ $(document).ready(function () {
     const rs3TransportControl = new RS3TransportControl();
     const npcPositionsControl = new NPCPositionsControl();
     const objectExplorerControl = new ObjectExplorerControl();
+    const mapLabelControl = new MapLabelControl();
 
     // Add controls to map (they won't show their own UI)
     map.addControl(gridControl);
@@ -142,6 +148,11 @@ $(document).ready(function () {
     map.addControl(rs3TransportControl);
     map.addControl(npcPositionsControl);
     map.addControl(objectExplorerControl);
+    map.addControl(mapLabelControl);
+
+    // Location search bar (top-left, below zoom controls)
+    const locationSearchControl = new LocationSearchControl({ position: 'topleft' });
+    map.addControl(locationSearchControl);
 
     const pinDropControl = new PinDropControl({ position: 'topright' });
     map.addControl(pinDropControl);
@@ -170,6 +181,7 @@ $(document).ready(function () {
         regionLabelsControl: regionLabelsControl,
         npcPositionsControl: npcPositionsControl,
         objectExplorerControl: objectExplorerControl,
+        mapLabelControl: mapLabelControl,
     }));
 
     // Add paste objects control
@@ -297,6 +309,11 @@ $(document).ready(function () {
                 mapIdInput.select();
             }
         }
+        // 'F' to focus location search
+        else if (key === 'f' || key === 'F') {
+            e.preventDefault();
+            locationSearchControl.focus();
+        }
         else if (key === 'Escape') {
             wikiPanel.hide();
         }
@@ -325,6 +342,7 @@ $(document).ready(function () {
                             <div><kbd>M</kbd></div><div>Distance measuring tool</div>
                             <div><kbd>P</kbd></div><div>Paste objects panel</div>
                             <div><kbd>I</kbd></div><div>Focus map ID input</div>
+                            <div><kbd>F</kbd></div><div>Focus location search</div>
                             <div><kbd>Escape</kbd></div><div>Close wiki panel</div>
                             <div><kbd>Right-click</kbd></div><div>Context menu</div>
                             <div><kbd>?</kbd></div><div>Show this help</div>
