@@ -157,6 +157,16 @@ $(document).ready(function () {
     const pinDropControl = new PinDropControl({ position: 'topright' });
     map.addControl(pinDropControl);
 
+    const pinsParam = new URL(window.location.href).searchParams.get('pins');
+    if (pinsParam) {
+        pinsParam.split(';').forEach(entry => {
+            const parts = entry.split(',').map(Number);
+            if (parts.length >= 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+                pinDropControl.addPin({ x: parts[0], y: parts[1], plane: parts[2] || 0 });
+            }
+        });
+    }
+
     map.addControl(new ContextMenuControl({
         rs3TransportControl: rs3TransportControl,
         transportControl: transportControl,
