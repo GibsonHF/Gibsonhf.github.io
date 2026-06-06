@@ -2645,6 +2645,12 @@ kbd {
     text-transform: uppercase;
 }
 
+.pin-drop-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
 .pin-drop-clear-btn {
     padding: 4px 10px;
     background: transparent;
@@ -2655,6 +2661,25 @@ kbd {
     font-family: var(--font-mono);
     cursor: pointer;
     transition: all var(--transition-fast);
+}
+
+.pin-drop-status {
+    padding: 8px 16px;
+    font-size: 10px;
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.pin-drop-item-label {
+    font-size: 11px;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    color: var(--accent-magenta);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 2px;
 }
 
 .pin-drop-clear-btn:hover {
@@ -2788,6 +2813,12 @@ kbd {
     padding: 8px 12px;
     font-size: 11px;
     line-height: 1.5;
+}
+
+.pin-tooltip-label {
+    font-weight: 600;
+    color: var(--accent-magenta);
+    margin-bottom: 2px;
 }
 
 .pin-tooltip-coords {
