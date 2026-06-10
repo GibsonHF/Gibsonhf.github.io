@@ -108,9 +108,9 @@ $(document).ready(function () {
         maxZoom: 4,
     }).addTo(map);
 
-    // Icons layer (mejrs for now; self-hosted icon_squares pending icon-art verification)
-    // const iconLayer = L.tileLayer.main('https://raw.githubusercontent.com/GibsonHF/rs3-map-tiles/main/icon_squares/{mapId}/{zoom}/{plane}_{x}_{y}.png', {
-    const iconLayer = L.tileLayer.main('https://raw.githubusercontent.com/mejrs/layers_rs3/master/icon_squares/{mapId}/{zoom}/{plane}_{x}_{y}.png', {
+    // Icons layer (self-hosted, generated from the live cache)
+    // const iconLayer = L.tileLayer.main('https://raw.githubusercontent.com/mejrs/layers_rs3/master/icon_squares/{mapId}/{zoom}/{plane}_{x}_{y}.png', {
+    const iconLayer = L.tileLayer.main('https://raw.githubusercontent.com/GibsonHF/rs3-map-tiles/main/icon_squares/{mapId}/{zoom}/{plane}_{x}_{y}.png', {
         minZoom: -4,
         maxNativeZoom: 3,
         maxZoom: 4,
