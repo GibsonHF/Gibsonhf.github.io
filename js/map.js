@@ -24,6 +24,7 @@ import { PasteObjectsControl } from './controls/paste_objects_control.js';
 import { PinDropControl } from './controls/pin_drop_control.js';
 import { WikiPanelControl } from './controls/wiki_panel_control.js';
 import { ObjectExplorerControl } from './controls/object_explorer_control.js';
+import { DungeonLinksControl } from './controls/dungeon_links_control.js';
 import { MapLabelControl } from './controls/map_label_control.js';
 import { LocationSearchControl } from './controls/location_search_control.js';
 
@@ -149,6 +150,9 @@ $(document).ready(function () {
     map.addControl(objectExplorerControl);
     map.addControl(mapLabelControl);
 
+    const dungeonLinksControl = new DungeonLinksControl();
+    map.addControl(dungeonLinksControl);
+
     // Location search bar (top-left, below zoom controls)
     const locationSearchControl = new LocationSearchControl({ position: 'topleft' });
     map.addControl(locationSearchControl);
@@ -191,6 +195,7 @@ $(document).ready(function () {
         npcPositionsControl: npcPositionsControl,
         objectExplorerControl: objectExplorerControl,
         mapLabelControl: mapLabelControl,
+        dungeonLinksControl: dungeonLinksControl,
     }));
 
     // Add paste objects control

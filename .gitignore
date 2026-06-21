@@ -1,8 +1,11 @@
 update_and_push.sh
 build_objects.sh
 node_modules/
-resources/
+*.db-shm
+*.db-wal
+resources/*
 !resources/rs3_locations.json
+!resources/dungeon_links.json
 tools/
 package.json
 package-lock.json

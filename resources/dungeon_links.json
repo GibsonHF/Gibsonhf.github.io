@@ -1,0 +1,3418 @@
+[
+    {
+        "name": "Dungeon",
+        "entrance": {
+            "x": 2126,
+            "y": 5147,
+            "plane": 0
+        },
+        "destination": {
+            "x": 1055,
+            "y": 5023,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Treasure chamber",
+        "entrance": {
+            "x": 2214,
+            "y": 6734,
+            "plane": 0
+        },
+        "destination": {
+            "x": 1247,
+            "y": 5919,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Tunnel",
+        "entrance": {
+            "x": 2267,
+            "y": 4759,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3423,
+            "y": 4255,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Hall of Memories",
+        "entrance": {
+            "x": 2276,
+            "y": 3554,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2207,
+            "y": 9100,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Sewer",
+        "entrance": {
+            "x": 2321,
+            "y": 3100,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2015,
+            "y": 4223,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Castle Wars",
+        "entrance": {
+            "x": 2369,
+            "y": 3125,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2399,
+            "y": 9503,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Castle Wars",
+        "entrance": {
+            "x": 2430,
+            "y": 3082,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2399,
+            "y": 9503,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Observatory",
+        "entrance": {
+            "x": 2439,
+            "y": 3164,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2335,
+            "y": 9375,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Observatory",
+        "entrance": {
+            "x": 2458,
+            "y": 3185,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2335,
+            "y": 9375,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Jiggig Dungeon",
+        "entrance": {
+            "x": 2485,
+            "y": 3045,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2463,
+            "y": 9407,
+            "plane": 2
+        },
+        "oneway": false
+    },
+    {
+        "name": "Ascension Dungeon",
+        "entrance": {
+            "x": 2500,
+            "y": 2887,
+            "plane": 0
+        },
+        "destination": {
+            "x": 1099,
+            "y": 582,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2500,
+            "y": 2988,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2576,
+            "y": 3029,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Ogre enclave",
+        "entrance": {
+            "x": 2506,
+            "y": 3040,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2591,
+            "y": 9435,
+            "plane": 0
+        },
+        "oneway": true
+    },
+    {
+        "name": "Miscellania cave",
+        "entrance": {
+            "x": 2509,
+            "y": 3846,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2509,
+            "y": 10246,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Waterfall cave",
+        "entrance": {
+            "x": 2511,
+            "y": 3463,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2559,
+            "y": 9887,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Skavid cave",
+        "entrance": {
+            "x": 2523,
+            "y": 3070,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2527,
+            "y": 9443,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Skavid cave",
+        "entrance": {
+            "x": 2529,
+            "y": 3012,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2527,
+            "y": 9443,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Golrie's hideout",
+        "entrance": {
+            "x": 2533,
+            "y": 3155,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2527,
+            "y": 9567,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Skavid cave",
+        "entrance": {
+            "x": 2540,
+            "y": 3054,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2527,
+            "y": 9443,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Agility course pit",
+        "entrance": {
+            "x": 2547,
+            "y": 3551,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2551,
+            "y": 9951,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Skavid cave",
+        "entrance": {
+            "x": 2552,
+            "y": 3034,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2527,
+            "y": 9443,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Skavid cave",
+        "entrance": {
+            "x": 2553,
+            "y": 3054,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2527,
+            "y": 9443,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Clocktower Dungeon",
+        "entrance": {
+            "x": 2561,
+            "y": 3221,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2570,
+            "y": 9629,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Skavid cave",
+        "entrance": {
+            "x": 2562,
+            "y": 3024,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2527,
+            "y": 9443,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Chaos Druid Tower Dungeon",
+        "entrance": {
+            "x": 2562,
+            "y": 3356,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2562,
+            "y": 9755,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Clocktower Dungeon",
+        "entrance": {
+            "x": 2566,
+            "y": 3227,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2570,
+            "y": 9629,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Clocktower Dungeon",
+        "entrance": {
+            "x": 2566,
+            "y": 3242,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2570,
+            "y": 9629,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Clocktower Dungeon",
+        "entrance": {
+            "x": 2569,
+            "y": 3231,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2570,
+            "y": 9629,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Southern Ardougne sewer",
+        "entrance": {
+            "x": 2569,
+            "y": 3267,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2571,
+            "y": 9685,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Clocktower Dungeon",
+        "entrance": {
+            "x": 2572,
+            "y": 3227,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2570,
+            "y": 9629,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Skavid cave",
+        "entrance": {
+            "x": 2588,
+            "y": 3106,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2527,
+            "y": 9443,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Yanille Dungeon",
+        "entrance": {
+            "x": 2594,
+            "y": 3085,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2601,
+            "y": 9481,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dig Site: Infernal Source",
+        "entrance": {
+            "x": 2594,
+            "y": 7336,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2589,
+            "y": 7331,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Clocktower Dungeon",
+        "entrance": {
+            "x": 2621,
+            "y": 3261,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2570,
+            "y": 9629,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Temple of Ikov",
+        "entrance": {
+            "x": 2659,
+            "y": 3492,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2695,
+            "y": 9847,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dig Site: Infernal Source",
+        "entrance": {
+            "x": 2674,
+            "y": 7345,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2589,
+            "y": 7331,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Temple of Ikov",
+        "entrance": {
+            "x": 2677,
+            "y": 3405,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2695,
+            "y": 9847,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Troll Tunnels",
+        "entrance": {
+            "x": 2714,
+            "y": 3869,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2783,
+            "y": 10207,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Keldagrim entrance tunnel",
+        "entrance": {
+            "x": 2730,
+            "y": 3713,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2772,
+            "y": 10162,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Karamja Underground",
+        "entrance": {
+            "x": 2745,
+            "y": 3152,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2712,
+            "y": 9564,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2772,
+            "y": 3836,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2790,
+            "y": 3794,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Waterbirth Island Dungeon",
+        "entrance": {
+            "x": 2780,
+            "y": 10161,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2837,
+            "y": 10089,
+            "plane": 2
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2786,
+            "y": 3772,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2794,
+            "y": 3717,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Fremennik Dungeon",
+        "entrance": {
+            "x": 2795,
+            "y": 3615,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2808,
+            "y": 10002,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Keldagrim entrance tunnel",
+        "entrance": {
+            "x": 2797,
+            "y": 3719,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2800,
+            "y": 10135,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Agility Arena",
+        "entrance": {
+            "x": 2805,
+            "y": 3189,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2806,
+            "y": 9589,
+            "plane": 3
+        },
+        "oneway": false
+    },
+    {
+        "name": "Ritual plateau Tunnels",
+        "entrance": {
+            "x": 2807,
+            "y": 3861,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2783,
+            "y": 10271,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2808,
+            "y": 10002,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2795,
+            "y": 3615,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dwarf tunnel",
+        "entrance": {
+            "x": 2809,
+            "y": 3463,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2820,
+            "y": 9884,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Troll Stronghold",
+        "entrance": {
+            "x": 2812,
+            "y": 3667,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2837,
+            "y": 10089,
+            "plane": 2
+        },
+        "oneway": false
+    },
+    {
+        "name": "Keldagrim records chamber",
+        "entrance": {
+            "x": 2820,
+            "y": 10212,
+            "plane": 0
+        },
+        "destination": {
+            "x": 1951,
+            "y": 5855,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Troll Tunnels",
+        "entrance": {
+            "x": 2822,
+            "y": 3744,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2783,
+            "y": 10207,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Pothole Dungeon",
+        "entrance": {
+            "x": 2823,
+            "y": 3120,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2828,
+            "y": 9523,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Arzinian Gold Mine",
+        "entrance": {
+            "x": 2825,
+            "y": 10168,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2559,
+            "y": 4959,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Gem mine",
+        "entrance": {
+            "x": 2826,
+            "y": 2998,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2843,
+            "y": 9387,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2832,
+            "y": 3844,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2832,
+            "y": 3845,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Elvarg's Lair",
+        "entrance": {
+            "x": 2834,
+            "y": 3258,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2833,
+            "y": 9657,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2837,
+            "y": 3739,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2839,
+            "y": 3739,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Menaphos and Sophanem Underground",
+        "entrance": {
+            "x": 2838,
+            "y": 9397,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3024,
+            "y": 9224,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Ritual plateau Tunnels",
+        "entrance": {
+            "x": 2839,
+            "y": 3854,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2783,
+            "y": 10271,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Wilderness Dungeons",
+        "entrance": {
+            "x": 2841,
+            "y": 10129,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2912,
+            "y": 10172,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Taverley Dungeon",
+        "entrance": {
+            "x": 2842,
+            "y": 3424,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2885,
+            "y": 9797,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "TzHaar City",
+        "entrance": {
+            "x": 2845,
+            "y": 3170,
+            "plane": 0
+        },
+        "destination": {
+            "x": 4668,
+            "y": 5059,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Troll Stronghold",
+        "entrance": {
+            "x": 2848,
+            "y": 3687,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2837,
+            "y": 10089,
+            "plane": 2
+        },
+        "oneway": false
+    },
+    {
+        "name": "Tunnel",
+        "entrance": {
+            "x": 2854,
+            "y": 3617,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3423,
+            "y": 4255,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Wilderness Dungeons",
+        "entrance": {
+            "x": 2855,
+            "y": 10232,
+            "plane": 0
+        },
+        "destination": {
+            "x": 1676,
+            "y": 5599,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Elvarg's Lair",
+        "entrance": {
+            "x": 2856,
+            "y": 3167,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2856,
+            "y": 9567,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Sabbot's cave",
+        "entrance": {
+            "x": 2859,
+            "y": 3577,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2271,
+            "y": 4755,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Burthorpe Underground",
+        "entrance": {
+            "x": 2876,
+            "y": 3503,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2293,
+            "y": 4516,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Burthorpe Underground",
+        "entrance": {
+            "x": 2878,
+            "y": 3568,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2208,
+            "y": 4363,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Burthorpe Underground",
+        "entrance": {
+            "x": 2878,
+            "y": 3573,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2208,
+            "y": 4363,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dwarf tunnel",
+        "entrance": {
+            "x": 2880,
+            "y": 3459,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2877,
+            "y": 9879,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Taverley Dungeon",
+        "entrance": {
+            "x": 2885,
+            "y": 3395,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2885,
+            "y": 9797,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Waterbirth Island Dungeon",
+        "entrance": {
+            "x": 2888,
+            "y": 10226,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2837,
+            "y": 10089,
+            "plane": 2
+        },
+        "oneway": false
+    },
+    {
+        "name": "Games Room",
+        "entrance": {
+            "x": 2893,
+            "y": 3567,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2207,
+            "y": 4959,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Saradomin's hidden cave",
+        "entrance": {
+            "x": 2909,
+            "y": 3841,
+            "plane": 0
+        },
+        "destination": {
+            "x": 4191,
+            "y": 5727,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Tunnel to Trollheim",
+        "entrance": {
+            "x": 2912,
+            "y": 3636,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2911,
+            "y": 10015,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "God Wars Dungeon",
+        "entrance": {
+            "x": 2916,
+            "y": 3739,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2882,
+            "y": 5311,
+            "plane": 2
+        },
+        "oneway": false
+    },
+    {
+        "name": "Burthorpe Underground",
+        "entrance": {
+            "x": 2919,
+            "y": 3466,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2220,
+            "y": 4532,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Melzar's Maze",
+        "entrance": {
+            "x": 2924,
+            "y": 3250,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2927,
+            "y": 9647,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Blast furnace",
+        "entrance": {
+            "x": 2931,
+            "y": 10196,
+            "plane": 0
+        },
+        "destination": {
+            "x": 1951,
+            "y": 4959,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Melzar's Maze",
+        "entrance": {
+            "x": 2939,
+            "y": 3257,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2927,
+            "y": 9647,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Lava Flow Mine",
+        "entrance": {
+            "x": 2939,
+            "y": 10198,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2177,
+            "y": 5664,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Jadinko Lair",
+        "entrance": {
+            "x": 2946,
+            "y": 2886,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3024,
+            "y": 9224,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Jadinko Lair",
+        "entrance": {
+            "x": 2948,
+            "y": 2955,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3011,
+            "y": 9277,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Gamers' Grotto",
+        "entrance": {
+            "x": 2991,
+            "y": 3410,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2954,
+            "y": 9675,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Clan Wars",
+        "entrance": {
+            "x": 2997,
+            "y": 9682,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3007,
+            "y": 5567,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Agility course pit",
+        "entrance": {
+            "x": 3005,
+            "y": 3963,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3005,
+            "y": 10363,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dwarven Mine",
+        "entrance": {
+            "x": 3018,
+            "y": 3339,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3019,
+            "y": 9739,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dwarven Mine",
+        "entrance": {
+            "x": 3019,
+            "y": 3450,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3019,
+            "y": 9850,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dwarven Mine",
+        "entrance": {
+            "x": 3061,
+            "y": 3376,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3059,
+            "y": 9778,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Edgeville Dungeon",
+        "entrance": {
+            "x": 3088,
+            "y": 3571,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3089,
+            "y": 9971,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Soul altar approach",
+        "entrance": {
+            "x": 3089,
+            "y": 2698,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2015,
+            "y": 6879,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Draynor Manor basement",
+        "entrance": {
+            "x": 3092,
+            "y": 3361,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3117,
+            "y": 9754,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Underworld",
+        "entrance": {
+            "x": 3104,
+            "y": 3311,
+            "plane": 0
+        },
+        "destination": {
+            "x": 1168,
+            "y": 4614,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Edgeville Dungeon",
+        "entrance": {
+            "x": 3116,
+            "y": 3452,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3116,
+            "y": 9852,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Ardougne Underground",
+        "entrance": {
+            "x": 3150,
+            "y": 2786,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2453,
+            "y": 7169,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Lumbridge Swamp caves",
+        "entrance": {
+            "x": 3164,
+            "y": 3169,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3170,
+            "y": 9572,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "H.A.M. cave",
+        "entrance": {
+            "x": 3165,
+            "y": 3251,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3150,
+            "y": 9653,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Ardougne Underground",
+        "entrance": {
+            "x": 3172,
+            "y": 2710,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2453,
+            "y": 7169,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Ardougne Underground",
+        "entrance": {
+            "x": 3173,
+            "y": 2640,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2453,
+            "y": 7169,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Ardougne Underground",
+        "entrance": {
+            "x": 3192,
+            "y": 2715,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2453,
+            "y": 7169,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Desert temple",
+        "entrance": {
+            "x": 3194,
+            "y": 2926,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3103,
+            "y": 9311,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Goblin Mines",
+        "entrance": {
+            "x": 3210,
+            "y": 3216,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3210,
+            "y": 9616,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Kalphite Hive",
+        "entrance": {
+            "x": 3215,
+            "y": 3117,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3491,
+            "y": 9450,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Thieves' Guild",
+        "entrance": {
+            "x": 3223,
+            "y": 3269,
+            "plane": 0
+        },
+        "destination": {
+            "x": 4663,
+            "y": 5895,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Ardougne Underground",
+        "entrance": {
+            "x": 3227,
+            "y": 2779,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2453,
+            "y": 7169,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Treasure chamber",
+        "entrance": {
+            "x": 3228,
+            "y": 2981,
+            "plane": 0
+        },
+        "destination": {
+            "x": 1247,
+            "y": 5919,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Kalphite Hive",
+        "entrance": {
+            "x": 3228,
+            "y": 3106,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3423,
+            "y": 9503,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Blue Moon Inn cellar",
+        "entrance": {
+            "x": 3231,
+            "y": 3401,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3235,
+            "y": 9799,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Jaldraocht Pyramid",
+        "entrance": {
+            "x": 3233,
+            "y": 2887,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3231,
+            "y": 9311,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3233,
+            "y": 2900,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3233,
+            "y": 2898,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Exiled Kalphite Hive",
+        "entrance": {
+            "x": 3235,
+            "y": 2858,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2976,
+            "y": 1696,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Kalphite Hive",
+        "entrance": {
+            "x": 3235,
+            "y": 3066,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3551,
+            "y": 9503,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Black Arm Gang hideout",
+        "entrance": {
+            "x": 3244,
+            "y": 3383,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3244,
+            "y": 9782,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Lumbridge Catacombs",
+        "entrance": {
+            "x": 3246,
+            "y": 3198,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3871,
+            "y": 5535,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dig Site: Infernal Source",
+        "entrance": {
+            "x": 3263,
+            "y": 3504,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2589,
+            "y": 7331,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Tunnel of Chaos",
+        "entrance": {
+            "x": 3283,
+            "y": 3467,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3167,
+            "y": 5215,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Ardougne Underground",
+        "entrance": {
+            "x": 3290,
+            "y": 2708,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2453,
+            "y": 7169,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Al Kharid mining site",
+        "entrance": {
+            "x": 3298,
+            "y": 3307,
+            "plane": 0
+        },
+        "destination": {
+            "x": 1183,
+            "y": 4511,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Tolna's Rift",
+        "entrance": {
+            "x": 3309,
+            "y": 3452,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3297,
+            "y": 9823,
+            "plane": 0
+        },
+        "oneway": true
+    },
+    {
+        "name": "Smoke Dungeon",
+        "entrance": {
+            "x": 3310,
+            "y": 2961,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3263,
+            "y": 9375,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Tolna's Rift",
+        "entrance": {
+            "x": 3312,
+            "y": 3450,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3297,
+            "y": 9823,
+            "plane": 0
+        },
+        "oneway": true
+    },
+    {
+        "name": "Burthorpe Underground",
+        "entrance": {
+            "x": 3315,
+            "y": 2796,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2800,
+            "y": 5160,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Tunnel of Chaos",
+        "entrance": {
+            "x": 3326,
+            "y": 5469,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3167,
+            "y": 5215,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Senntisten",
+        "entrance": {
+            "x": 3331,
+            "y": 3453,
+            "plane": 0
+        },
+        "destination": {
+            "x": 1755,
+            "y": 1341,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Pollninveach Dungeon",
+        "entrance": {
+            "x": 3359,
+            "y": 2973,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3358,
+            "y": 9354,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "River Elid cave",
+        "entrance": {
+            "x": 3371,
+            "y": 3129,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3359,
+            "y": 9563,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Treasure chamber",
+        "entrance": {
+            "x": 3372,
+            "y": 3233,
+            "plane": 0
+        },
+        "destination": {
+            "x": 1247,
+            "y": 5919,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Genie's Cave",
+        "entrance": {
+            "x": 3374,
+            "y": 2910,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3359,
+            "y": 9311,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dominion Tower",
+        "entrance": {
+            "x": 3374,
+            "y": 3093,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3743,
+            "y": 6303,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Empty Throne Room",
+        "entrance": {
+            "x": 3374,
+            "y": 3402,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2828,
+            "y": 12625,
+            "plane": 2
+        },
+        "oneway": false
+    },
+    {
+        "name": "The Heart",
+        "entrance": {
+            "x": 3378,
+            "y": 2886,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3200,
+            "y": 6943,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "The Heart",
+        "entrance": {
+            "x": 3382,
+            "y": 2878,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3200,
+            "y": 6943,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Paterdomus",
+        "entrance": {
+            "x": 3405,
+            "y": 3504,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3423,
+            "y": 9887,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Polypore Dungeon",
+        "entrance": {
+            "x": 3410,
+            "y": 3329,
+            "plane": 0
+        },
+        "destination": {
+            "x": 4619,
+            "y": 5458,
+            "plane": 3
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3419,
+            "y": 2801,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3419,
+            "y": 2803,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Eagles' eyrie",
+        "entrance": {
+            "x": 3424,
+            "y": 3141,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3423,
+            "y": 9567,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Haunted mine",
+        "entrance": {
+            "x": 3428,
+            "y": 3225,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3423,
+            "y": 9631,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Paterdomus",
+        "entrance": {
+            "x": 3428,
+            "y": 3485,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3423,
+            "y": 9887,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Haunted mine",
+        "entrance": {
+            "x": 3429,
+            "y": 3233,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3423,
+            "y": 9631,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Nature grotto",
+        "entrance": {
+            "x": 3440,
+            "y": 3337,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2271,
+            "y": 5343,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Haunted mine",
+        "entrance": {
+            "x": 3441,
+            "y": 3232,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3423,
+            "y": 9631,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Morytania Underground",
+        "entrance": {
+            "x": 3444,
+            "y": 3544,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3744,
+            "y": 8058,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Haunted mine",
+        "entrance": {
+            "x": 3454,
+            "y": 3242,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2783,
+            "y": 4575,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Ardougne Underground",
+        "entrance": {
+            "x": 3462,
+            "y": 3749,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2207,
+            "y": 9100,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Shade Catacombs",
+        "entrance": {
+            "x": 3484,
+            "y": 3321,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3493,
+            "y": 9726,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Uzer Mastaba",
+        "entrance": {
+            "x": 3491,
+            "y": 3025,
+            "plane": 0
+        },
+        "destination": {
+            "x": 1503,
+            "y": 4959,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Ruins of Uzer",
+        "entrance": {
+            "x": 3491,
+            "y": 3090,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2719,
+            "y": 4895,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Cellar",
+        "entrance": {
+            "x": 3491,
+            "y": 3232,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3495,
+            "y": 9627,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Morytania Underground",
+        "entrance": {
+            "x": 3492,
+            "y": 3544,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3744,
+            "y": 8058,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Meiyerditch Tunnels",
+        "entrance": {
+            "x": 3494,
+            "y": 3465,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3477,
+            "y": 9846,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Burgh de Rott Underground",
+        "entrance": {
+            "x": 3496,
+            "y": 3202,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2271,
+            "y": 5151,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3498,
+            "y": 3633,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3513,
+            "y": 3666,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Fenkenstrain's Dungeon",
+        "entrance": {
+            "x": 3504,
+            "y": 3571,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3519,
+            "y": 9951,
+            "plane": 0
+        },
+        "oneway": true
+    },
+    {
+        "name": "Meiyerditch Tunnels",
+        "entrance": {
+            "x": 3509,
+            "y": 3448,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3477,
+            "y": 9846,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3513,
+            "y": 3666,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3498,
+            "y": 3633,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Hollow Hill",
+        "entrance": {
+            "x": 3517,
+            "y": 1694,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3646,
+            "y": 7989,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Werewolf Agility Course",
+        "entrance": {
+            "x": 3543,
+            "y": 3463,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3549,
+            "y": 9864,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Treasure chamber",
+        "entrance": {
+            "x": 3543,
+            "y": 9454,
+            "plane": 0
+        },
+        "destination": {
+            "x": 1247,
+            "y": 5919,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Morytania Underground",
+        "entrance": {
+            "x": 3555,
+            "y": 3282,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3483,
+            "y": 9510,
+            "plane": 2
+        },
+        "oneway": false
+    },
+    {
+        "name": "The Barrows",
+        "entrance": {
+            "x": 3558,
+            "y": 3298,
+            "plane": 0
+        },
+        "destination": {
+            "x": 4071,
+            "y": 5719,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Morytania Underground",
+        "entrance": {
+            "x": 3564,
+            "y": 3278,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3493,
+            "y": 9726,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Morytania Underground",
+        "entrance": {
+            "x": 3566,
+            "y": 3288,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3483,
+            "y": 9510,
+            "plane": 2
+        },
+        "oneway": false
+    },
+    {
+        "name": "Morytania Underground",
+        "entrance": {
+            "x": 3575,
+            "y": 3281,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3493,
+            "y": 9726,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Morytania Underground",
+        "entrance": {
+            "x": 3575,
+            "y": 3298,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3493,
+            "y": 9726,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Fenkenstrain's Dungeon",
+        "entrance": {
+            "x": 3578,
+            "y": 3526,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3519,
+            "y": 9951,
+            "plane": 0
+        },
+        "oneway": true
+    },
+    {
+        "name": "Meiyerditch Myreque base",
+        "entrance": {
+            "x": 3639,
+            "y": 3250,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3615,
+            "y": 9631,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Port Phasmatys Distillery",
+        "entrance": {
+            "x": 3681,
+            "y": 3497,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3682,
+            "y": 9962,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Braindeath Island",
+        "entrance": {
+            "x": 3681,
+            "y": 3536,
+            "plane": 0
+        },
+        "destination": {
+            "x": 2163,
+            "y": 5115,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Araxyte lair",
+        "entrance": {
+            "x": 3699,
+            "y": 3420,
+            "plane": 0
+        },
+        "destination": {
+            "x": 4543,
+            "y": 6271,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Mos Le'Harmless cave",
+        "entrance": {
+            "x": 3749,
+            "y": 2973,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3748,
+            "y": 9373,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Windmill cellar",
+        "entrance": {
+            "x": 3789,
+            "y": 2826,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3787,
+            "y": 9227,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Mos Le'Harmless cave",
+        "entrance": {
+            "x": 3814,
+            "y": 3061,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3821,
+            "y": 9462,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Mos Le'Harmless cave",
+        "entrance": {
+            "x": 3829,
+            "y": 3061,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3821,
+            "y": 9462,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Lumbridge Catacombs",
+        "entrance": {
+            "x": 3868,
+            "y": 5524,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3999,
+            "y": 5511,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 4315,
+            "y": 783,
+            "plane": 0
+        },
+        "destination": {
+            "x": 3087,
+            "y": 2869,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dig Site: Orthen",
+        "entrance": {
+            "x": 5328,
+            "y": 2415,
+            "plane": 0
+        },
+        "destination": {
+            "x": 1119,
+            "y": 102,
+            "plane": 2
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dig Site: Orthen",
+        "entrance": {
+            "x": 5519,
+            "y": 2207,
+            "plane": 0
+        },
+        "destination": {
+            "x": 1119,
+            "y": 204,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dig Site: Orthen",
+        "entrance": {
+            "x": 5593,
+            "y": 2532,
+            "plane": 0
+        },
+        "destination": {
+            "x": 1258,
+            "y": 107,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dig Site: Orthen",
+        "entrance": {
+            "x": 5675,
+            "y": 2157,
+            "plane": 0
+        },
+        "destination": {
+            "x": 1248,
+            "y": 247,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 1025,
+            "y": 1762,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3104,
+            "y": 3311,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Imposing door",
+        "entrance": {
+            "x": 2208,
+            "y": 9219,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3462,
+            "y": 3749,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2565,
+            "y": 3321,
+            "plane": 1
+        },
+        "destination": {
+            "x": 2565,
+            "y": 3324,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2572,
+            "y": 3287,
+            "plane": 1
+        },
+        "destination": {
+            "x": 2572,
+            "y": 3287,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2572,
+            "y": 3326,
+            "plane": 1
+        },
+        "destination": {
+            "x": 2574,
+            "y": 3325,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2590,
+            "y": 3092,
+            "plane": 1
+        },
+        "destination": {
+            "x": 2590,
+            "y": 3088,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2611,
+            "y": 3307,
+            "plane": 1
+        },
+        "destination": {
+            "x": 2611,
+            "y": 3304,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2648,
+            "y": 3297,
+            "plane": 1
+        },
+        "destination": {
+            "x": 2651,
+            "y": 3297,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2665,
+            "y": 3321,
+            "plane": 1
+        },
+        "destination": {
+            "x": 2662,
+            "y": 3321,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2715,
+            "y": 3471,
+            "plane": 1
+        },
+        "destination": {
+            "x": 2715,
+            "y": 3471,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2748,
+            "y": 3493,
+            "plane": 1
+        },
+        "destination": {
+            "x": 2748,
+            "y": 3493,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Wilderness Dungeons",
+        "entrance": {
+            "x": 2862,
+            "y": 10188,
+            "plane": 1
+        },
+        "destination": {
+            "x": 2912,
+            "y": 10172,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2891,
+            "y": 3443,
+            "plane": 1
+        },
+        "destination": {
+            "x": 2887,
+            "y": 3443,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2900,
+            "y": 3572,
+            "plane": 1
+        },
+        "destination": {
+            "x": 2901,
+            "y": 3569,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2968,
+            "y": 3219,
+            "plane": 1
+        },
+        "destination": {
+            "x": 2964,
+            "y": 3219,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2972,
+            "y": 3385,
+            "plane": 1
+        },
+        "destination": {
+            "x": 2972,
+            "y": 3385,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3013,
+            "y": 3204,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3013,
+            "y": 3204,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3013,
+            "y": 3245,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3013,
+            "y": 3245,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3024,
+            "y": 3332,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3020,
+            "y": 3332,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3026,
+            "y": 3250,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3023,
+            "y": 3247,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3036,
+            "y": 3363,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3035,
+            "y": 3362,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3049,
+            "y": 3354,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3050,
+            "y": 3353,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3081,
+            "y": 3513,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3081,
+            "y": 3513,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3083,
+            "y": 3262,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3086,
+            "y": 3262,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3093,
+            "y": 3251,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3090,
+            "y": 3251,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3094,
+            "y": 3281,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3091,
+            "y": 3281,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3102,
+            "y": 3255,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3099,
+            "y": 3255,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3103,
+            "y": 3155,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3102,
+            "y": 3155,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3108,
+            "y": 3366,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3108,
+            "y": 3361,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3165,
+            "y": 3307,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3165,
+            "y": 3307,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3202,
+            "y": 3417,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3202,
+            "y": 3417,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3205,
+            "y": 3209,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3205,
+            "y": 3209,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3214,
+            "y": 3239,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3217,
+            "y": 3239,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3214,
+            "y": 3411,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3214,
+            "y": 3411,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3229,
+            "y": 3205,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3232,
+            "y": 3205,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3229,
+            "y": 3214,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3229,
+            "y": 3214,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3230,
+            "y": 3393,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3226,
+            "y": 3393,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3257,
+            "y": 3421,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3255,
+            "y": 3423,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3283,
+            "y": 3190,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3283,
+            "y": 3186,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3318,
+            "y": 3378,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3323,
+            "y": 3378,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3392,
+            "y": 2818,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3390,
+            "y": 2818,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Tomb of Catolax",
+        "entrance": {
+            "x": 3405,
+            "y": 2839,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3487,
+            "y": 9247,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Scabaras Dungeon",
+        "entrance": {
+            "x": 3412,
+            "y": 2848,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3391,
+            "y": 9247,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3445,
+            "y": 3736,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3445,
+            "y": 3729,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3454,
+            "y": 1495,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3452,
+            "y": 1494,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3531,
+            "y": 1482,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3531,
+            "y": 1482,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3614,
+            "y": 3543,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3612,
+            "y": 3543,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3666,
+            "y": 3522,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3666,
+            "y": 3517,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Lumbridge Catacombs",
+        "entrance": {
+            "x": 3875,
+            "y": 5527,
+            "plane": 1
+        },
+        "destination": {
+            "x": 3871,
+            "y": 5535,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2590,
+            "y": 3087,
+            "plane": 2
+        },
+        "destination": {
+            "x": 2590,
+            "y": 3083,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dig Site: Infernal Source",
+        "entrance": {
+            "x": 2655,
+            "y": 7409,
+            "plane": 2
+        },
+        "destination": {
+            "x": 2589,
+            "y": 7331,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2749,
+            "y": 3492,
+            "plane": 2
+        },
+        "destination": {
+            "x": 2749,
+            "y": 3492,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 2901,
+            "y": 3560,
+            "plane": 2
+        },
+        "destination": {
+            "x": 2901,
+            "y": 3564,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3050,
+            "y": 3354,
+            "plane": 2
+        },
+        "destination": {
+            "x": 3050,
+            "y": 3356,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3103,
+            "y": 3155,
+            "plane": 2
+        },
+        "destination": {
+            "x": 3102,
+            "y": 3155,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3105,
+            "y": 3362,
+            "plane": 2
+        },
+        "destination": {
+            "x": 3105,
+            "y": 3364,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3165,
+            "y": 3307,
+            "plane": 2
+        },
+        "destination": {
+            "x": 3165,
+            "y": 3307,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3205,
+            "y": 3209,
+            "plane": 2
+        },
+        "destination": {
+            "x": 3205,
+            "y": 3209,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Sabbot's cave",
+        "entrance": {
+            "x": 3405,
+            "y": 4284,
+            "plane": 2
+        },
+        "destination": {
+            "x": 2271,
+            "y": 4755,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3616,
+            "y": 3541,
+            "plane": 2
+        },
+        "destination": {
+            "x": 3615,
+            "y": 3542,
+            "plane": 1
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dig Site: Infernal Source",
+        "entrance": {
+            "x": 2658,
+            "y": 7399,
+            "plane": 3
+        },
+        "destination": {
+            "x": 2589,
+            "y": 7331,
+            "plane": 0
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3103,
+            "y": 3155,
+            "plane": 3
+        },
+        "destination": {
+            "x": 3102,
+            "y": 3155,
+            "plane": 2
+        },
+        "oneway": false
+    },
+    {
+        "name": "Dungeon entrance",
+        "entrance": {
+            "x": 3207,
+            "y": 3222,
+            "plane": 3
+        },
+        "destination": {
+            "x": 3207,
+            "y": 3224,
+            "plane": 2
+        },
+        "oneway": false
+    }
+]

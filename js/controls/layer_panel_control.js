@@ -26,6 +26,7 @@ export const LayerPanelControl = L.Control.extend({
         this._npcPositionsControl = options.npcPositionsControl || null;
         this._objectExplorerControl = options.objectExplorerControl || null;
         this._mapLabelControl = options.mapLabelControl || null;
+        this._dungeonLinksControl = options.dungeonLinksControl || null;
     },
 
     onAdd: function (map) {
@@ -55,11 +56,21 @@ export const LayerPanelControl = L.Control.extend({
         ]);
 
         // Overlay Layers Section
-        this._createSection(sections, 'Overlays', [
+        const overlayItems = [
             { id: 'grid', label: 'Grid Lines', checked: false, color: '#58a6ff', onChange: (checked) => this._toggleGrid(checked) },
             { id: 'region-labels', label: 'Region Labels', checked: false, onChange: (checked) => this._toggleRegionLabels(checked) },
             { id: 'map-labels', label: 'Map Labels', checked: false, color: '#ffaa00', onChange: (checked) => this._toggleMapLabels(checked) },
-        ]);
+        ];
+        if (this._dungeonLinksControl) {
+            overlayItems.push({
+                id: 'dungeon-links',
+                label: 'Dungeon Links',
+                checked: this._dungeonLinksControl.isEnabled(),
+                color: '#2ecc71',
+                onChange: (checked) => this._toggleDungeonLinks(checked),
+            });
+        }
+        this._createSection(sections, 'Overlays', overlayItems);
 
         // Walkable Tiles Section
         if (this._walkableControl) {
@@ -400,6 +411,12 @@ export const LayerPanelControl = L.Control.extend({
     _toggleObjectExplorer: function (visible) {
         if (this._objectExplorerControl) {
             this._objectExplorerControl.setEnabled(visible);
+        }
+    },
+
+    _toggleDungeonLinks: function (visible) {
+        if (this._dungeonLinksControl) {
+            this._dungeonLinksControl.setEnabled(visible);
         }
     },
 

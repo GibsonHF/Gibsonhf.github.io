@@ -740,6 +740,20 @@ input.leaflet-control-custom {
     transform-origin: 50% 50%;
 }
 
+.dungeon-link-marker {
+    cursor: pointer;
+    transition: fill-opacity 0.15s ease, stroke-opacity 0.15s ease;
+}
+
+.dungeon-link-marker:hover {
+    fill-opacity: 0.4;
+}
+
+.dungeon-link-hint {
+    margin-top: 4px;
+    color: var(--accent-cyan);
+}
+
 /* Transport Tooltip Popup */
 .transport-tooltip-popup .leaflet-popup-content-wrapper {
     border: 1px solid var(--border-color);
