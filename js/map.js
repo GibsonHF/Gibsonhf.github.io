@@ -212,6 +212,15 @@ $(document).ready(function () {
             id: obj.id,
             actions: obj.actions ? obj.actions.split(',').map(a => a.trim()).filter(Boolean) : [],
             coords: { x: obj.x, y: obj.y, plane: obj.plane },
+            details: {
+                type: obj.type,
+                rotation: obj.rotation,
+                width: obj.width,
+                length: obj.length,
+                members: obj.members,
+            },
+            transforms: obj.transforms,
+            doorState: obj.doorState,
         });
     };
 

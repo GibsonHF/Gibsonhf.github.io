@@ -241,9 +241,120 @@ export const LayerPanelControl = L.Control.extend({
                 { id: 'object-explorer', label: 'Show Objects', checked: false, color: '#38d3cf', onChange: (checked) => this._toggleObjectExplorer(checked) },
             ]);
 
+            const filterContainer = L.DomUtil.create('div', 'object-explorer-filter-container', objectExplorerSection);
+
+            const categoryChipsContainer = L.DomUtil.create('div', 'object-explorer-chips', filterContainer);
+            const chips = ['Doors', 'Gates', 'Ladders', 'Stairs', 'Banks', 'All'];
+            const chipElements = {};
+
+            chips.forEach(chip => {
+                const chipBtn = L.DomUtil.create('button', 'object-explorer-chip', categoryChipsContainer);
+                chipBtn.textContent = chip;
+                chipBtn.id = `chip-${chip.toLowerCase()}`;
+                chipElements[chip.toLowerCase()] = chipBtn;
+
+                L.DomEvent.on(chipBtn, 'click', (e) => {
+                    L.DomEvent.stopPropagation(e);
+                    Object.values(chipElements).forEach(el => el.classList.remove('active'));
+                    chipBtn.classList.add('active');
+
+                    if (chip === 'All') {
+                        this._objectExplorerControl.setFilter({ field: 'all', query: '', locType: null });
+                    } else {
+                        const filterMap = {
+                            'Doors': { field: 'name', query: 'door', locType: null },
+                            'Gates': { field: 'name', query: 'gate', locType: null },
+                            'Ladders': { field: 'name', query: 'ladder', locType: null },
+                            'Stairs': { field: 'name', query: 'stair', locType: null },
+                            'Banks': { field: 'name', query: 'bank', locType: null }
+                        };
+                        this._objectExplorerControl.setFilter(filterMap[chip]);
+                    }
+                });
+            });
+
+            const filterRow = L.DomUtil.create('div', 'object-explorer-filter-row', filterContainer);
+
+            const fieldLabel = L.DomUtil.create('label', 'object-explorer-label', filterRow);
+            fieldLabel.textContent = 'Field:';
+
+            const fieldSelect = L.DomUtil.create('select', 'object-explorer-select', filterRow);
+            fieldSelect.id = 'object-explorer-field';
+            const options = [
+                { value: 'all', label: 'All' },
+                { value: 'name', label: 'Name' },
+                { value: 'action', label: 'Action' },
+                { value: 'id', label: 'Id' },
+                { value: 'type', label: 'Type' }
+            ];
+            options.forEach(opt => {
+                const option = L.DomUtil.create('option');
+                option.value = opt.value;
+                option.textContent = opt.label;
+                fieldSelect.appendChild(option);
+            });
+
+            L.DomEvent.on(fieldSelect, 'change', () => {
+                this._updateObjectExplorerFilter();
+            });
+
+            const queryRow = L.DomUtil.create('div', 'object-explorer-filter-row', filterContainer);
+
+            const queryLabel = L.DomUtil.create('label', 'object-explorer-label', queryRow);
+            queryLabel.textContent = 'Query:';
+
+            const queryInput = L.DomUtil.create('input', 'object-explorer-input', queryRow);
+            queryInput.type = 'text';
+            queryInput.id = 'object-explorer-query';
+            queryInput.placeholder = 'search...';
+
+            const typeInput = L.DomUtil.create('input', 'object-explorer-input', queryRow);
+            typeInput.type = 'number';
+            typeInput.id = 'object-explorer-type';
+            typeInput.placeholder = 'type number...';
+            typeInput.style.display = 'none';
+
+            L.DomEvent.on(queryInput, 'input', () => {
+                this._updateObjectExplorerFilter();
+            });
+
+            L.DomEvent.on(typeInput, 'change', () => {
+                this._updateObjectExplorerFilter();
+            });
+
+            fieldSelect.addEventListener('change', () => {
+                const isType = fieldSelect.value === 'type';
+                queryInput.style.display = isType ? 'none' : '';
+                typeInput.style.display = isType ? '' : 'none';
+            });
+
+            const clearBtn = L.DomUtil.create('button', 'object-explorer-clear-btn', filterContainer);
+            clearBtn.textContent = 'Clear';
+
+            L.DomEvent.on(clearBtn, 'click', (e) => {
+                L.DomEvent.stopPropagation(e);
+                Object.values(chipElements).forEach(el => el.classList.remove('active'));
+                fieldSelect.value = 'all';
+                queryInput.value = '';
+                typeInput.value = '';
+                queryInput.style.display = '';
+                typeInput.style.display = 'none';
+                this._objectExplorerControl.clearFilter();
+            });
+
+            this._objectExplorerFieldSelect = fieldSelect;
+            this._objectExplorerQueryInput = queryInput;
+            this._objectExplorerTypeInput = typeInput;
+            this._objectExplorerChipElements = chipElements;
+
             const objectExplorerStatus = L.DomUtil.create('div', 'layer-panel-status', objectExplorerSection);
             objectExplorerStatus.id = 'object-explorer-status';
             this._objectExplorerStatusEl = objectExplorerStatus;
+
+            const resultsList = L.DomUtil.create('div', 'object-explorer-results', objectExplorerSection);
+            resultsList.id = 'object-explorer-results';
+            this._objectExplorerResultsEl = resultsList;
+            L.DomEvent.disableScrollPropagation(resultsList);
         }
 
         // Toggle panel visibility
@@ -286,6 +397,9 @@ export const LayerPanelControl = L.Control.extend({
         if (this._objectExplorerControl) {
             this._objectExplorerControl.onStatusChange = (status) => {
                 this._updateStatusWithSpinner(this._objectExplorerStatusEl, status);
+            };
+            this._objectExplorerControl.onResults = (results, capped) => {
+                this._renderObjectExplorerResults(results, capped);
             };
         }
 
@@ -412,6 +526,56 @@ export const LayerPanelControl = L.Control.extend({
         if (this._objectExplorerControl) {
             this._objectExplorerControl.setEnabled(visible);
         }
+    },
+
+    _updateObjectExplorerFilter: function () {
+        if (!this._objectExplorerControl) return;
+
+        const field = this._objectExplorerFieldSelect.value;
+        const query = this._objectExplorerQueryInput.value.trim();
+        const typeValue = this._objectExplorerTypeInput.value.trim();
+        const locType = typeValue ? parseInt(typeValue, 10) : null;
+
+        this._objectExplorerControl.setFilter({
+            field: field,
+            query: query,
+            locType: isNaN(locType) ? null : locType
+        });
+    },
+
+    _renderObjectExplorerResults: function (results, capped) {
+        const el = this._objectExplorerResultsEl;
+        if (!el) return;
+
+        el.innerHTML = '';
+
+        if (!results || results.length === 0) {
+            return;
+        }
+
+        const header = L.DomUtil.create('div', 'object-explorer-results-header', el);
+        header.textContent = capped
+            ? `${results.length} instances (capped)`
+            : `${results.length} instance${results.length !== 1 ? 's' : ''}`;
+
+        results.forEach((r) => {
+            const row = L.DomUtil.create('div', 'object-explorer-result-row', el);
+
+            const label = L.DomUtil.create('div', 'object-explorer-result-label', row);
+            label.textContent = `${r.name} (${r.id})`;
+            label.title = `${r.name} (${r.id}) — ${r.x}, ${r.y}, ${r.plane}`;
+
+            const coords = L.DomUtil.create('div', 'object-explorer-result-coords', row);
+            coords.textContent = `${r.x}, ${r.y}, ${r.plane}`;
+
+            const gotoBtn = L.DomUtil.create('button', 'object-explorer-result-goto', row);
+            gotoBtn.textContent = 'Go to';
+
+            L.DomEvent.on(gotoBtn, 'click', (e) => {
+                L.DomEvent.stopPropagation(e);
+                this._objectExplorerControl.gotoInstance(r.x, r.y, r.plane);
+            });
+        });
     },
 
     _toggleDungeonLinks: function (visible) {

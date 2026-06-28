@@ -57,7 +57,7 @@ export const WikiPanelControl = L.Control.extend({
         }
     },
 
-    show: function ({ name, type, id, actions, coords }) {
+    show: function ({ name, type, id, actions, coords, details, transforms, doorState }) {
         this._visible = true;
         this._panel.classList.add('visible');
 
@@ -98,6 +98,64 @@ export const WikiPanelControl = L.Control.extend({
             this._body.appendChild(actionsRow);
         }
         if (coords) this._body.appendChild(this._createRow('Coordinates', `(${coords.x}, ${coords.y}, ${coords.plane})`));
+
+        if (details) {
+            if (details.type !== undefined && details.rotation !== undefined) {
+                this._body.appendChild(this._createRow('Type / Rotation', `${details.type} / ${details.rotation}`));
+            }
+            if (details.width !== undefined && details.length !== undefined) {
+                this._body.appendChild(this._createRow('Size', `${details.width} × ${details.length}`));
+            }
+        }
+
+        if (doorState) {
+            const section = document.createElement('div');
+            section.className = 'wiki-panel-door';
+
+            const heading = document.createElement('div');
+            heading.className = 'wiki-panel-section-title';
+            heading.textContent = 'Door state';
+            section.appendChild(heading);
+
+            section.appendChild(this._createRow('Opens to', `${doorState.name || 'Door'} (id ${doorState.open_id})`));
+
+            const sourceLabel = doorState.source === 'observed'
+                ? 'observed'
+                : (doorState.source === 'derived-unique' ? 'cache · high confidence' : 'cache · uncertain');
+            section.appendChild(this._createRow('Source', sourceLabel));
+
+            if (doorState.source === 'observed' && doorState.cache_open_id != null && doorState.cache_open_id !== doorState.open_id) {
+                const warn = this._createRow('Cache suggests', `id ${doorState.cache_open_id} (your data may be outdated)`);
+                const warnVal = warn.querySelector('.wiki-panel-value');
+                if (warnVal) warnVal.classList.add('wiki-panel-warn');
+                section.appendChild(warn);
+            }
+
+            if (doorState.instance) {
+                const inst = doorState.instance;
+                section.appendChild(this._createRow('Open position', `(${inst.open_x}, ${inst.open_y})`));
+                section.appendChild(this._createRow('Connects', `(${inst.inside_x}, ${inst.inside_y}) ↔ (${inst.outside_x}, ${inst.outside_y})`));
+            }
+
+            this._body.appendChild(section);
+        }
+
+        if (transforms && transforms.length) {
+            const section = document.createElement('div');
+            section.className = 'wiki-panel-transforms';
+
+            const heading = document.createElement('div');
+            heading.className = 'wiki-panel-section-title';
+            heading.textContent = 'Transforms';
+            section.appendChild(heading);
+
+            transforms.forEach((t) => {
+                const slotLabel = t.slot === -1 ? 'default' : `slot ${t.slot}`;
+                section.appendChild(this._createRow(slotLabel, `${t.target_name || '(unnamed)'} (id ${t.target_id})`));
+            });
+
+            this._body.appendChild(section);
+        }
 
         const wikiSection = document.createElement('div');
         wikiSection.className = 'wiki-panel-loading';
