@@ -103,7 +103,8 @@ $(document).ready(function () {
 
     // Map squares layer (self-hosted, generated from the live cache via axiom-cache scripts/render_map_tiles.sh)
     // const mapLayer = L.tileLayer.main('https://raw.githubusercontent.com/mejrs/layers_rs3/master/map_squares/{mapId}/{zoom}/{plane}_{x}_{y}.png', {
-    const mapLayer = L.tileLayer.main('https://raw.githubusercontent.com/GibsonHF/rs3-map-tiles/main/map_squares/{mapId}/{zoom}/{plane}_{x}_{y}.png', {
+    // const mapLayer = L.tileLayer.main('http://127.0.0.1:8081/map_squares/{mapId}/{zoom}/{plane}_{x}_{y}.png', {
+    const mapLayer = L.tileLayer.main('https://cdn.jsdelivr.net/gh/GibsonHF/rs3-map-tiles@main/map_squares/{mapId}/{zoom}/{plane}_{x}_{y}.png', {
         minZoom: -4,
         maxNativeZoom: 3,
         maxZoom: 4,
@@ -111,7 +112,8 @@ $(document).ready(function () {
 
     // Icons layer (self-hosted, generated from the live cache)
     // const iconLayer = L.tileLayer.main('https://raw.githubusercontent.com/mejrs/layers_rs3/master/icon_squares/{mapId}/{zoom}/{plane}_{x}_{y}.png', {
-    const iconLayer = L.tileLayer.main('https://raw.githubusercontent.com/GibsonHF/rs3-map-tiles/main/icon_squares/{mapId}/{zoom}/{plane}_{x}_{y}.png', {
+    // const iconLayer = L.tileLayer.main('http://127.0.0.1:8081/icon_squares/{mapId}/{zoom}/{plane}_{x}_{y}.png', {
+    const iconLayer = L.tileLayer.main('https://cdn.jsdelivr.net/gh/GibsonHF/rs3-map-tiles@main/icon_squares/{mapId}/{zoom}/{plane}_{x}_{y}.png', {
         minZoom: -4,
         maxNativeZoom: 3,
         maxZoom: 4,
