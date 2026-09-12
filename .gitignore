@@ -10,3 +10,5 @@ tools/
 package.json
 package-lock.json
 TRANSPORT_PIPELINE_PLAN.md
+*.md
+!README.md
