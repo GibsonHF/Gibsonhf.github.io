@@ -15,6 +15,7 @@ export const DungeonLinksControl = L.Control.extend({
     onAdd: function (map) {
         map.createPane('dungeon-links');
         map.getPane('dungeon-links').style.zIndex = 460;
+        map.getPane('dungeon-links').style.display = 'none';
 
         this._container = L.DomUtil.create('div');
         this._container.style.display = 'none';
@@ -24,7 +25,7 @@ export const DungeonLinksControl = L.Control.extend({
 
         this._endpointsByPlane = new Map();
         this._loadPromise = null;
-        this._enabled = true;
+        this._enabled = false;
 
         map.on('moveend planechange mapidchange zoomend', this._refresh, this);
 

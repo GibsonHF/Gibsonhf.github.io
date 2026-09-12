@@ -17,6 +17,7 @@ import { TransportNodesControl } from './controls/transport_nodes_control.js';
 import { RS3TransportControl } from './controls/rs3_transport_control.js';
 import { WalkableTilesControl } from './controls/walkable_tiles_control.js';
 import { NPCPositionsControl } from './controls/npc_positions_control.js';
+import { LivePlayersControl } from './controls/live_players_control.js';
 import { LayerPanelControl } from './controls/layer_panel_control.js';
 import { ContextMenuControl } from './controls/context_menu_control.js';
 import { DistanceToolControl } from './controls/distance_tool_control.js';
@@ -141,6 +142,7 @@ $(document).ready(function () {
     const npcPositionsControl = new NPCPositionsControl();
     const objectExplorerControl = new ObjectExplorerControl();
     const mapLabelControl = new MapLabelControl();
+    const livePlayersControl = new LivePlayersControl();
 
     // Add controls to map (they won't show their own UI)
     map.addControl(gridControl);
@@ -151,6 +153,7 @@ $(document).ready(function () {
     map.addControl(npcPositionsControl);
     map.addControl(objectExplorerControl);
     map.addControl(mapLabelControl);
+    map.addControl(livePlayersControl);
 
     const dungeonLinksControl = new DungeonLinksControl();
     map.addControl(dungeonLinksControl);
@@ -195,6 +198,7 @@ $(document).ready(function () {
         gridControl: gridControl,
         regionLabelsControl: regionLabelsControl,
         npcPositionsControl: npcPositionsControl,
+        livePlayersControl: livePlayersControl,
         objectExplorerControl: objectExplorerControl,
         mapLabelControl: mapLabelControl,
         dungeonLinksControl: dungeonLinksControl,

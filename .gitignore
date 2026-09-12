@@ -12,3 +12,5 @@ package-lock.json
 TRANSPORT_PIPELINE_PLAN.md
 *.md
 !README.md
+!relay/package.json
+relay/.wrangler/

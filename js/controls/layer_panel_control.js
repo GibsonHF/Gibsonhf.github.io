@@ -1,5 +1,7 @@
 'use strict';
 
+import { maskKey, roomColor } from '../services/live_players_service.js';
+
 const TRANSPORT_COLORS = {
     door: '#e67e22',
     item: '#3498db',
@@ -24,12 +26,14 @@ export const LayerPanelControl = L.Control.extend({
         this._gridControl = options.gridControl || null;
         this._regionLabelsControl = options.regionLabelsControl || null;
         this._npcPositionsControl = options.npcPositionsControl || null;
+        this._livePlayersControl = options.livePlayersControl || null;
         this._objectExplorerControl = options.objectExplorerControl || null;
         this._mapLabelControl = options.mapLabelControl || null;
         this._dungeonLinksControl = options.dungeonLinksControl || null;
     },
 
     onAdd: function (map) {
+        this._map = map;
         const container = L.DomUtil.create('div', 'layer-panel');
 
         // Panel toggle button
@@ -236,6 +240,116 @@ export const LayerPanelControl = L.Control.extend({
             this._npcPositionsStatusEl = npcStatus;
         }
 
+        if (this._livePlayersControl) {
+            const liveSection = this._createSection(sections, 'Live Players', [
+                { id: 'live-players', label: 'Show Live Players', checked: false, color: '#38d3cf', onChange: (checked) => this._toggleLivePlayers(checked) },
+            ]);
+
+            const relayRow = L.DomUtil.create('div', 'live-players-row', liveSection);
+            const relayInput = L.DomUtil.create('input', 'live-players-input', relayRow);
+            relayInput.type = 'text';
+            relayInput.placeholder = 'Relay URL';
+            relayInput.spellcheck = false;
+            const relaySaveBtn = L.DomUtil.create('button', 'layer-panel-file-button', relayRow);
+            relaySaveBtn.textContent = 'Save';
+
+            const relaySaved = L.DomUtil.create('div', 'live-players-row live-players-relay-saved', liveSection);
+            const relayHost = L.DomUtil.create('span', 'live-players-relay-host', relaySaved);
+            const relayEditBtn = L.DomUtil.create('button', 'layer-panel-clear-button', relaySaved);
+            relayEditBtn.textContent = 'Edit';
+
+            const showRelay = () => {
+                const url = this._livePlayersControl.getRelayUrl();
+                relayRow.style.display = url ? 'none' : '';
+                relaySaved.style.display = url ? '' : 'none';
+                if (url) {
+                    relayHost.textContent = new URL(url).host;
+                    relayHost.title = url;
+                }
+            };
+
+            L.DomEvent.on(relaySaveBtn, 'click', () => {
+                if (this._livePlayersControl.setRelayUrl(relayInput.value)) {
+                    relayInput.value = '';
+                    showRelay();
+                } else {
+                    relayInput.classList.add('invalid');
+                    setTimeout(() => relayInput.classList.remove('invalid'), 800);
+                }
+            });
+            L.DomEvent.on(relayInput, 'keydown', (e) => {
+                if (e.key === 'Enter') relaySaveBtn.click();
+            });
+            L.DomEvent.on(relayEditBtn, 'click', () => {
+                relayInput.value = this._livePlayersControl.getRelayUrl() || '';
+                relayRow.style.display = '';
+                relaySaved.style.display = 'none';
+                relayInput.focus();
+            });
+            showRelay();
+
+            const keyList = L.DomUtil.create('div', 'live-players-keys', liveSection);
+
+            const renderKeys = () => {
+                keyList.innerHTML = '';
+                this._livePlayersControl.getKeys().forEach(key => {
+                    const row = L.DomUtil.create('div', 'live-players-key', keyList);
+                    const dot = L.DomUtil.create('span', 'layer-panel-color-dot', row);
+                    dot.style.backgroundColor = roomColor(maskKey(key));
+                    const text = L.DomUtil.create('span', 'live-players-key-text', row);
+                    text.textContent = maskKey(key);
+                    text.title = 'Click to copy';
+                    L.DomEvent.on(text, 'click', () => navigator.clipboard.writeText(key).catch(() => {}));
+                    const removeBtn = L.DomUtil.create('button', 'live-players-key-remove', row);
+                    removeBtn.textContent = '✕';
+                    removeBtn.title = 'Remove key';
+                    L.DomEvent.on(removeBtn, 'click', () => {
+                        this._livePlayersControl.removeKey(key);
+                        renderKeys();
+                    });
+                });
+            };
+
+            const keyRow = L.DomUtil.create('div', 'live-players-row', liveSection);
+            const keyInput = L.DomUtil.create('input', 'live-players-input', keyRow);
+            keyInput.type = 'text';
+            keyInput.placeholder = 'Key';
+            keyInput.maxLength = 32;
+            keyInput.spellcheck = false;
+            const keyAddBtn = L.DomUtil.create('button', 'layer-panel-file-button', keyRow);
+            keyAddBtn.textContent = 'Add';
+            const keyGenBtn = L.DomUtil.create('button', 'layer-panel-file-button', keyRow);
+            keyGenBtn.textContent = 'Generate';
+            keyGenBtn.title = 'Generate a new key and copy it';
+
+            L.DomEvent.on(keyAddBtn, 'click', () => {
+                if (this._livePlayersControl.addKey(keyInput.value)) {
+                    keyInput.value = '';
+                    renderKeys();
+                } else {
+                    keyInput.classList.add('invalid');
+                    setTimeout(() => keyInput.classList.remove('invalid'), 800);
+                }
+            });
+            L.DomEvent.on(keyInput, 'keydown', (e) => {
+                if (e.key === 'Enter') keyAddBtn.click();
+            });
+            L.DomEvent.on(keyGenBtn, 'click', () => {
+                const key = this._livePlayersControl.generateKey();
+                navigator.clipboard.writeText(key).catch(() => {});
+                renderKeys();
+                this._updateStatusWithSpinner(this._livePlayersStatusEl, 'Key copied');
+            });
+            renderKeys();
+
+            const playerList = L.DomUtil.create('div', 'live-players-list', liveSection);
+            this._livePlayersListEl = playerList;
+
+            const liveStatus = L.DomUtil.create('div', 'layer-panel-status', liveSection);
+            liveStatus.id = 'live-players-status';
+            this._livePlayersStatusEl = liveStatus;
+        }
+
         if (this._objectExplorerControl) {
             const objectExplorerSection = this._createSection(sections, 'Object Explorer', [
                 { id: 'object-explorer', label: 'Show Objects', checked: false, color: '#38d3cf', onChange: (checked) => this._toggleObjectExplorer(checked) },
@@ -394,6 +508,15 @@ export const LayerPanelControl = L.Control.extend({
             };
         }
 
+        if (this._livePlayersControl) {
+            this._livePlayersControl.onStatusChange = (status) => {
+                this._updateStatusWithSpinner(this._livePlayersStatusEl, status);
+            };
+            this._livePlayersControl.onPlayersChange = (players, followedId) => {
+                this._renderLivePlayers(players, followedId);
+            };
+        }
+
         if (this._objectExplorerControl) {
             this._objectExplorerControl.onStatusChange = (status) => {
                 this._updateStatusWithSpinner(this._objectExplorerStatusEl, status);
@@ -520,6 +643,50 @@ export const LayerPanelControl = L.Control.extend({
         if (this._npcPositionsControl) {
             this._npcPositionsControl.setEnabled(visible);
         }
+    },
+
+    _toggleLivePlayers: function (visible) {
+        if (this._livePlayersControl) {
+            this._livePlayersControl.setEnabled(visible);
+        }
+    },
+
+    _renderLivePlayers: function (players, followedId) {
+        const list = this._livePlayersListEl;
+        list.innerHTML = '';
+        const plane = this._map.getPlane();
+
+        players.forEach(player => {
+            const id = `${player.room}:${player.name}`;
+            const row = L.DomUtil.create('div', 'live-players-player', list);
+            if (id === followedId) {
+                row.classList.add('following');
+            }
+
+            const dot = L.DomUtil.create('span', 'layer-panel-color-dot', row);
+            dot.style.backgroundColor = roomColor(player.room);
+
+            const name = L.DomUtil.create('span', 'live-players-player-name', row);
+            name.textContent = player.name;
+            name.title = `${player.x}, ${player.y}, ${player.plane}`;
+            L.DomEvent.on(name, 'click', () => this._livePlayersControl.focusPlayer(player.room, player.name));
+
+            const meta = L.DomUtil.create('span', 'live-players-player-meta', row);
+            const parts = [];
+            if (player.plane !== plane) parts.push(`P${player.plane}`);
+            if (player.maxHp) parts.push(`${Math.round((player.hp / player.maxHp) * 100)}%`);
+            meta.textContent = parts.join(' ');
+
+            const followBtn = L.DomUtil.create('button', 'live-players-follow', row);
+            followBtn.textContent = id === followedId ? 'Unfollow' : 'Follow';
+            L.DomEvent.on(followBtn, 'click', () => {
+                if (id === followedId) {
+                    this._livePlayersControl.unfollow();
+                } else {
+                    this._livePlayersControl.follow(player.room, player.name);
+                }
+            });
+        });
     },
 
     _toggleObjectExplorer: function (visible) {
