@@ -18,7 +18,9 @@ Then push a fake player:
 
 ## Run without Cloudflare
 
-    node server.mjs [port]
+    ./run_local.sh [port]
+
+or `node server.mjs [port]`. The script prints the URLs to enter.
 
 Same endpoints, kept in this process's memory. Point clients at `http://<your-ip>:<port>`.
 A browser will only call it from an `http://` copy of the map (`node server.js` in the repo root, then `http://localhost:8080`, or any other localhost port) or if you put HTTPS in front of it; the GitHub Pages site cannot call a plain `http://` address.
