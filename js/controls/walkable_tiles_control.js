@@ -36,12 +36,23 @@ export function loadReachableDb(dbPath, sqlJsBaseUrl) {
     return dbPromise;
 }
 
+function packColor(cssColor) {
+    const probe = document.createElement('canvas');
+    probe.width = 1;
+    probe.height = 1;
+    const ctx = probe.getContext('2d');
+    ctx.fillStyle = cssColor;
+    ctx.fillRect(0, 0, 1, 1);
+    const [r, g, b, a] = ctx.getImageData(0, 0, 1, 1).data;
+    return ((a << 24) | (b << 16) | (g << 8) | r) >>> 0;
+}
+
 const WalkableTilesCanvas = CanvasLayer.extend({
     initialize: function (options) {
         CanvasLayer.prototype.initialize.call(this, options);
         this._tiles = null;
         this._tileCount = 0;
-        this._walkableColor = options.walkableColor || 'rgba(46, 204, 113, 0.55)';
+        this._walkableColor = packColor(options.walkableColor || 'rgba(46, 204, 113, 0.55)');
         this._visible = false;
     },
 
@@ -64,7 +75,9 @@ const WalkableTilesCanvas = CanvasLayer.extend({
 
     onDrawLayer: function (info) {
         const ctx = info.canvas.getContext('2d');
-        ctx.clearRect(0, 0, info.canvas.width, info.canvas.height);
+        const width = info.canvas.width;
+        const height = info.canvas.height;
+        ctx.clearRect(0, 0, width, height);
 
         if (!this._visible || !this._tiles || this._tileCount === 0) {
             return;
@@ -77,29 +90,42 @@ const WalkableTilesCanvas = CanvasLayer.extend({
             return;
         }
 
-        const originPoint = map.latLngToContainerPoint(L.latLng(0, 0));
-        const tilePoint = map.latLngToContainerPoint(L.latLng(1, 1));
+        const pixelOrigin = map.getPixelOrigin();
+        const originPoint = map.layerPointToContainerPoint(map.project(L.latLng(0, 0)).subtract(pixelOrigin));
+        const tilePoint = map.layerPointToContainerPoint(map.project(L.latLng(1, 1)).subtract(pixelOrigin));
         const tileWidth = Math.abs(tilePoint.x - originPoint.x);
         const tileHeight = Math.abs(tilePoint.y - originPoint.y);
 
-        if (tileWidth < 1 || tileHeight < 1) {
+        if (tileWidth < 0.5 || tileHeight < 0.5) {
             return;
         }
 
-        ctx.fillStyle = this._walkableColor;
-        ctx.beginPath();
-
+        const image = ctx.createImageData(width, height);
+        const pixels = new Uint32Array(image.data.buffer);
+        const color = this._walkableColor;
         const tiles = this._tiles;
         const count = this._tileCount;
+        const originX = originPoint.x;
+        const originY = originPoint.y;
 
         for (let i = 0; i < count; i++) {
             const x = tiles[i * 2];
             const y = tiles[i * 2 + 1];
-            const topLeft = map.latLngToContainerPoint(L.latLng(y + 1, x));
-            ctx.rect(topLeft.x, topLeft.y, tileWidth, tileHeight);
+            const left = originX + x * tileWidth;
+            const top = originY - (y + 1) * tileHeight;
+            const startX = Math.round(left);
+            const startY = Math.round(top);
+            const x0 = Math.max(0, startX);
+            const x1 = Math.min(width, Math.max(startX + 1, Math.round(left + tileWidth)));
+            const y0 = Math.max(0, startY);
+            const y1 = Math.min(height, Math.max(startY + 1, Math.round(top + tileHeight)));
+
+            for (let row = y0; row < y1; row++) {
+                pixels.fill(color, row * width + x0, row * width + x1);
+            }
         }
 
-        ctx.fill();
+        ctx.putImageData(image, 0, 0);
     },
 });
 
@@ -122,6 +148,7 @@ export const WalkableTilesControl = L.Control.extend({
 
         this._enabled = false;
         this._planeCache = new Map();
+        this._planeLoading = new Map();
         this._walkableEnabled = false;
         this._refreshTimeout = null;
         this._tileLimit = DEFAULT_TILE_LIMIT;
@@ -130,12 +157,6 @@ export const WalkableTilesControl = L.Control.extend({
         map.on('moveend planechange mapidchange', () => {
             if (this._enabled) {
                 this._debouncedRefresh();
-            }
-        }, this);
-
-        map.on('zoomend', () => {
-            if (this._enabled) {
-                this._canvasLayer.needRedraw();
             }
         }, this);
 
@@ -280,23 +301,27 @@ export const WalkableTilesControl = L.Control.extend({
             return Promise.resolve(this._planeCache.get(plane));
         }
 
-        return loadReachableDb(this.options.dbPath, this.options.sqlJsBaseUrl).then((db) => {
+        if (this._planeLoading.has(plane)) {
+            return this._planeLoading.get(plane);
+        }
+
+        const loading = loadReachableDb(this.options.dbPath, this.options.sqlJsBaseUrl).then((db) => {
             this._dbAvailable = true;
             const regionMap = new Map();
             const stmt = db.prepare('SELECT x, y, RegionID FROM tiles WHERE plane = ?');
             stmt.bind([plane]);
 
             while (stmt.step()) {
-                const row = stmt.getAsObject();
-                const regionId = row.RegionID;
+                const row = stmt.get();
+                const regionId = row[2];
 
                 let entry = regionMap.get(regionId);
                 if (!entry) {
                     entry = { xs: [], ys: [] };
                     regionMap.set(regionId, entry);
                 }
-                entry.xs.push(row.x);
-                entry.ys.push(row.y);
+                entry.xs.push(row[0]);
+                entry.ys.push(row[1]);
             }
             stmt.free();
 
@@ -310,7 +335,12 @@ export const WalkableTilesControl = L.Control.extend({
 
             this._planeCache.set(plane, regionMap);
             return regionMap;
+        }).finally(() => {
+            this._planeLoading.delete(plane);
         });
+
+        this._planeLoading.set(plane, loading);
+        return loading;
     },
 
     _getRegionIdsInBoundsSortedByCenter: function (minX, maxX, minY, maxY, centerX, centerY) {
@@ -340,39 +370,69 @@ export const WalkableTilesControl = L.Control.extend({
     },
 
     _collectTilesCentered: function (planeCache, regionIds, minX, maxX, minY, maxY, centerX, centerY) {
-        let totalInBounds = 0;
-        const allTiles = [];
+        let capacity = 0;
+        for (let i = 0; i < regionIds.length; i++) {
+            const entry = planeCache.get(regionIds[i]);
+            if (entry) capacity += entry.count;
+        }
+
+        const xs = new Int16Array(capacity);
+        const ys = new Int16Array(capacity);
+        const dists = new Float64Array(capacity);
+        let total = 0;
 
         for (let i = 0; i < regionIds.length; i++) {
             const entry = planeCache.get(regionIds[i]);
             if (!entry) continue;
 
-            const xs = entry.xs;
-            const ys = entry.ys;
+            const regionXs = entry.xs;
+            const regionYs = entry.ys;
             const count = entry.count;
 
             for (let j = 0; j < count; j++) {
-                const x = xs[j];
-                const y = ys[j];
+                const x = regionXs[j];
+                const y = regionYs[j];
                 if (x >= minX && x <= maxX && y >= minY && y <= maxY) {
                     const dx = x - centerX;
                     const dy = y - centerY;
-                    allTiles.push({ x, y, distSq: dx * dx + dy * dy });
-                    totalInBounds++;
+                    xs[total] = x;
+                    ys[total] = y;
+                    dists[total] = dx * dx + dy * dy;
+                    total++;
                 }
             }
         }
 
-        allTiles.sort((a, b) => a.distSq - b.distSq);
-
-        const maxTiles = Math.min(allTiles.length, this._tileLimit);
+        const maxTiles = Math.min(total, this._tileLimit);
         const tiles = new Float32Array(maxTiles * 2);
 
-        for (let i = 0; i < maxTiles; i++) {
-            tiles[i * 2] = allTiles[i].x;
-            tiles[i * 2 + 1] = allTiles[i].y;
+        if (maxTiles === total) {
+            for (let i = 0; i < total; i++) {
+                tiles[i * 2] = xs[i];
+                tiles[i * 2 + 1] = ys[i];
+            }
+            return { tiles, count: total, total };
         }
 
-        return { tiles, count: maxTiles, total: totalInBounds };
+        const threshold = dists.slice(0, total).sort()[maxTiles - 1];
+        let n = 0;
+
+        for (let i = 0; i < total; i++) {
+            if (dists[i] < threshold) {
+                tiles[n * 2] = xs[i];
+                tiles[n * 2 + 1] = ys[i];
+                n++;
+            }
+        }
+
+        for (let i = 0; i < total && n < maxTiles; i++) {
+            if (dists[i] === threshold) {
+                tiles[n * 2] = xs[i];
+                tiles[n * 2 + 1] = ys[i];
+                n++;
+            }
+        }
+
+        return { tiles, count: n, total };
     },
 });
