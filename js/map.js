@@ -99,7 +99,7 @@ $(document).ready(function () {
         loadMapData: true,
         showMapBorder: true,
         enableUrlLocation: true,
-        baseMaps: 'https://raw.githubusercontent.com/mejrs/data_rs3/master/basemaps.json',
+        baseMaps: 'https://cdn.jsdelivr.net/gh/GibsonHF/rs3-map-tiles@main/basemaps.json',
     });
 
     // Map squares layer (self-hosted, generated from the live cache via axiom-cache scripts/render_map_tiles.sh)
