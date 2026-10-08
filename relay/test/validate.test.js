@@ -53,3 +53,35 @@ test('validatePush rejects bad key, name, and ranges', () => {
     assert.equal(validatePush({ key: KEY, name: 'G', x: '3', y: 1, plane: 0 }).ok, false);
     assert.equal(validatePush(null).ok, false);
 });
+
+test('validatePush keeps nearby npcs and players, dropping bad entries', () => {
+    const result = validatePush({
+        key: KEY, name: 'G', x: 1, y: 2, plane: 0,
+        npcs: [
+            { index: 12, id: 494, name: 'Banker', x: 10, y: 20, plane: 0, actions: ['Bank', 'Talk to', '', 'a'.repeat(41)], evil: 1 },
+            { index: 13, id: 7, name: 'Farmer', x: 11, y: 21, plane: 0, combatLevel: 7, hp: 120, maxHp: 120 },
+            { index: 14, name: '', x: 1, y: 1, plane: 0 },
+            { index: 15, name: 'Guard', x: -1, y: 1, plane: 0 },
+        ],
+        nearbyPlayers: [
+            { index: 660, name: 'Splash Wave', x: 5, y: 6, plane: 0, combatLevel: 152 },
+            { index: 661, name: 'a'.repeat(21), x: 5, y: 6, plane: 0 },
+        ],
+    });
+    assert.equal(result.ok, true);
+    assert.deepEqual(result.player.npcs, [
+        { name: 'Banker', index: 12, x: 10, y: 20, plane: 0, id: 494, actions: ['Bank', 'Talk to'] },
+        { name: 'Farmer', index: 13, x: 11, y: 21, plane: 0, id: 7, combatLevel: 7, hp: 120, maxHp: 120, actions: [] },
+    ]);
+    assert.deepEqual(result.player.nearbyPlayers, [
+        { name: 'Splash Wave', index: 660, x: 5, y: 6, plane: 0, combatLevel: 152 },
+    ]);
+});
+
+test('validatePush caps nearby lists and rejects non-arrays', () => {
+    const npc = i => ({ index: i, name: 'Rat', x: 1, y: 1, plane: 0 });
+    const result = validatePush({ key: KEY, name: 'G', x: 1, y: 1, plane: 0, npcs: Array.from({ length: 150 }, (_, i) => npc(i)) });
+    assert.equal(result.player.npcs.length, 100);
+    assert.equal(validatePush({ key: KEY, name: 'G', x: 1, y: 1, plane: 0, npcs: 'x' }).ok, false);
+    assert.equal(validatePush({ key: KEY, name: 'G', x: 1, y: 1, plane: 0, nearbyPlayers: {} }).ok, false);
+});

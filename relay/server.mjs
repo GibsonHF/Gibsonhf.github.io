@@ -5,7 +5,7 @@ import { RoomState } from './src/room.js';
 
 const PORT = Number(process.argv[2] || 8787);
 const MAX_AGE_MS = 30000;
-const MAX_BODY_BYTES = 1024;
+const MAX_BODY_BYTES = 65536;
 
 const ALLOWED_ORIGINS = [
     'https://gibsonhf.github.io',

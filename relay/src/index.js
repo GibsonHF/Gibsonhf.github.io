@@ -3,7 +3,7 @@ import { validatePush, parseKeys, maskKey } from './validate.js';
 import { RoomState } from './room.js';
 
 const MAX_AGE_MS = 30000;
-const MAX_BODY_BYTES = 1024;
+const MAX_BODY_BYTES = 65536;
 
 const ALLOWED_ORIGINS = [
     'https://gibsonhf.github.io',

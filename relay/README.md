@@ -1,6 +1,6 @@
 # Live players relay
 
-Cloudflare Worker that holds the latest position and vitals per player, grouped by key.
+Cloudflare Worker that holds the latest position and vitals per player, plus the NPCs and players around them when the client sends `npcs` / `nearbyPlayers`, grouped by key.
 Clients `POST /push`; the map page `GET /players?keys=…`. State lives in memory and expires after 30 s.
 
 ## Run locally

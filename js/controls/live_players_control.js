@@ -9,6 +9,8 @@ const KEYS_STORAGE = 'livePlayers.keys';
 const RELAY_STORAGE = 'livePlayers.relayUrl';
 const POLL_INTERVAL = 4000;
 const ERROR_INTERVAL = 10000;
+const NPC_COLOR = '#f2c94c';
+const NEARBY_PLAYER_COLOR = '#ffffff';
 
 function escapeHtml(value) {
     return String(value).replace(/[&<>"']/g, ch => ({
@@ -51,6 +53,9 @@ export const LivePlayersControl = L.Control.extend({
         map.createPane('live-players');
         map.getPane('live-players').style.display = 'none';
         map.getPane('live-players').style.zIndex = 460;
+        map.createPane('live-entities');
+        map.getPane('live-entities').style.display = 'none';
+        map.getPane('live-entities').style.zIndex = 455;
 
         this._container = L.DomUtil.create('div');
         this._container.style.display = 'none';
@@ -61,6 +66,8 @@ export const LivePlayersControl = L.Control.extend({
         this._enabled = false;
         this._players = [];
         this._markers = new Map();
+        this._entities = new Map();
+        this._entityMarkers = new Map();
         this._pollTimer = null;
         this._followed = null;
         const storedKeys = readStorage(KEYS_STORAGE, []);
@@ -102,12 +109,15 @@ export const LivePlayersControl = L.Control.extend({
         if (this._enabled === enabled) return;
         this._enabled = enabled;
         const pane = this._map.getPane('live-players');
+        const entityPane = this._map.getPane('live-entities');
 
         if (enabled) {
             pane.style.display = '';
+            entityPane.style.display = '';
             this._restartPolling();
         } else {
             pane.style.display = 'none';
+            entityPane.style.display = 'none';
             this._stopPolling();
             this._players = [];
             this._followed = null;
@@ -265,6 +275,8 @@ export const LivePlayersControl = L.Control.extend({
     _clearMarkers: function () {
         this._layerGroup.clearLayers();
         this._markers.clear();
+        this._entities.clear();
+        this._entityMarkers.clear();
     },
 
     _renderMarkers: function () {
@@ -308,6 +320,101 @@ export const LivePlayersControl = L.Control.extend({
                 this._markers.delete(id);
             }
         }
+
+        this._renderEntities(plane);
+    },
+
+    _renderEntities: function (plane) {
+        const pusherNames = new Set(this._players.map(player => player.name));
+        this._entities.clear();
+
+        this._players.forEach(pusher => {
+            (pusher.npcs || []).forEach(npc => {
+                if (npc.plane !== plane) return;
+                this._entities.set(`${playerId(pusher)}:npc:${npc.index}`, { kind: 'npc', entity: npc, pusher });
+            });
+            (pusher.nearbyPlayers || []).forEach(player => {
+                const id = `nearby:${player.name}`;
+                if (player.plane !== plane || pusherNames.has(player.name) || this._entities.has(id)) return;
+                this._entities.set(id, { kind: 'player', entity: player, pusher });
+            });
+        });
+
+        for (const [id, { kind, entity }] of this._entities) {
+            const latLng = L.latLng(entity.y + 0.5, entity.x + 0.5);
+            let marker = this._entityMarkers.get(id);
+
+            if (!marker) {
+                marker = L.circleMarker(latLng, {
+                    radius: 4,
+                    color: '#111',
+                    fillColor: kind === 'npc' ? NPC_COLOR : NEARBY_PLAYER_COLOR,
+                    fillOpacity: 1,
+                    weight: 1,
+                    pane: 'live-entities',
+                });
+                marker.bindTooltip('', {
+                    className: 'live-player-label',
+                    direction: 'top',
+                    offset: [0, -4],
+                });
+                marker.on('click', () => this._showEntityPopup(id));
+                this._layerGroup.addLayer(marker);
+                this._entityMarkers.set(id, marker);
+            } else {
+                marker.setLatLng(latLng);
+            }
+            marker.setTooltipContent(escapeHtml(entity.name));
+        }
+
+        for (const [id, marker] of this._entityMarkers) {
+            if (!this._entities.has(id)) {
+                this._layerGroup.removeLayer(marker);
+                this._entityMarkers.delete(id);
+            }
+        }
+    },
+
+    _showEntityPopup: function (id) {
+        const found = this._entities.get(id);
+        if (!found) return;
+
+        const { kind, entity, pusher } = found;
+        const region = Region.fromCoordinates(entity.x, entity.y);
+        const details = [];
+        if (kind === 'npc') {
+            if (entity.combatLevel !== undefined) details.push(`Combat ${entity.combatLevel}`);
+            details.push(`Index ${entity.index}`);
+        } else if (entity.combatLevel !== undefined) {
+            details.push(`Combat ${entity.combatLevel}`);
+        }
+
+        const html = `
+<div class="live-player-popup">
+    <div class="live-player-popup-header">
+        <span class="live-player-popup-name">${escapeHtml(entity.name)}</span>
+        <span class="live-player-popup-room">${kind === 'npc' ? `NPC ${entity.id ?? ''}` : 'Player'}</span>
+    </div>
+    ${entity.maxHp ? `
+<div class="live-player-bar">
+    <span class="live-player-bar-label">HP</span>
+    <span class="live-player-bar-track"><span class="live-player-bar-fill hp" style="width:${percent(entity.hp, entity.maxHp)}%"></span></span>
+    <span class="live-player-bar-value">${entity.hp} / ${entity.maxHp}</span>
+</div>` : ''}
+    <div class="live-player-popup-line">${entity.x}, ${entity.y}, ${entity.plane} · Region ${region.id}</div>
+    <div class="live-player-popup-line">${details.join(' · ')}</div>
+    ${entity.actions && entity.actions.length ? `<div class="live-player-popup-line">Actions: ${entity.actions.map(escapeHtml).join(' · ')}</div>` : ''}
+    <div class="live-player-popup-line live-player-popup-age">seen by ${escapeHtml(pusher.name)} ${pusher.age}s ago</div>
+</div>`;
+
+        L.popup({
+            className: 'live-player-popup-container',
+            maxWidth: 260,
+            offset: [0, -4],
+        })
+            .setLatLng(L.latLng(entity.y + 0.5, entity.x + 0.5))
+            .setContent(html)
+            .openOn(this._map);
     },
 
     _showPopup: function (id) {

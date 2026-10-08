@@ -2,6 +2,11 @@ const KEY_PATTERN = /^[0-9a-f]{32}$/;
 const MAX_KEYS = 10;
 const MAX_NAME = 20;
 const MAX_TARGET = 40;
+const MAX_NPCS = 100;
+const MAX_NEARBY_PLAYERS = 50;
+const MAX_NPC_NAME = 60;
+const MAX_ACTIONS = 6;
+const MAX_ACTION = 40;
 
 const REQUIRED_INTS = {
     x: [0, 16384],
@@ -17,6 +22,20 @@ const OPTIONAL_INTS = {
     adrenaline: [0, 100],
     summoning: [0, 10000],
     combatLevel: [0, 200],
+};
+
+const ENTITY_INTS = {
+    index: [0, 65535],
+    x: [0, 16384],
+    y: [0, 16384],
+    plane: [0, 3],
+};
+
+const NPC_OPTIONAL_INTS = {
+    id: [0, 1000000],
+    combatLevel: [0, 100000],
+    hp: [0, 100000000],
+    maxHp: [0, 100000000],
 };
 
 export function isValidKey(key) {
@@ -41,6 +60,41 @@ export function parseKeys(param) {
 
 function intInRange(value, [min, max]) {
     return Number.isInteger(value) && value >= min && value <= max;
+}
+
+function validString(value, max) {
+    return typeof value === 'string' && value.trim().length >= 1 && value.length <= max;
+}
+
+function copyInts(source, target, ranges, required) {
+    for (const [field, range] of Object.entries(ranges)) {
+        if (source[field] === undefined && !required) continue;
+        if (!intInRange(source[field], range)) return false;
+        target[field] = source[field];
+    }
+    return true;
+}
+
+function validateNpc(entry) {
+    if (!entry || typeof entry !== 'object' || !validString(entry.name, MAX_NPC_NAME)) return null;
+    const npc = { name: entry.name.trim() };
+    if (!copyInts(entry, npc, ENTITY_INTS, true) || !copyInts(entry, npc, NPC_OPTIONAL_INTS, false)) return null;
+    npc.actions = Array.isArray(entry.actions)
+        ? entry.actions.filter(action => validString(action, MAX_ACTION)).slice(0, MAX_ACTIONS)
+        : [];
+    return npc;
+}
+
+function validateNearbyPlayer(entry) {
+    if (!entry || typeof entry !== 'object' || !validString(entry.name, MAX_NAME)) return null;
+    const player = { name: entry.name.trim() };
+    if (!copyInts(entry, player, ENTITY_INTS, true) || !copyInts(entry, player, { combatLevel: [0, 200] }, false)) return null;
+    return player;
+}
+
+function validateList(list, max, validateEntry) {
+    if (!Array.isArray(list)) return null;
+    return list.slice(0, max).map(validateEntry).filter(Boolean);
 }
 
 export function validatePush(body) {
@@ -77,6 +131,22 @@ export function validatePush(body) {
             return { ok: false, error: 'Invalid target' };
         }
         player.target = body.target;
+    }
+
+    if (body.npcs !== undefined) {
+        const npcs = validateList(body.npcs, MAX_NPCS, validateNpc);
+        if (!npcs) {
+            return { ok: false, error: 'Invalid npcs' };
+        }
+        player.npcs = npcs;
+    }
+
+    if (body.nearbyPlayers !== undefined) {
+        const nearbyPlayers = validateList(body.nearbyPlayers, MAX_NEARBY_PLAYERS, validateNearbyPlayer);
+        if (!nearbyPlayers) {
+            return { ok: false, error: 'Invalid nearbyPlayers' };
+        }
+        player.nearbyPlayers = nearbyPlayers;
     }
 
     return { ok: true, key: body.key, player };
